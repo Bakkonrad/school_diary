@@ -55,7 +55,7 @@
         </form>
         <!-- ACCOUNT ICON -->
         <li class="nav-item">
-          <a href="admin_account.php" class="nav-link">
+          <a href="student_account.php" class="nav-link">
             <i class="fa fa-solid fa-user-graduate" style="color: #ffffff;"></i>
           </a>
         </li>
