@@ -1,9 +1,9 @@
 <?php
-    function downloadData($id) //pobieranie danych o użytkowniku do zmiennych sesyjych
+    function downloadUserData($id) //pobieranie danych o użytkowniku do zmiennych sesyjych
     {
         require "./connect.php";
 
-        $sql = "SELECT users.id, users.firstName, users.lastName, users.birthday, users.email, users.login, classes.class, roles.role FROM `users` JOIN `classes` ON `users`.`class` = `classes`.`class_id` JOIN `roles` ON `users`.`role` = `roles`.`role_id` WHERE users.id = 3;";
+        $sql = "SELECT users.id, users.firstName, users.lastName, users.birthday, users.email, users.login, classes.class, roles.role FROM `users` JOIN `classes` ON `users`.`class` = `classes`.`class_id` JOIN `roles` ON `users`.`role` = `roles`.`role_id` WHERE users.id = '$id';";
 
         if($result = $conn->query($sql)) //tworzenie zmiennych sesyjnych z danymi uzytkownika
         {
@@ -25,10 +25,16 @@
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone przez url
 
-    echo "<script>history.back();</script>";
+    header("Location: ../index.php");
+    exit();
 }
 else 
 {
+    //delete session variables 
+    // foreach ($_SESSION as $key => $value) {
+    //     unset($_SESSION[$key]);
+    // }
+
     session_start();
     $errors= [];
 
@@ -58,23 +64,24 @@ else
     {
         $ilu_userow = $rezultat->num_rows; //liczba znalezionych kont
 
-            if($ilu_userow == 1) //powinniśmy dać równe 1
+            if($ilu_userow == 1 ) //powinniśmy dać równe 1
             {
                 $_SESSION['isLogged'] = true; //zmienna do sprawdzania czy jestesmy zalogowani
                 $_SESSION['id'] = $rezultat->fetch_assoc()['id']; //pobieramy id uzytkownika
-                downloadData($_SESSION['id']); //pobieramy dane uzytkownika
-                $_SESSION['role'] = 3;
+                downloadUserData($_SESSION['id']); //pobieramy dane uzytkownika
                 $rezultat->close(); //lub free() albo free_result()
                 
-                if($_SESSION['role'] == 1)
+                if($_SESSION['role'] == "administrator")
                 {
                     header('location: ../pages/admin/admin_account.php');
+                    // exit();
                 }
-                if($_SESSION['role'] == 2)
+                if($_SESSION['role'] == "teacher")
                 {
                     header('location: ../pages/teacher/teacher_account.php');
+                    // exit();
                 }
-                if($_SESSION['role'] == 3)
+                if($_SESSION['role'] == "student")
                 {
                     header('location: ../pages/student/student_account.php');
                 }
