@@ -1,5 +1,5 @@
 <?php
 
-header('location: ../pages/adding_user.php');
+header('location: ../pages/admin_main.php');
 
 ?>
