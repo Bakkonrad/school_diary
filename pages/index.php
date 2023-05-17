@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +20,21 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <!-- /.login-logo -->
+  <?php 
+      
+      if (isset($_SESSION['errors'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
+      {
+        echo <<< HTML
+          <div class="callout callout-danger">
+          <h5>BŁĄD!</h5>
+          <p>$_SESSION[errors]</p>
+          </div>
+          HTML;
+          //print_r($_SESSION['errors']);
+          //echo "$_SESSION['errors']</div>";
+      }
+      unset($_SESSION['errors']);
+      ?>
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
       <br>
