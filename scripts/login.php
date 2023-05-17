@@ -21,11 +21,11 @@ else
     session_start();
     $errors= [];
 
-    if (!isset($_POST['username'])) 
+    if (empty($_POST['login'])) 
     {
         $errors[] = "Pole <b>login</b> nie może być puste!";
     }
-    if (!isset($_POST['password'])) 
+    if (empty($_POST['password'])) 
     {
         $errors[] = "Pole <b>hasło</b> nie może być puste!";
     }
@@ -41,8 +41,7 @@ else
     require_once "./connect.php";
 
     if($rezultat = $conn->query(
-        sprintf("SELECT * FROM users WHERE (login = '%s' OR email = '%s') AND password = '%s'", //sprawdzenie czy istnieje taki uzytkownik
-        mysqli_real_escape_string($conn,$login),
+        sprintf("SELECT * FROM users WHERE login = '%s' AND password = '%s'", //sprawdzenie czy istnieje taki uzytkownik
         mysqli_real_escape_string($conn,$login),
         mysqli_real_escape_string($conn,$haslo)))) //true
     {
@@ -55,7 +54,19 @@ else
                 
                 downloadData($_SESSION['id']); //pobieramy dane uzytkownika
                 $rezultat->close(); //lub free() albo free_result()
-                header('location: ../pages/adding_user.php'); // przechodzimy do strony głównej po zalogowaniu
+                
+                if($_SESSION['role'] == 1)
+                {
+                    header('location: ../pages/admin/admin_account.php');
+                }
+                if($_SESSION['role'] == 2)
+                {
+                    header('location: ../pages/teacher/teacher_account.php');
+                }
+                if($_SESSION['role'] == 3)
+                {
+                    header('location: ../pages/student/student_account.php');
+                }
             }
             else
             {
