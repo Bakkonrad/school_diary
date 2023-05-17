@@ -5,7 +5,7 @@
 
         $sql = "SELECT users.id, users.firstName, users.lastName, users.birthday, users.email, users.login, classes.class, roles.role FROM `users` JOIN `classes` ON `users`.`class` = `classes`.`class_id` JOIN `roles` ON `users`.`role` = `roles`.`role_id` WHERE users.id = 3;";
 
-        if($result = $conn->query($sql))
+        if($result = $conn->query($sql)) //tworzenie zmiennych sesyjnych z danymi uzytkownika
         {
             $row = $result->fetch_assoc();
             $_SESSION['firstName'] = $row['firstName'];

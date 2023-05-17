@@ -30,8 +30,6 @@ session_start();
           <p>$_SESSION[errors]</p>
           </div>
           HTML;
-          //print_r($_SESSION['errors']);
-          //echo "$_SESSION['errors']</div>";
       }
       unset($_SESSION['errors']);
       ?>
