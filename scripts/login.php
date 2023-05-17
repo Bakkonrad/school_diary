@@ -53,23 +53,23 @@ else
     }
 
     $login = htmlentities($_POST['login'], ENT_QUOTES, 'UTF-8');
-    $haslo = htmlentities($_POST['password'], ENT_QUOTES, 'UTF-8');
+    $password = htmlentities($_POST['password'], ENT_QUOTES, 'UTF-8');
 
     require_once "./connect.php";
 
-    if($rezultat = $conn->query(
+    if($result = $conn->query(
         sprintf("SELECT * FROM users WHERE login = '%s' AND password = '%s'", //sprawdzenie czy istnieje taki uzytkownik
         mysqli_real_escape_string($conn,$login),
-        mysqli_real_escape_string($conn,$haslo)))) //true
+        mysqli_real_escape_string($conn,$password)))) //true
     {
-        $ilu_userow = $rezultat->num_rows; //liczba znalezionych kont
+        $how_many_users = $result->num_rows; //liczba znalezionych kont
 
-            if($ilu_userow == 1 ) //powinniśmy dać równe 1
+            if($how_many_users == 1 ) //powinniśmy dać równe 1
             {
                 $_SESSION['isLogged'] = true; //zmienna do sprawdzania czy jestesmy zalogowani
-                $_SESSION['id'] = $rezultat->fetch_assoc()['id']; //pobieramy id uzytkownika
+                $_SESSION['id'] = $result->fetch_assoc()['id']; //pobieramy id uzytkownika
                 downloadUserData($_SESSION['id']); //pobieramy dane uzytkownika
-                $rezultat->close(); //lub free() albo free_result()
+                $result->close(); //lub free() albo free_result()
                 
                 if($_SESSION['role'] == "administrator")
                 {

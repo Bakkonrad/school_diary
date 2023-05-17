@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +19,31 @@
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
+<?php 
+      
+      if (isset($_SESSION['errors'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
+      {
+        echo <<< HTML
+          <div class="callout callout-danger">
+          <h5>BŁĄD!</h5>
+          <p>$_SESSION[errors]</p>
+          </div>
+          HTML;
+          unset($_SESSION['errors']);
+      }
+      
+      if (isset($_SESSION['notification'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
+      {
+        echo <<< HTML
+          <div class="callout callout-success">
+          <h5>SUKCES!</h5>
+          <p>$_SESSION[notification]</p>
+          </div>
+          HTML;
+          unset($_SESSION['notification']);
+      }
+      unset($_SESSION['errors']);
+      ?>
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
       <br>
@@ -23,7 +51,7 @@
     </div>
     <div class="card-body">
       <p class="login-box-msg">Podaj swojego uczniowskiego maila, aby zresetować hasło.</p>
-      <form action="recover-password.html" method="post">
+      <form action="../scripts/forgot_password_script.php" method="post">
         <div class="input-group mb-3">
           <input type="email" class="form-control" name="email" placeholder="Email" autofocus>
           <div class="input-group-append">
