@@ -17,7 +17,7 @@
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand-md navbar-primary navbar-dark">
     <div class="container">
-        <a href="student_main.php" class="navbar-brand">
+        <a href="teacher_main.php" class="navbar-brand">
         <span class="brand-text"><b>dziennik</b><br>lekcyjny</span>
         </a>
 
@@ -32,10 +32,10 @@
             <a href="teacher_main.php" class="nav-link">Strona główna</a>
             </li>
             <li class="nav-item">
-            <a href="teacher_add_grade.php" class="nav-link">Oceny</a>
+            <a href="teacher_show_grades.php" class="nav-link">Wyświetl oceny</a>
             </li>
             <li class="nav-item">
-            <a href="teacher_show_grades.php" class="nav-link">Statystyki</a>
+            <a href="teacher_add_grade.php" class="nav-link">Dodaj ocenę</a>
             </li>
         </ul>
         </div>
@@ -55,8 +55,8 @@
         </form>
         <!-- ACCOUNT ICON -->
         <li class="nav-item">
-            <a href="admin_account.php" class="nav-link">
-            <i class="fa fa-solid fa-user-graduate" style="color: #ffffff;"></i>
+            <a href="teacher_account.php" class="nav-link">
+                <i class="fa fa-solid fa-user" style="color: #ffffff;"></i>
             </a>
         </li>
         </ul>
