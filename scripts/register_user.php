@@ -26,6 +26,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //ochrona przed wejsciem na strone p
     if ($_POST['password'] != $_POST['confirm_password']) {
         $errors[] = "Pola <b>hasło</b> i <b>potwierdź hasło</b> muszą być takie same!";
     }
+    //czy haslo ma co najmniej 8 znakow
+    if (strlen($_POST['password']) < 8) {
+        $errors[] = "Pole <b>hasło</b> musi mieć co najmniej 8 znaków!";
+    }
+    
 
     if (!empty($errors)) {
         $_SESSION['errors'] = implode("<br>", $errors);
