@@ -37,6 +37,9 @@
           <li class="nav-item">
             <a href="admin_add_user.php" class="nav-link">Dodawanie użytkownika</a>
           </li>
+          <li class="nav-item">
+            <a href="admin_add_grade.php" class="nav-link">Dodawanie ocen</a>
+          </li>
         </ul>
       </div>
 
