@@ -46,11 +46,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //ochrona przed wejsciem na strone p
     require_once "./connect.php";
 
     $stmt = $conn->prepare("INSERT INTO `users` (`firstName`, `lastName`, `birthday`, `email`, `password`, `login`,`class`,`role`) VALUES (?,?,?,?,?,?,?,?)");
-    $stmt->bind_param('sssssii', $firstName, $lastName, $birthday, $email, password_hash($password,PASSWORD_DEFAULT), $login,$class, $role );
+    $stmt->bind_param('ssssssii', $firstName, $lastName, $birthday, $email, password_hash($password,PASSWORD_DEFAULT), $login,$class, $role );
 
     $stmt->execute();
 
-    echo $stmt->affected_rows;
+    //echo $stmt->affected_rows;
+
+    if ($stmt->affected_rows > 0) {
+        $_SESSION['notification'] = "Rejestracja przebiegła pomyślnie!";
+        echo "<script>history.back();</script>"; //wraca do podstrony rejestracji i wyswietla bledy
+    }
+    else {
+        $_SESSION['errors'] = "Nie udało się zarejestrować użytkownika!";
+        echo "<script>history.back();</script>"; //wraca do podstrony rejestracji i wyswietla bledy
+    }
 }
 else 
 {

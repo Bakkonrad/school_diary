@@ -73,17 +73,17 @@ else
                 
                 if($_SESSION['role'] == "administrator")
                 {
-                    header('location: ../pages/admin/admin_account.php');
+                    header('location: ../pages/admin/admin_main.php');
                     // exit();
                 }
-                if($_SESSION['role'] == "teacher")
+                if($_SESSION['role'] == "nauczyciel")
                 {
-                    header('location: ../pages/teacher/teacher_account.php');
+                    header('location: ../pages/teacher/teacher_main.php');
                     // exit();
                 }
-                if($_SESSION['role'] == "student")
+                if($_SESSION['role'] == "uczeń")
                 {
-                    header('location: ../pages/student/student_account.php');
+                    header('location: ../pages/student/student_main.php');
                 }
             }
             else
