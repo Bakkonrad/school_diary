@@ -47,6 +47,8 @@ else
         $errors[] = "Pole <b>hasło</b> nie może być puste!";
     }
     if (!empty($errors)) {
+        //zapisanie pierwszego błędu do zmiennej sesyjnej
+        //$_SESSION['errors'] = $errors[0];
         $_SESSION['errors'] = implode("<br>", $errors);
         echo "<script>history.back();</script>"; //wraca do poprzedniej strony i pokazuje błędy
         exit();
@@ -60,7 +62,8 @@ else
     if($result = $conn->query(
         sprintf("SELECT * FROM users WHERE login = '%s' AND password = '%s'", //sprawdzenie czy istnieje taki uzytkownik
         mysqli_real_escape_string($conn,$login),
-        mysqli_real_escape_string($conn,$password)))) //true
+        mysqli_real_escape_string($conn,$password))))
+        //mysqli_real_escape_string($conn,password_hash($password,PASSWORD_DEFAULT))))) //true
     {
         $how_many_users = $result->num_rows; //liczba znalezionych kont
 
