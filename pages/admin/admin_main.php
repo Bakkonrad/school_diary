@@ -1,11 +1,11 @@
 <?php
     session_start();
     if (!isset($_SESSION['isLogged'])) {
-        header('Location: ../../index.php');
+        header('Location: ../index.php');
         exit();
     }
-    if ($_SESSION['role'] != "administrator") {
-        header('Location: ../../index.php');
+    if ($_SESSION['role'] != 1) {
+        header('Location: ../index.php');
         exit();
     }
 ?>

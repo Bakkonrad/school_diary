@@ -1,6 +1,6 @@
 <?php
     
-    function downloadUserData($id) //pobieranie danych o użytkowniku do zmiennych sesyjych
+    function downloadUserData($id) //pobieranie danych o użytkowniku do zmiennych sesyjych , na ten moment nie używane
     {
         require "./connect.php";
         mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
@@ -32,10 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
 }
 else 
 {
-    //delete session variables 
-    // foreach ($_SESSION as $key => $value) {
-    //     unset($_SESSION[$key]);
-    // }
     session_start();
     $errors= [];
 
@@ -55,8 +51,8 @@ else
         exit();
     }
 
-    $login = htmlentities($_POST['login'], ENT_QUOTES, 'UTF-8');
-    $passsword = $_POST['password'];
+    $login = htmlentities($_POST['login'], ENT_QUOTES, 'UTF-8'); //zabezpieczenie przed wstrzykiwaniem sql
+    $passsword = $_POST['password']; 
 
     require "./connect.php";
     mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
@@ -69,26 +65,34 @@ else
 
             if($how_many_users == 1 ) //powinniśmy dać równe 1
             {
-                //$row = $result->fetch_assoc(); //pobieramy dane z bazy
-                if(password_verify($passsword, $result->fetch_assoc()['password'])) //sprawdzamy czy hasło jest prawidłowe
+                $row = $result->fetch_assoc(); //pobieramy dane z bazy
+
+                if(password_verify($passsword, $row['password'])) //sprawdzamy czy hasło jest prawidłowe
                 {
                     //print_r($result->fetch_assoc());
                     $_SESSION['isLogged'] = true; //zmienna do sprawdzania czy jestesmy zalogowani
-                    $_SESSION['id'] = $result->fetch_assoc()['id']; //pobieramy id uzytkownika
-                    downloadUserData($_SESSION['id']); //pobieramy dane uzytkownika
+                    $_SESSION['id'] = $row['id']; //pobieramy id uzytkownika
+                    $_SESSION['firstName'] = $row['firstName'];
+                    $_SESSION['lastName'] = $row['lastName'];
+                    $_SESSION['birthday'] = $row['birthday'];
+                    $_SESSION['email'] = $row['email'];
+                    $_SESSION['login'] = $row['login'];
+                    $_SESSION['class'] = $row['class'];
+                    $_SESSION['role'] = $row['role'];
+                    //downloadUserData($_SESSION['id']); //pobieramy dane uzytkownika
                     $result->close(); //lub free() albo free_result()
                     
-                    if($_SESSION['role'] == "administrator")
+                    if($row['role'] == "1")
                     {
                         header('location: ../pages/admin/admin_main.php');
                         // exit();
                     }
-                    if($_SESSION['role'] == "nauczyciel")
+                    if($row['role'] == "2")
                     {
                         header('location: ../pages/teacher/teacher_main.php');
                         // exit();
                     }
-                    if($_SESSION['role'] == "uczeń")
+                    if($row['role'] == "3")
                     {
                         header('location: ../pages/student/student_main.php');
                     }
