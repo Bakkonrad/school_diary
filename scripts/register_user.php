@@ -56,7 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //ochrona przed wejsciem na strone p
     }
 
     require "./connect.php";
-
     $result = $conn->query("SELECT id FROM users WHERE email = '$_POST[email]'");
 
     $howManyEmails = $result->num_rows;
@@ -65,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //ochrona przed wejsciem na strone p
         $errors[] = "Istnieje już konto przypisane do tego adresu email!";
     }
 
-    $result = $conn->query("SELECT id FROM users WHERE login = '$_POST[login]'");
+    $result = $conn->query("SELECT id FROM users WHERE LOWER(login) = '$_POST[login]'");
     $howManyLogins = $result->num_rows;
     if($howManyLogins > 0)
     {
@@ -75,7 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //ochrona przed wejsciem na strone p
     
 
     if (!empty($errors)) {
-        $_SESSION['errors'] = implode("<br>", $errors);
+        //$_SESSION['errors'] = implode("<br>", $errors);
+        $_SESSION['errors'] = $errors;
         echo "<script>history.back();</script>"; //wraca do podstrony rejestracji i wyswietla bledy
         exit();
     }
@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //ochrona przed wejsciem na strone p
     //require "./connect.php";
 
     $stmt = $conn->prepare("INSERT INTO `users` (`firstName`, `lastName`, `birthday`, `email`, `password`, `login`,`class`,`role`) VALUES (?,?,?,?,?,?,?,?)");
-    $stmt->bind_param('ssssssii', $firstName, $lastName, $birthday, $email, password_hash($password,PASSWORD_DEFAULT), $login,$class, $role );
+    $stmt->bind_param('ssssssii', $firstName, $lastName, $birthday, $email, password_hash($password,PASSWORD_DEFAULT), strtolower($login),$class, $role );
 
     $stmt->execute();
 

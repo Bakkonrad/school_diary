@@ -91,10 +91,13 @@
 
     if (isset($_SESSION['errors'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
     {
+        $error1 = $_SESSION['errors'][0]; // aby wyswietlal tylko dwa bledy a nie całą tablice
+        $error2 = $_SESSION['errors'][2];
         echo <<<HTML
             <div class="callout callout-danger">
             <h5>BŁĄD!</h5>
-            <p>$_SESSION[errors]</p>
+            <p>$error1</p>
+            <p>$error2</p>
             </div>
             HTML;
         //print_r($_SESSION['errors']);
@@ -186,7 +189,6 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-            <!-- <input type="text" class="form-control" name="city_id" placeholder="Podaj miasto"> -->
                 <select class="form-control" name="class">
                 <?php
                         require "../../scripts/connect.php";
