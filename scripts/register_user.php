@@ -30,6 +30,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //ochrona przed wejsciem na strone p
     if (strlen($_POST['password']) < 8) {
         $errors[] = "Pole <b>hasło</b> musi mieć co najmniej 8 znaków!";
     }
+    //czy haslo ma co najmniej 1 cyfre
+    if (!preg_match("#[0-9]+#", $_POST['password'])) {
+        $errors[] = "Pole <b>hasło</b> musi zawierać co najmniej jedną cyfrę!";
+    }
+    //czy haslo ma co najmniej 1 duza litere
+    if (!preg_match("#[A-Z]+#", $_POST['password'])) {
+        $errors[] = "Pole <b>hasło</b> musi zawierać co najmniej jedną dużą literę!";
+    }
+    //czy login posiada conajmniej 3 znaki
+    if (strlen($_POST['login']) < 3) {
+        $errors[] = "Pole <b>login</b> musi mieć co najmniej 3 znaki!";
+    }
+    //czy login posiada maksymalnie 30 znaków
+    if (strlen($_POST['login']) > 30) {
+        $errors[] = "Pole <b>login</b> może mieć maksymalnie 30 znaków!";
+    }
+    //czy login zawiera tylko znaki alfanumeryczne
+    if (!preg_match("/^[a-zA-Z0-9]+$/", $_POST['login'])) {
+        $errors[] = "Pole <b>login</b> może zawierać tylko znaki alfanumeryczne!";
+    }
+    //czy email jest poprawny
+    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Pole <b>email</b> musi być poprawnym adresem email!";
+    }
+
+    require "./connect.php";
+
+    $result = $conn->query("SELECT id FROM users WHERE email = '$_POST[email]'");
+
+    $howManyEmails = $result->num_rows;
+    if($howManyEmails > 0)
+    {
+        $errors[] = "Istnieje już konto przypisane do tego adresu email!";
+    }
+
+    $result = $conn->query("SELECT id FROM users WHERE login = '$_POST[login]'");
+    $howManyLogins = $result->num_rows;
+    if($howManyLogins > 0)
+    {
+        $errors[] = "Istnieje już konto przypisane do tego loginu!";
+    }
+
     
 
     if (!empty($errors)) {
@@ -43,14 +85,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //ochrona przed wejsciem na strone p
     }
     //echo $firstName;
 
-    require_once "./connect.php";
+    //require "./connect.php";
 
     $stmt = $conn->prepare("INSERT INTO `users` (`firstName`, `lastName`, `birthday`, `email`, `password`, `login`,`class`,`role`) VALUES (?,?,?,?,?,?,?,?)");
-    $stmt->bind_param('sssssii', $firstName, $lastName, $birthday, $email, password_hash($password,PASSWORD_DEFAULT), $login,$class, $role );
+    $stmt->bind_param('ssssssii', $firstName, $lastName, $birthday, $email, password_hash($password,PASSWORD_DEFAULT), $login,$class, $role );
 
     $stmt->execute();
 
-    echo $stmt->affected_rows;
+    //echo $stmt->affected_rows;
+
+    if ($stmt->affected_rows > 0) {
+        $_SESSION['notification'] = "Rejestracja przebiegła pomyślnie!";
+        echo "<script>history.back();</script>"; //wraca do podstrony rejestracji i wyswietla bledy
+    }
+    else {
+        $_SESSION['errors'] = "Nie udało się zarejestrować użytkownika!";
+        echo "<script>history.back();</script>"; //wraca do podstrony rejestracji i wyswietla bledy
+    }
 }
 else 
 {

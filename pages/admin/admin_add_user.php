@@ -1,3 +1,17 @@
+<?php
+    session_start();
+
+    if (!isset($_SESSION['isLogged'])) {
+        header('Location: ../index.php');
+        exit();
+    }
+    if($_SESSION['role'] != 1)
+    {
+        header("Location: ../index.php");
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,45 +82,155 @@
 
     <!-- Content Header (Page header) -->
     <div class="content-wrapper">
-        <div class="content-header">
-        <div class="container">
-                <h1 class="m-0">Dodawanie użytkownika</h1>
-                <!-- <h1 class="m-0"> Strona główna <small>zalogowany</small></h1> -->
-        </div> <!-- /.container-fluid -->
-        </div> <!-- /.content-header -->
-
+        <br><br>
         <!-- Main content -->
         <div class="content">
-        <div class="container">
-            <div class="row">
-            <div class="col-lg-6">
-                <div class="card card-primary card-outline">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+        <div class="d-flex justify-content-center align-items-center">
+        <div class="register-box">
+    <?php
 
-                    <p class="card-text">
-                    Some quick example text to build on the card title and make up the bulk of the card's
-                    content.
-                    </p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-                </div> <!-- /.card -->
-            </div> <!-- /.col-md-6 -->
-            <div class="col-lg-6">
-                <div class="card card-primary card-outline">
-                <div class="card-header">
-                    <h5 class="card-title m-0">Featured</h5>
-                </div>
-                <div class="card-body">
-                    <h6 class="card-title">Special title treatment</h6>
+    if (isset($_SESSION['errors'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
+    {
+        echo <<<HTML
+            <div class="callout callout-danger">
+            <h5>BŁĄD!</h5>
+            <p>$_SESSION[errors]</p>
+            </div>
+            HTML;
+        //print_r($_SESSION['errors']);
+        //echo "$_SESSION['errors']</div>";
+    }
+    unset($_SESSION['errors']);
 
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+    if (isset($_SESSION['notification'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
+    {
+        echo <<< HTML
+            <div class="callout callout-success">
+            <h5>SUKCES!</h5>
+            <p>$_SESSION[notification]</p>
+            </div>
+            HTML;
+        unset($_SESSION['notification']);
+    }
+    ?>
+
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <h1 class="h1"><b>Rejestracja </b>użytkownika</h1>
+        </div>
+        <div class="card-body">
+            <!-- <p class="login-box-msg">Rejestracja użytkownika</p> -->
+            <form action="../../scripts/register_user.php" method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="firstName" placeholder="Podaj imię" autofocus>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
                 </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="lastName" placeholder="Podaj nazwisko">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
                 </div>
-            </div> <!-- /.col-md-6 -->
-            </div> <!-- /.row -->
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="login" placeholder="Podaj login">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" name="email" placeholder="Podaj email">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" name="confirm_email" placeholder="Powtórz email">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" name="password" placeholder="Podaj hasło">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" name="confirm_password" placeholder="Powtórz hasło">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="date" class="form-control" name="birthday">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-calendar"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+            <!-- <input type="text" class="form-control" name="city_id" placeholder="Podaj miasto"> -->
+                <select class="form-control" name="class">
+                <?php
+                        require "../../scripts/connect.php";
+                        $sql = "SELECT * FROM `classes`";
+                        $result = $conn->query($sql);
+                        while ($class = $result->fetch_assoc()) {
+                            echo "<option
+                            value='$class[class_id]'>$class[class]</option>";
+                        }
+                        ?>
+                    </select>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fa-people-group"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                <select class="form-control" name="role">
+                <?php
+                        require "../../scripts/connect.php";
+                        $sql = "SELECT * FROM `roles`";
+                        $result = $conn->query($sql);
+                        while ($role = $result->fetch_assoc()) {
+                            echo "<option
+                            value='$role[role_id]'>$role[role]</option>";
+                        }
+                        ?>
+                    </select>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fa-people-group"></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="d-flex justify-content-center align-items-center">
+                    <button type="submit" class="btn btn-primary btn-block">Rejestracja</button>
+                </div>
+                <!-- /.col -->
+                </div>
+                </form>
+        </div> 
+        </div> <!-- /.card-body -->
         </div> <!-- /.container-fluid -->
         </div> <!-- /.content -->
     </div> <!-- /.content-wrapper -->
