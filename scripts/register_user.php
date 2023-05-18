@@ -54,6 +54,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //ochrona przed wejsciem na strone p
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Pole <b>email</b> musi być poprawnym adresem email!";
     }
+
+    require "./connect.php";
+
+    $result = $conn->query("SELECT id FROM users WHERE email = '$_POST[email]'");
+
+    $howManyEmails = $result->num_rows;
+    if($howManyEmails > 0)
+    {
+        $errors[] = "Istnieje już konto przypisane do tego adresu email!";
+    }
+
+    $result = $conn->query("SELECT id FROM users WHERE login = '$_POST[login]'");
+    $howManyLogins = $result->num_rows;
+    if($howManyLogins > 0)
+    {
+        $errors[] = "Istnieje już konto przypisane do tego loginu!";
+    }
+
     
 
     if (!empty($errors)) {
@@ -67,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //ochrona przed wejsciem na strone p
     }
     //echo $firstName;
 
-    require_once "./connect.php";
+    //require "./connect.php";
 
     $stmt = $conn->prepare("INSERT INTO `users` (`firstName`, `lastName`, `birthday`, `email`, `password`, `login`,`class`,`role`) VALUES (?,?,?,?,?,?,?,?)");
     $stmt->bind_param('ssssssii', $firstName, $lastName, $birthday, $email, password_hash($password,PASSWORD_DEFAULT), $login,$class, $role );

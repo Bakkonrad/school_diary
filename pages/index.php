@@ -1,7 +1,7 @@
 <?php
   session_start();
 
-  //jeśli użytkownik jest zalogowany to przekierowuje go do odpowiedniej strony
+  // jeśli użytkownik jest zalogowany to przekierowuje go do odpowiedniej strony
   // if($_SESSION['isLogged'] == true)
   // {
   //   if($_SESSION['role'] == "administrator")
@@ -45,6 +45,8 @@
       
       if (isset($_SESSION['errors'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
       {
+        
+
         echo <<< HTML
           <div class="callout callout-danger">
           <h5>BŁĄD!</h5>
