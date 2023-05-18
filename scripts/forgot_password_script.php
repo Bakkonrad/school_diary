@@ -18,7 +18,7 @@ else
 
     if (empty($_POST['email'])) 
     {
-        $errors[] = "Pole <b>hasło</b> nie może być puste!";
+        $errors[] = "Pole <b>email</b> nie może być puste!";
     }
     if (!empty($errors)) {
         $_SESSION['errors'] = implode("<br>", $errors);
