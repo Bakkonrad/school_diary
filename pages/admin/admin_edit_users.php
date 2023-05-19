@@ -89,47 +89,27 @@
         </nav> <!-- /.navbar -->
 
         <!-- Content Header (Page header) -->
-        <div class="content-wrapper">
+        <!-- <div class="content-wrapper">
             <div class="content-header">
-                <div class="container">
+                <div class="text-center">
                     <h1 class="m-0">Wyświetlanie użytkowników</h1>
-                    <!-- <h1 class="m-0"> Strona główna <small>zalogowany</small></h1> -->
-                </div> <!-- /.container-fluid -->
-            </div> <!-- /.content-header -->
+                    <!- <h1 class="m-0"> Strona główna <small>zalogowany</small></h1> -->
+                <!-- </div> /.container-fluid -->
+            <!-- </div> /.content-header --> 
 
             <!-- Main content -->
             <div class="content">
                 <div class="container">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">DataTable with default features</h3>
-                        </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                 <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <h1 class="m-0">Wyświetlanie użytkowników</h1>
+                                </div>
                                     <div class="col-sm-12 col-md-6">
-                                        <div class="dt-buttons btn-group flex-wrap"> <button
-                                                class="btn btn-secondary buttons-copy buttons-html5" tabindex="0"
-                                                aria-controls="example1" type="button"><span>Copy</span></button>
-                                            <button class="btn btn-secondary buttons-csv buttons-html5" tabindex="0"
-                                                aria-controls="example1" type="button"><span>CSV</span></button> <button
-                                                class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
-                                                aria-controls="example1" type="button"><span>Excel</span></button>
-                                            <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
-                                                aria-controls="example1" type="button"><span>PDF</span></button> <button
-                                                class="btn btn-secondary buttons-print" tabindex="0"
-                                                aria-controls="example1" type="button"><span>Print</span></button>
-                                            <div class="btn-group"><button
-                                                    class="btn btn-secondary buttons-collection dropdown-toggle buttons-colvis"
-                                                    tabindex="0" aria-controls="example1" type="button"
-                                                    aria-haspopup="true"><span>Column visibility</span><span
-                                                        class="dt-down-arrow"></span></button></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <div id="example1_filter" class="dataTables_filter"><label>Search:<input
-                                                    type="search" class="form-control form-control-sm" placeholder=""
+                                        <div id="example1_filter" class="dataTables_filter"><label>Szukaj:<input
+                                                    type="search" class="form-control form-control-sm" placeholder="" name="search"
                                                     aria-controls="example1"></label></div>
                                     </div>
                                 </div>
@@ -142,30 +122,74 @@
                                                 <tr>
                                                     <th class="sorting sorting_asc" tabindex="0"
                                                         aria-controls="example1" rowspan="1" colspan="1"
-                                                        aria-sort="ascending"
-                                                        aria-label="Rendering engine: activate to sort column descending">
-                                                        Rendering engine</th>
+                                                        aria-sort="descending"
+                                                        aria-label="Sortuj według Id">Id</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example1"
                                                         rowspan="1" colspan="1"
-                                                        aria-label="Browser: activate to sort column ascending">Browser
-                                                    </th>
+                                                        aria-label="Sortuj według Imię">Imię</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example1"
                                                         rowspan="1" colspan="1"
-                                                        aria-label="Platform(s): activate to sort column ascending">
-                                                        Platform(s)</th>
+                                                        aria-label="Sortuj według Nazwisko">Nazwisko</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="example1"
+                                                        rowspan="1" colspan="1"
+                                                        aria-label="Sortuj według Nazwisko">Data urodzenia</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example1"
                                                         rowspan="1" colspan="1"
-                                                        aria-label="Engine version: activate to sort column ascending">
-                                                        Engine version</th>
+                                                        aria-label="Sortuj według Login">Login</th>
                                                     <th class="sorting" tabindex="0" aria-controls="example1"
                                                         rowspan="1" colspan="1"
-                                                        aria-label="CSS grade: activate to sort column ascending">CSS
-                                                        grade</th>
+                                                        aria-label="Sortuj według Id">email</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="example1"
+                                                        rowspan="1" colspan="1"
+                                                        aria-label="Sortuj według Klasa">Klasa</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="example1"
+                                                        rowspan="1" colspan="1"
+                                                        aria-label="Sortuj według Rola">Rola</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="example1"
+                                                        rowspan="1" colspan="1"
+                                                        aria-label="Sortuj według Rola">Usuń</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="example1"
+                                                        rowspan="1" colspan="1"
+                                                        aria-label="Sortuj według Rola">Edytuj</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
 
-                                                <tr class="odd">
+                                            <?php
+                                                require "../../scripts/connect.php";
+                                                mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
+                                            
+                                                $sql = "SELECT users.id, users.firstName, users.lastName, users.birthday, users.email, users.login, classes.class, roles.role FROM `users` JOIN `classes` ON `users`.`class` = `classes`.`class_id` JOIN `roles` ON `users`.`role` = `roles`.`role_id`;";
+
+                                                $result = $conn->query($sql);
+
+                                                if($result->num_rows == 0)
+                                                {
+                                                    echo "<tr><td colspan ='100%'>Brak rekordów do wyświwetlenia</td></tr>";
+                                                }
+                                                else // jesli sa rekordy w tabli to je wyswietl
+                                                {
+                                                    while($user = $result->fetch_assoc())
+                                                    {
+                                                        echo <<< HTML
+                                                        <tr>
+                                                    <td class="dtr-control sorting_1" tabindex="0">$user[id]</td>
+                                                            <td>$user[firstName]</td>
+                                                            <td>$user[lastName]</td>
+                                                            <td>$user[birthday]</td>
+                                                            <td>$user[login]</td>
+                                                            <td>$user[email]</td>
+                                                            <td>$user[class]</td>
+                                                            <td>$user[role]</td>
+                                                            <td><a href="../../scripts/delete_user.php?userDeleteId=$user[id]">Usuń</a></td>
+                                                            <td><a href="./5_db_table_delete_add_update.php?userUpdateId=$user[id]">Edytuj</a></td>
+                                                        </tr>
+                                                    HTML;
+                                                    }
+                                                }
+
+                                            ?>
+                                                <!-- <tr class="odd">
                                                     <td class="dtr-control sorting_1" tabindex="0">Gecko</td>
                                                     <td>Firefox 1.0</td>
                                                     <td>Win 98+ / OSX.2+</td>
@@ -178,81 +202,30 @@
                                                     <td>Win 98+ / OSX.2+</td>
                                                     <td>1.8</td>
                                                     <td>A</td>
-                                                </tr>
-                                                <tr class="odd">
-                                                    <td class="dtr-control sorting_1" tabindex="0">Gecko</td>
-                                                    <td>Firefox 2.0</td>
-                                                    <td>Win 98+ / OSX.2+</td>
-                                                    <td>1.8</td>
-                                                    <td>A</td>
-                                                </tr>
-                                                <tr class="even">
-                                                    <td class="dtr-control sorting_1" tabindex="0">Gecko</td>
-                                                    <td>Firefox 3.0</td>
-                                                    <td>Win 2k+ / OSX.3+</td>
-                                                    <td>1.9</td>
-                                                    <td>A</td>
-                                                </tr>
-                                                <tr class="odd">
-                                                    <td class="sorting_1 dtr-control">Gecko</td>
-                                                    <td>Camino 1.0</td>
-                                                    <td>OSX.2+</td>
-                                                    <td>1.8</td>
-                                                    <td>A</td>
-                                                </tr>
-                                                <tr class="even">
-                                                    <td class="sorting_1 dtr-control">Gecko</td>
-                                                    <td>Camino 1.5</td>
-                                                    <td>OSX.3+</td>
-                                                    <td>1.8</td>
-                                                    <td>A</td>
-                                                </tr>
-                                                <tr class="odd">
-                                                    <td class="sorting_1 dtr-control">Gecko</td>
-                                                    <td>Netscape 7.2</td>
-                                                    <td>Win 95+ / Mac OS 8.6-9.2</td>
-                                                    <td>1.7</td>
-                                                    <td>A</td>
-                                                </tr>
-                                                <tr class="even">
-                                                    <td class="sorting_1 dtr-control">Gecko</td>
-                                                    <td>Netscape Browser 8</td>
-                                                    <td>Win 98SE+</td>
-                                                    <td>1.7</td>
-                                                    <td>A</td>
-                                                </tr>
-                                                <tr class="odd">
-                                                    <td class="sorting_1 dtr-control">Gecko</td>
-                                                    <td>Netscape Navigator 9</td>
-                                                    <td>Win 98+ / OSX.2+</td>
-                                                    <td>1.8</td>
-                                                    <td>A</td>
-                                                </tr>
-                                                <tr class="even">
-                                                    <td class="sorting_1 dtr-control">Gecko</td>
-                                                    <td>Mozilla 1.0</td>
-                                                    <td>Win 95+ / OSX.1+</td>
-                                                    <td>1</td>
-                                                    <td>A</td>
-                                                </tr>
+                                                </tr> -->
                                             </tbody>
-                                            <tfoot>
+                                            <!-- <tfoot>
                                                 <tr>
-                                                    <th rowspan="1" colspan="1">Rendering engine</th>
-                                                    <th rowspan="1" colspan="1">Browser</th>
-                                                    <th rowspan="1" colspan="1">Platform(s)</th>
-                                                    <th rowspan="1" colspan="1">Engine version</th>
-                                                    <th rowspan="1" colspan="1">CSS grade</th>
+                                                    <th rowspan="1" colspan="1">Id</th>
+                                                    <th rowspan="1" colspan="1">Imię</th>
+                                                    <th rowspan="1" colspan="1">Nazwisko</th>
+                                                    <th rowspan="1" colspan="1">Data urodzenia</th>
+                                                    <th rowspan="1" colspan="1">Login</th>
+                                                    <th rowspan="1" colspan="1">Email</th>
+                                                    <th rowspan="1" colspan="1">Klasa</th>
+                                                    <th rowspan="1" colspan="1">Rola</th>
+                                                    <th rowspan="1" colspan="1">Usuń</th>
+                                                    <th rowspan="1" colspan="1">Edytuj</th>
                                                 </tr>
-                                            </tfoot>
+                                            </tfoot> -->
                                         </table>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col-sm-12 col-md-5">
                                         <div class="dataTables_info" id="example1_info" role="status"
                                             aria-live="polite">Showing 1 to 10 of 57 entries</div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-sm-12 col-md-7">
                                         <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
                                             <ul class="pagination">
@@ -327,24 +300,6 @@
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.min.js"></script>
 
-<!-- Page specific script -->
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
 </body>
 
 </html>

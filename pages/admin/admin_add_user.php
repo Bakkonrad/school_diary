@@ -215,7 +215,7 @@
                     </select>
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <span class="fa-people-group"></span>
+                            <span class="fas fa-people-group"></span>
                         </div>
                     </div>
                 </div>
