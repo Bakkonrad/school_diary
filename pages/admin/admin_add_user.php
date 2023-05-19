@@ -117,7 +117,7 @@
     }
     ?>
 
-    <div class="card card-outline card-primary">
+    <div class="card card-outline card-olive">
         <div class="card-header text-center">
             <h1 class="h1"><b>Rejestracja </b>użytkownika</h1>
         </div>
@@ -226,7 +226,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="d-flex justify-content-center align-items-center">
-                    <button type="submit" class="btn btn-primary btn-block">Rejestracja</button>
+                    <button type="submit" class="btn bg-olive btn-block">Rejestracja</button>
                 </div>
                 <!-- /.col -->
                 </div>
