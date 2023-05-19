@@ -91,17 +91,30 @@
 
     if (isset($_SESSION['errors'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
     {
-        $error1 = $_SESSION['errors'][0]; // aby wyswietlal tylko dwa bledy a nie całą tablice
-        $error2 = $_SESSION['errors'][2];
-        echo <<<HTML
+        //sprawdza czyw tablicy errors jest więcej niż 3 błędy, jesli tak to wyświetla inny komunikat
+
+        if (count($_SESSION['errors']) > 3) {
+
+            echo <<<HTML
+            <div class="callout callout-danger">
+            <h5>BŁĄD!</h5>
+            <p>Uzupełnij wszystkie pola!</p>
+            </div>
+            HTML;
+
+        } else {
+
+            $error1 = $_SESSION['errors'][0];
+            $error2 = $_SESSION['errors'][1];
+            echo <<<HTML
             <div class="callout callout-danger">
             <h5>BŁĄD!</h5>
             <p>$error1</p>
             <p>$error2</p>
             </div>
             HTML;
-        //print_r($_SESSION['errors']);
-        //echo "$_SESSION['errors']</div>";
+        }
+
     }
     unset($_SESSION['errors']);
 
