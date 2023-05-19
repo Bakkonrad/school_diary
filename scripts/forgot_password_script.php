@@ -3,7 +3,7 @@
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone przez url
 
-    header("Location: ../index.php");
+    header("Location: ../pages/index.php");
     exit();
 }
 else

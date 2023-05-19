@@ -1,5 +1,26 @@
 <?php
-session_start();
+  session_start();
+
+  // jeśli użytkownik jest zalogowany to przekierowuje go do odpowiedniej strony
+  // if($_SESSION['isLogged'] == true)
+  // {
+  //   if($_SESSION['role'] == "administrator")
+  //   {
+  //       header('location: ../pages/admin/admin_main.php');
+  //       exit();
+  //   }
+  //   if($_SESSION['role'] == "nauczyciel")
+  //   {
+  //       header('location: ../pages/teacher/teacher_main.php');
+  //       exit();
+  //   }
+  //   if($_SESSION['role'] == "uczeń")
+  //   {
+  //       header('location: ../pages/student/student_main.php');
+  //       exit();
+  //   }
+// }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +45,8 @@ session_start();
       
       if (isset($_SESSION['errors'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
       {
+        
+
         echo <<< HTML
           <div class="callout callout-danger">
           <h5>BŁĄD!</h5>
