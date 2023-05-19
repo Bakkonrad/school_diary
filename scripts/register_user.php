@@ -8,10 +8,6 @@ function sanitizeInput($input)
 if ($_SERVER["REQUEST_METHOD"] == "POST") { //ochrona przed wejsciem na strone przez url
     session_start();
 
-    // echo "<pre>";
-    //     print_r($_POST);
-    //     echo "</pre>";
-
     //print_r($_POST);
     $requiredFields = ["firstName", "lastName", "birthday", "email", "confirm_email","password", "confirm_password", "login", "class", "role"]; //tablica z wymaganymi polami
     $errors= [];
