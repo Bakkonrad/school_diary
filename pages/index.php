@@ -59,7 +59,9 @@
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
       <br>
-      <a href="index.php" class="h1"><b>dziennik</b><br>lekcyjny</a><br><br>
+      <img src="../resources/5dde1da915414cb9969ecfb744fedfb6.png" width="200" height="60">
+      <br><br>
+      <a href="index.php" class="h1"><b>dziennik</b> lekcyjny</a><br><br>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Zaloguj się do systemu</p>

@@ -29,7 +29,7 @@
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand-md navbar-primary navbar-dark">
+    <nav class="main-header navbar navbar-expand-md navbar-olive navbar-dark">
         <div class="container">
         <a href="admin_main.php" class="navbar-brand">
             <span class="brand-text"><b>dziennik</b><br>lekcyjny</span>
@@ -62,7 +62,7 @@
             <!-- SEARCH FORM -->
             <form class="form-inline ml-0 ml-md-3">
             <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="szukaj" aria-label="Search">
+                <input class="form-control" type="search" placeholder="szukaj" aria-label="Search">
                 <div class="input-group-append">
                 <button class="btn btn-navbar" type="submit">
                     <i class="fas fa-search"></i>
@@ -239,10 +239,10 @@
     <footer class="main-footer">
         <!-- To the right -->
         <div class="float-right d-none d-sm-inline">
-        KoalaSchool
+        <img src="../../resources/5dde1da915414cb9969ecfb744fedfb6.png" width="100" height="30">
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2023</strong> All rights reserved.
+        <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
     </footer>
     </div>
     <!-- ./wrapper -->

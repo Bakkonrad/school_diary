@@ -19,7 +19,7 @@ session_start();
 <body class="hold-transition layout-top-nav">
 <div class="wrapper">
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand-md navbar-primary navbar-dark">
+  <nav class="main-header navbar navbar-expand-md navbar-olive navbar-dark">
     <div class="container">
       <a href="student_main.php" class="navbar-brand">
         <span class="brand-text"><b>dziennik</b><br>lekcyjny</span>
@@ -45,11 +45,11 @@ session_start();
       </div>
 
       <!-- Right navbar links -->
-      <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+      <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto ">
         <!-- SEARCH FORM -->
         <form class="form-inline ml-0 ml-md-3">
           <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" type="search" placeholder="szukaj" aria-label="Search">
+            <input class="form-control" type="search" placeholder="szukaj" aria-label="Search">
             <div class="input-group-append">
               <button class="btn btn-navbar" type="submit">
                 <i class="fas fa-search"></i>
@@ -79,24 +79,51 @@ session_start();
     <!-- Main content -->
     <div class="content">
       <div class="container">
-            <div class="card card-primary card-outline">
-              <div class="card-body">
-              <h4 class="card-title">Witaj, 
-                <?php
-                  echo <<< HTML
-                      $_SESSION[firstName]</h4>
-                      <br><br>
-                      <p class="card-text">dzisiejsza data: <b>
-                  HTML;
-                  echo date("l, d M Y");
-                ?>
-              </b></p>
-              <p><script src="https://wordsmith.org/words/word.js" type="text/javascript">
-</script></p>
-                <h4>Co chcesz zrobić?</h4>
-
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="card card-olive card-outline">
+            <div class="card-body">
+              <h4>Co chcesz zrobić?</h4>
+              <div class="row justify-content-md-center">
+                <a href="student_grades.php" class="btn btn-app bg-olive">
+                <i class="fa fa-solid fa-graduation-cap" style="color: #ffffff;"></i> Oceny
+                </a>
+                <a href="student_statistics.php" class="btn btn-app bg-olive">
+                <i class="fa fa-solid fa-chart-bar" style="color: #ffffff;"></i></i> Statystyki
+                </a>
+              </div> <!-- /.row -->
+              <br><br>
+              <div class="row justify-content-md-center">
+                <img src="../../resources/pexels-cdc-3992949.jpg" width="400" height="270">
               </div>
-            </div> <!-- /.card -->
+            </div> <!-- /.card-body -->
+          </div> <!-- /.card -->
+        </div> <!-- /.col -->
+        <div class="col-lg-4">
+          <div class="card card-olive card-outline">
+            <div class="card-body">
+              <h2>Witaj, 
+              <?php
+                echo <<< HTML
+                    $_SESSION[firstName]</h2>
+                    <p class="card-text">dzisiejsza data: <b>
+                HTML;
+                echo date("l, d M Y");
+              ?>
+              </b></p>
+              <br>
+              <h4>Słówko na dzisiaj:</h4>
+              <p><script src="https://wordsmith.org/words/word.js" type="text/javascript"></script></p>
+              <br>
+              <h4>Twoja ostatnia ocena:</h4>
+              <p>Przedmiot: </p>
+              <p>Ocena: </p>
+              <p>Data: </p>
+              <p>Nauczyciel: </p>
+            </div> <!-- /.card-body -->
+          </div> <!-- /.card -->
+        </div> <!-- /.col -->
+      </div> <!-- /.row -->
       </div> <!-- /.container-fluid -->
     </div> <!-- /.content -->
   </div> <!-- /.content-wrapper -->
@@ -105,10 +132,10 @@ session_start();
   <footer class="main-footer">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-      KoalaSchool
+      <img src="../../resources/5dde1da915414cb9969ecfb744fedfb6.png" width="100" height="30">
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2023</strong> All rights reserved.
+    <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
   </footer>
 </div>
 <!-- ./wrapper -->
