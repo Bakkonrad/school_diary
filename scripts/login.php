@@ -58,7 +58,8 @@ else
     mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
 
     if($result = $conn->query(
-        sprintf("SELECT * FROM users WHERE login = '%s'",
+        sprintf("SELECT * FROM users WHERE login = '%s' OR email = '%s'",
+        mysqli_real_escape_string($conn,$login),
         mysqli_real_escape_string($conn,$login)))) //true
     {
         $how_many_users = $result->num_rows; //liczba znalezionych kont
