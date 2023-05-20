@@ -1,3 +1,27 @@
+.content-wrapper {
+    overflow: auto;
+  }
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #3d9970;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #307858;
+    border-radius: 3px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 .main-header {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -47,7 +71,7 @@
 }
 
 /* * all links */
-a {
+a, .pagination .page-link {
     color: #3d9970;
 }
 

@@ -25,6 +25,8 @@
   <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <!-- Custom style -->
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="hold-transition layout-top-nav">
 <div class="wrapper">
@@ -32,7 +34,8 @@
   <nav class="main-header navbar navbar-expand-md navbar-olive navbar-dark">
     <div class="container">
       <a href="student_main.php" class="navbar-brand">
-        <span class="brand-text"><b>dziennik</b><br>lekcyjny</span>
+        <img src="../../resources/logo2.png" width="40" height="40">
+        <span class="brand-text"><b>dziennik</b> lekcyjny</span>
       </a>
 
       <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,9 +62,9 @@
         <!-- SEARCH FORM -->
         <form class="form-inline ml-0 ml-md-3">
           <div class="input-group input-group-sm">
-            <input class="form-control" type="search" placeholder="szukaj" aria-label="Search">
+            <input class="form-control form-control-border" type="search" placeholder="szukaj" aria-label="Search">
             <div class="input-group-append">
-              <button class="btn btn-navbar" type="submit">
+              <button class="btn search-btn" type="submit">
                 <i class="fas fa-search"></i>
               </button>
             </div>
@@ -70,7 +73,7 @@
         <!-- ACCOUNT ICON -->
         <li class="nav-item">
           <a href="student_account.php" class="nav-link">
-            <i class="fa fa-solid fa-user-graduate" style="color: #ffffff;"></i>
+            <i class="fa fa-solid fa-user-graduate fa-lg"></i>
           </a>
         </li>
       </ul>
@@ -94,17 +97,21 @@
           <div class="card card-olive card-outline">
             <div class="card-body">
               <h4>Co chcesz zrobić?</h4>
+              <br>
               <div class="row justify-content-md-center">
                 <a href="student_grades.php" class="btn btn-app bg-olive">
-                <i class="fa fa-solid fa-graduation-cap" style="color: #ffffff;"></i> Oceny
+                <i class="fa fa-solid fa-graduation-cap"></i> Oceny
                 </a>
                 <a href="student_statistics.php" class="btn btn-app bg-olive">
-                <i class="fa fa-solid fa-chart-bar" style="color: #ffffff;"></i></i> Statystyki
+                <i class="fa fa-solid fa-chart-bar"></i> Statystyki
                 </a>
               </div> <!-- /.row -->
-              <br><br>
+              <br>
               <div class="row justify-content-md-center">
                 <img src="../../resources/pexels-cdc-3992949.jpg" width="400" height="270">
+              </div>
+              <div class="row justify-content-md-center">
+                <label>dzieciak na matmie hihi</label>
               </div>
             </div> <!-- /.card-body -->
           </div> <!-- /.card -->
@@ -142,7 +149,7 @@
   <footer class="main-footer">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-      <img src="../../resources/logo.png" width="100" height="30">
+      <img src="../../resources/logo.png" width="100" height="32">
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
