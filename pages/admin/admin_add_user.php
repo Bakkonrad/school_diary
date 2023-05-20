@@ -93,23 +93,14 @@
         <div class="content">
         <div class="d-flex justify-content-center align-items-center">
         <div class="register-box">
-    <?php
+        <?php
 
     if (isset($_SESSION['errors'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
     {
         //sprawdza czyw tablicy errors jest więcej niż 3 błędy, jesli tak to wyświetla inny komunikat
 
-        if (count($_SESSION['errors']) > 3) {
-
-            echo <<<HTML
-            <div class="callout callout-danger">
-            <h5>BŁĄD!</h5>
-            <p>Uzupełnij wszystkie pola!</p>
-            </div>
-            HTML;
-
-        } else {
-
+        if (count($_SESSION['errors']) > 1 && count($_SESSION['errors']) < 4) {
+            
             $error1 = $_SESSION['errors'][0];
             $error2 = $_SESSION['errors'][1];
             echo <<<HTML
@@ -117,6 +108,27 @@
             <h5>BŁĄD!</h5>
             <p>$error1</p>
             <p>$error2</p>
+            </div>
+            HTML;
+
+        } 
+        if (count($_SESSION['errors']) > 4) {
+
+            //$error1 = $_SESSION['errors'][0];
+            echo <<<HTML
+            <div class="callout callout-danger">
+            <h5>BŁĄD!</h5>
+            <p>Uzupełnij wszystkie pola!</p>
+            </div>
+            HTML;
+        }
+        if (count($_SESSION['errors']) == 1) {
+
+            $error1 = $_SESSION['errors'][0];
+            echo <<<HTML
+            <div class="callout callout-danger">
+            <h5>BŁĄD!</h5>
+            <p>$error1</p>
             </div>
             HTML;
         }
