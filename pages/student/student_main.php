@@ -97,17 +97,21 @@
           <div class="card card-olive card-outline">
             <div class="card-body">
               <h4>Co chcesz zrobić?</h4>
+              <br>
               <div class="row justify-content-md-center">
                 <a href="student_grades.php" class="btn btn-app bg-olive">
-                <i class="fa fa-solid fa-graduation-cap" style="color: #ffffff;"></i> Oceny
+                <i class="fa fa-solid fa-graduation-cap"></i> Oceny
                 </a>
                 <a href="student_statistics.php" class="btn btn-app bg-olive">
-                <i class="fa fa-solid fa-chart-bar" style="color: #ffffff;"></i></i> Statystyki
+                <i class="fa fa-solid fa-chart-bar"></i> Statystyki
                 </a>
               </div> <!-- /.row -->
-              <br><br>
+              <br>
               <div class="row justify-content-md-center">
                 <img src="../../resources/pexels-cdc-3992949.jpg" width="400" height="270">
+              </div>
+              <div class="row justify-content-md-center">
+                <label>dzieciak na matmie</label>
               </div>
             </div> <!-- /.card-body -->
           </div> <!-- /.card -->
