@@ -37,6 +37,8 @@
   <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+  <!-- Custom style -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -56,12 +58,12 @@
       }
       unset($_SESSION['errors']);
       ?>
-  <div class="card card-outline card-primary">
+  <div class="card card-outline card-olive">
     <div class="card-header text-center">
       <br>
-      <img src="../resources/5dde1da915414cb9969ecfb744fedfb6.png" width="200" height="60">
+      <img src="../resources/logo.png" width="200" height="60">
       <br><br>
-      <a href="index.php" class="h1"><b>dziennik</b> lekcyjny</a><br><br>
+      <a href="./" class="h1"><b>dziennik</b> lekcyjny</a><br><br>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Zaloguj się do systemu</p>
@@ -85,7 +87,7 @@
         </div>
         <div class="row">
           <div class="col-8">
-            <div class="icheck-primary">
+            <div class="icheck-olive">
               <input type="checkbox" id="remember">
               <label for="remember">
                 Nie wylogowuj
@@ -94,7 +96,7 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-              <button type="submit" class="btn btn-primary btn-block">Zaloguj</button> <!-- ma przejsc do skryptu gdzie sprawdzi poprawność danych -->
+              <button type="submit" class="btn btn-block">Zaloguj</button> <!-- ma przejsc do skryptu gdzie sprawdzi poprawność danych -->
           </div>
           <!-- /.col -->
         </div>

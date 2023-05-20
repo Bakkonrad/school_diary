@@ -22,8 +22,13 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!-- Font Awesome -->
 <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+<link href="../../plugins/fontawesome-free/css/fontawesome.css" rel="stylesheet">
+<link href="../../plugins/fontawesome-free/css/brands.css" rel="stylesheet">
+<link href="../../plugins/fontawesome-free/css/solid.css" rel="stylesheet">
 <!-- Theme style -->
 <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+<!-- Custom style -->
+<link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
@@ -69,7 +74,7 @@
         <!-- ACCOUNT ICON -->
         <li class="nav-item">
             <a href="teacher_account.php" class="nav-link">
-                <i class="fa fa-solid fa-user" style="color: #ffffff;"></i>
+                <i class="fa fa-solid fa-chalkboard-user" style="color: #ffffff;"></i>
             </a>
         </li>
         </ul>

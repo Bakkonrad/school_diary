@@ -22,6 +22,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!-- Font Awesome -->
 <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+<link href="../../plugins/fontawesome-free/css/fontawesome.css" rel="stylesheet">
+<link href="../../plugins/fontawesome-free/css/brands.css" rel="stylesheet">
+<link href="../../plugins/fontawesome-free/css/solid.css" rel="stylesheet">
 <!-- Theme style -->
 <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 </head>
@@ -69,7 +72,7 @@
         <!-- ACCOUNT ICON -->
         <li class="nav-item">
             <a href="teacher_account.php" class="nav-link">
-                <i class="fa fa-solid fa-user" style="color: #ffffff;"></i>
+                <i class="fa fa-solid fa-chalkboard-user" style="color: #ffffff;"></i>
             </a>
         </li>
         </ul>
@@ -104,7 +107,7 @@
     <footer class="main-footer">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-    <img src="../../resources/5dde1da915414cb9969ecfb744fedfb6.png" width="100" height="30">
+    <img src="../../resources/logo.png" width="100" height="30">
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.

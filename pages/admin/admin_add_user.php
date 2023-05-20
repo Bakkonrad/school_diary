@@ -25,6 +25,9 @@
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+    <link href="C:/xampp/htdocs/git/projekt/school_diary/plugins/fontawesome-free/css/fontawesome.css" rel="stylesheet">
+    <link href="C:/xampp/htdocs/git/projekt/school_diary/plugins/fontawesome-free/css/brands.css" rel="stylesheet">
+    <link href="C:/xampp/htdocs/git/projekt/school_diary/plugins/fontawesome-free/css/solid.css" rel="stylesheet">
 </head>
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
@@ -254,7 +257,7 @@
     <footer class="main-footer">
         <!-- To the right -->
         <div class="float-right d-none d-sm-inline">
-        <img src="../../resources/5dde1da915414cb9969ecfb744fedfb6.png" width="100" height="30">
+        <img src="../../resources/logo.png" width="100" height="30">
         </div>
         <!-- Default to the left -->
         <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
