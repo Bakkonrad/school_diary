@@ -16,6 +16,8 @@ session_start();
   <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+  <!-- Custom style -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -44,10 +46,12 @@ session_start();
       }
       unset($_SESSION['errors']);
       ?>
-  <div class="card card-outline card-primary">
+  <div class="card card-outline card-olive">
     <div class="card-header text-center">
       <br>
-      <a href="index.php" class="h1"><b>dziennik</b><br>lekcyjny</a><br><br>
+      <img src="../resources/logo.png" width="200" height="60">
+      <br><br>
+      <a href="./" class="h1"><b>dziennik</b> lekcyjny</a><br><br>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Podaj swojego uczniowskiego maila, aby zresetować hasło.</p>
@@ -62,13 +66,13 @@ session_start();
         </div>
         <div class="row">
           <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Poproś o nowe hasło</button> <!-- nic sie dzieje po kliknieciu -->
+            <button type="submit" class="btn btn-block">Poproś o nowe hasło</button> <!-- nic sie dzieje po kliknieciu -->
           </div>
           <!-- /.col -->
         </div>
       </form>
       <p class="mt-3 mb-1">
-        <a href="index.php">Wróć do logowania</a>
+        <a href="./">Wróć do logowania</a>
       </p>
     </div>
     <!-- /.login-card-body -->

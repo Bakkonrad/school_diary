@@ -126,7 +126,7 @@
   <footer class="main-footer">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-    <img src="../../resources/5dde1da915414cb9969ecfb744fedfb6.png" width="100" height="30">
+    <img src="../../resources/logo.png" width="100" height="30">
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.

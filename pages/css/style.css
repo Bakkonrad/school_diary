@@ -1,0 +1,72 @@
+.main-header {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.brand-text {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/* * icons in forms and all buttons */
+.input-group-text, .btn {
+    border-color:#3d9970; 
+    background-color:#3d9970; 
+    color:white
+}
+
+/* * navbar search button */
+.search-btn {
+    border-color: #ffffff;
+    background-color: #ffffff;
+    color: #3d9970;
+}
+
+/* * buttons on hover */
+.btn:hover {
+    border-color: #2e7052;
+    background-color: #307858;
+    color: white;
+}
+
+/* * navbar search form */
+.form-control-border{
+    background-color: #3d9970;
+}
+
+.form-control-border:focus{
+    border: 2px;
+    border-radius: 2px;
+}
+
+.form-control-border::placeholder {
+    color: rgb(214, 209, 209);
+}
+
+/* * all forms */
+.form-control:focus {
+    border-color: #3d9970;
+}
+
+/* * all links */
+a {
+    color: #3d9970;
+}
+
+a:hover {
+    color: #307858;
+}
+
+/* * icon buttons*/
+a i {
+    color: #ffffff;
+    /* ? border-radius: 50%;
+    ? border-color: white;  */
+}
+
+a i:hover {
+    color: #307858;
+}
+
+/* .navbar-nav .nav-item a.active  {
+    color:#FEFCFB;
+    font-weight: bold;
+} */
