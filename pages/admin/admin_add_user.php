@@ -94,17 +94,30 @@
 
     if (isset($_SESSION['errors'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
     {
-        $error1 = $_SESSION['errors'][0]; // aby wyswietlal tylko dwa bledy a nie całą tablice
-        $error2 = $_SESSION['errors'][2];
-        echo <<<HTML
+        //sprawdza czyw tablicy errors jest więcej niż 3 błędy, jesli tak to wyświetla inny komunikat
+
+        if (count($_SESSION['errors']) > 3) {
+
+            echo <<<HTML
+            <div class="callout callout-danger">
+            <h5>BŁĄD!</h5>
+            <p>Uzupełnij wszystkie pola!</p>
+            </div>
+            HTML;
+
+        } else {
+
+            $error1 = $_SESSION['errors'][0];
+            $error2 = $_SESSION['errors'][1];
+            echo <<<HTML
             <div class="callout callout-danger">
             <h5>BŁĄD!</h5>
             <p>$error1</p>
             <p>$error2</p>
             </div>
             HTML;
-        //print_r($_SESSION['errors']);
-        //echo "$_SESSION['errors']</div>";
+        }
+
     }
     unset($_SESSION['errors']);
 
@@ -120,7 +133,7 @@
     }
     ?>
 
-    <div class="card card-outline card-primary">
+    <div class="card card-outline card-olive">
         <div class="card-header text-center">
             <h1 class="h1"><b>Rejestracja </b>użytkownika</h1>
         </div>
@@ -205,7 +218,7 @@
                     </select>
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <span class="fa-people-group"></span>
+                            <span class="fas fa-people-group"></span>
                         </div>
                     </div>
                 </div>
@@ -229,7 +242,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="d-flex justify-content-center align-items-center">
-                    <button type="submit" class="btn btn-primary btn-block">Rejestracja</button>
+                    <button type="submit" class="btn bg-olive btn-block">Rejestracja</button>
                 </div>
                 <!-- /.col -->
                 </div>

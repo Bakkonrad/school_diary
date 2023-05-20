@@ -50,6 +50,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //ochrona przed wejsciem na strone p
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Pole <b>email</b> musi być poprawnym adresem email!";
     }
+    //czy data urodzenia jest wcześniejsza niż dzisiejszy dzień
+    if (strtotime($_POST['birthday']) > strtotime(date("Y-m-d"))) {
+        $errors[] = "Pole <b>data urodzenia</b> nie może być późniejsza niż dzisiejszy dzień!";
+    }
+
+
 
     require "./connect.php";
     $result = $conn->query("SELECT id FROM users WHERE email = '$_POST[email]'");
