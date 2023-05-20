@@ -71,7 +71,7 @@
 }
 
 /* * all links */
-a {
+a, .pagination .page-link {
     color: #3d9970;
 }
 
@@ -89,8 +89,6 @@ a i {
 a i:hover {
     color: #307858;
 }
-
-
 
 /* .navbar-nav .nav-item a.active  {
     color:#FEFCFB;

@@ -250,9 +250,10 @@
                 <!-- /.col -->
                 </div>
                 </form>
-        </div> 
+            </div> 
         </div> <!-- /.card-body -->
-        </div> <!-- /.container-fluid -->
+    </div> <!-- /.container-fluid -->
+    <br>
         </div> <!-- /.content -->
     </div> <!-- /.content-wrapper -->
 
@@ -260,7 +261,7 @@
     <footer class="main-footer">
         <!-- To the right -->
         <div class="float-right d-none d-sm-inline">
-        <img src="../../resources/logo.png" width="100" height="30">
+        <img src="../../resources/logo.png" width="100" height="32">
         </div>
         <!-- Default to the left -->
         <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.

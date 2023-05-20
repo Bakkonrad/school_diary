@@ -36,7 +36,8 @@
     <nav class="main-header navbar navbar-expand-md navbar-olive navbar-dark">
     <div class="container">
         <a href="teacher_main.php" class="navbar-brand">
-        <span class="brand-text"><b>dziennik</b><br>lekcyjny</span>
+            <img src="../../resources/logo2.png" width="40" height="40">
+            <span class="brand-text"><b>dziennik</b> lekcyjny</span>
         </a>
 
         <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,9 +64,9 @@
         <!-- SEARCH FORM -->
         <form class="form-inline ml-0 ml-md-3">
             <div class="input-group input-group-sm">
-            <input class="form-control" type="search" placeholder="szukaj" aria-label="Search">
+            <input class="form-control form-control-border" type="search" placeholder="szukaj" aria-label="Search">
             <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
+                <button class="btn search-btn" type="submit">
                 <i class="fas fa-search"></i>
                 </button>
             </div>
@@ -74,7 +75,7 @@
         <!-- ACCOUNT ICON -->
         <li class="nav-item">
             <a href="teacher_account.php" class="nav-link">
-                <i class="fa fa-solid fa-chalkboard-user" style="color: #ffffff;"></i>
+                <i class="fa fa-solid fa-chalkboard-user fa-lg"></i>
             </a>
         </li>
         </ul>
@@ -130,7 +131,7 @@
     <footer class="main-footer">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-    <img src="../../resources/5dde1da915414cb9969ecfb744fedfb6.png" width="100" height="30">
+    <img src="../../resources/logo.png" width="100" height="32">
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
