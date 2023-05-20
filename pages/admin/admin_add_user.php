@@ -25,9 +25,9 @@
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-    <link href="C:/xampp/htdocs/git/projekt/school_diary/plugins/fontawesome-free/css/fontawesome.css" rel="stylesheet">
-    <link href="C:/xampp/htdocs/git/projekt/school_diary/plugins/fontawesome-free/css/brands.css" rel="stylesheet">
-    <link href="C:/xampp/htdocs/git/projekt/school_diary/plugins/fontawesome-free/css/solid.css" rel="stylesheet">
+    <link href="../../plugins/fontawesome-free/css/fontawesome.css" rel="stylesheet">
+    <link href="../../plugins/fontawesome-free/css/brands.css" rel="stylesheet">
+    <link href="../../plugins/fontawesome-free/css/solid.css" rel="stylesheet">
     <!-- Custom style -->
     <link rel="stylesheet" href="../css/style.css">
 </head>
