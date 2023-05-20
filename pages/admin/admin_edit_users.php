@@ -105,6 +105,60 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <?php
+                                if (isset($_SESSION['errors'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
+                                {
+                                    //sprawdza czyw tablicy errors jest więcej niż 3 błędy, jesli tak to wyświetla inny komunikat
+                            
+                                    if (count($_SESSION['errors']) > 1 && count($_SESSION['errors']) < 3) {
+                                        
+                                        $error1 = $_SESSION['errors'][0];
+                                        $error2 = $_SESSION['errors'][1];
+                                        echo <<<HTML
+                                        <div class="callout callout-danger">
+                                        <h5>BŁĄD!</h5>
+                                        <p>$error1</p>
+                                        <p>$error2</p>
+                                        </div>
+                                        HTML;
+                            
+                                    } 
+                                    if (count($_SESSION['errors']) > 1) {
+                            
+                                        $error1 = $_SESSION['errors'][0];
+                                        echo <<<HTML
+                                        <div class="callout callout-danger">
+                                        <h5>BŁĄD!</h5>
+                                        <p>$error1</p>
+                                        </div>
+                                        HTML;
+                                    }
+                                    if (count($_SESSION['errors']) == 1) {
+                            
+                                        $error1 = $_SESSION['errors'][0];
+                                        echo <<<HTML
+                                        <div class="callout callout-danger">
+                                        <h5>BŁĄD!</h5>
+                                        <p>$error1</p>
+                                        </div>
+                                        HTML;
+                                    }
+                            
+                                }
+                                unset($_SESSION['errors']);
+                            
+                                if (isset($_SESSION['notification'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
+                                {
+                                    echo <<< HTML
+                                        <div class="callout callout-success">
+                                        <h5>SUKCES!</h5>
+                                        <p>$_SESSION[notification]</p>
+                                        </div>
+                                        HTML;
+                                    unset($_SESSION['notification']);
+                                }
+                                ?>
+
                                 <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <h1 class="m-0">Wyświetlanie użytkowników</h1>
