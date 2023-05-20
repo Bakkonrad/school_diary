@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+    <!-- Custom style -->
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body class="hold-transition layout-top-nav">
@@ -158,9 +160,25 @@
                                             <?php
                                                 require "../../scripts/connect.php";
                                                 mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
-                                            
-                                                $sql = "SELECT users.id, users.firstName, users.lastName, users.birthday, users.email, users.login, classes.class, roles.role FROM `users` JOIN `classes` ON `users`.`class` = `classes`.`class_id` JOIN `roles` ON `users`.`role` = `roles`.`role_id`;";
 
+                                                $recordsPerPage = 2; //ilość rekordów na stronie
+
+                                                if(isset($_GET['page'])) //jesli jest ustawiona zmienna page
+                                                {
+                                                    $currentPage = $_GET['page'];
+                                                }
+                                                else
+                                                {
+                                                    $currentPage = 1;
+                                                }
+
+                                                $sql = "SELECT COUNT(*) AS allUsers FROM `users`;";  //zapytanie zliczające wszystkie rekordy
+                                                $result = $conn->query($sql);
+                                                $row = $result->fetch_assoc();
+                                                $allUsers = $row['allUsers']; //liczba wszystkich rekordów w bazie
+                                                $numberOfPages = ceil($allUsers/$recordsPerPage); //liczba stron
+
+                                                $sql = "SELECT users.id, users.firstName, users.lastName, users.birthday, users.email, users.login, classes.class, roles.role FROM `users` JOIN `classes` ON `users`.`class` = `classes`.`class_id` JOIN `roles` ON `users`.`role` = `roles`.`role_id` LIMIT $recordsPerPage OFFSET ".($currentPage-1)*$recordsPerPage.";";
                                                 $result = $conn->query($sql);
 
                                                 if($result->num_rows == 0)
@@ -182,42 +200,14 @@
                                                             <td>$user[class]</td>
                                                             <td>$user[role]</td>
                                                             <td><a href="../../scripts/delete_user.php?userDeleteId=$user[id]">Usuń</a></td>
-                                                            <td><a href="./5_db_table_delete_add_update.php?userUpdateId=$user[id]">Edytuj</a></td>
+                                                            <td><a href="../../scripts/update_user.php?userUpdateId=$user[id]">Edytuj</a></td>
                                                         </tr>
                                                     HTML;
                                                     }
                                                 }
-
+                                                $conn->close();
                                             ?>
-                                                <!-- <tr class="odd">
-                                                    <td class="dtr-control sorting_1" tabindex="0">Gecko</td>
-                                                    <td>Firefox 1.0</td>
-                                                    <td>Win 98+ / OSX.2+</td>
-                                                    <td>1.7</td>
-                                                    <td>A</td>
-                                                </tr>
-                                                <tr class="even">
-                                                    <td class="dtr-control sorting_1" tabindex="0">Gecko</td>
-                                                    <td>Firefox 1.5</td>
-                                                    <td>Win 98+ / OSX.2+</td>
-                                                    <td>1.8</td>
-                                                    <td>A</td>
-                                                </tr> -->
                                             </tbody>
-                                            <!-- <tfoot>
-                                                <tr>
-                                                    <th rowspan="1" colspan="1">Id</th>
-                                                    <th rowspan="1" colspan="1">Imię</th>
-                                                    <th rowspan="1" colspan="1">Nazwisko</th>
-                                                    <th rowspan="1" colspan="1">Data urodzenia</th>
-                                                    <th rowspan="1" colspan="1">Login</th>
-                                                    <th rowspan="1" colspan="1">Email</th>
-                                                    <th rowspan="1" colspan="1">Klasa</th>
-                                                    <th rowspan="1" colspan="1">Rola</th>
-                                                    <th rowspan="1" colspan="1">Usuń</th>
-                                                    <th rowspan="1" colspan="1">Edytuj</th>
-                                                </tr>
-                                            </tfoot> -->
                                         </table>
                                     </div>
                                 </div>
@@ -229,30 +219,53 @@
                                     <div class="col-sm-12 col-md-7">
                                         <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
                                             <ul class="pagination">
-                                                <li class="paginate_button page-item previous disabled"
-                                                    id="example1_previous"><a href="#" aria-controls="example1"
-                                                        data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                                                <li class="paginate_button page-item active"><a href="#"
-                                                        aria-controls="example1" data-dt-idx="1" tabindex="0"
-                                                        class="page-link">1</a></li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                        aria-controls="example1" data-dt-idx="2" tabindex="0"
-                                                        class="page-link">2</a></li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                        aria-controls="example1" data-dt-idx="3" tabindex="0"
-                                                        class="page-link">3</a></li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                        aria-controls="example1" data-dt-idx="4" tabindex="0"
-                                                        class="page-link">4</a></li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                        aria-controls="example1" data-dt-idx="5" tabindex="0"
-                                                        class="page-link">5</a></li>
-                                                <li class="paginate_button page-item "><a href="#"
-                                                        aria-controls="example1" data-dt-idx="6" tabindex="0"
-                                                        class="page-link">6</a></li>
-                                                <li class="paginate_button page-item next" id="example1_next"><a
-                                                        href="#" aria-controls="example1" data-dt-idx="7" tabindex="0"
-                                                        class="page-link">Next</a></li>
+                                                <?php
+
+                                                if($currentPage == 1) //przycisk previous
+                                                {
+                                                    echo <<< HTML
+                                                    <li class="paginate_button page-item previous disabled" id="example1_previous">
+                                                        <a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Poprzednia</a>
+                                                    </li>
+                                                    HTML;
+                                                }
+                                                else
+                                                {
+                                                    $previousPage = $currentPage - 1;
+                                                    echo <<< HTML
+                                                    <li class="paginate_button page-item previous" id="example1_previous">
+                                                        <a href="./admin_edit_users.php?page=$previousPage" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Poprzednia</a>
+                                                    </li>
+                                                    HTML;
+                                                }
+
+                                                for($i=1; $i<=$numberOfPages; $i++) //przyciski z numerami stron
+                                                {
+                                                    echo <<< HTML
+                                                    <li class="paginate_button page-item">
+                                                        <a href="./admin_edit_users.php?page=$i" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">$i</a>
+                                                    </li>
+                                                    HTML;
+                                                }
+
+                                                if($currentPage == $numberOfPages) //przycisk next
+                                                {
+                                                    echo <<< HTML
+                                                    <li class="paginate_button page-item next disabled" id="example1_next">
+                                                        <a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Następna</a>
+                                                    </li>
+                                                    HTML;
+                                                }
+                                                else
+                                                {
+                                                    $nextPage = $currentPage + 1;
+                                                    echo <<< HTML
+                                                    <li class="paginate_button page-item next" id="example1_next">
+                                                        <a href="./admin_edit_users.php?page=$nextPage" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Następna</a>
+                                                    </li>
+                                                    HTML;
+                                                }
+                                                ?>
                                             </ul>
                                         </div>
                                     </div>
