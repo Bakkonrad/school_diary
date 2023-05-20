@@ -96,7 +96,7 @@
     {
         //sprawdza czyw tablicy errors jest więcej niż 3 błędy, jesli tak to wyświetla inny komunikat
 
-        if (count($_SESSION['errors']) > 1 && count($_SESSION['errors']) < 3) {
+        if (count($_SESSION['errors']) > 1 && count($_SESSION['errors']) < 4) {
             
             $error1 = $_SESSION['errors'][0];
             $error2 = $_SESSION['errors'][1];
@@ -109,13 +109,13 @@
             HTML;
 
         } 
-        if (count($_SESSION['errors']) > 1) {
+        if (count($_SESSION['errors']) > 4) {
 
-            $error1 = $_SESSION['errors'][0];
+            //$error1 = $_SESSION['errors'][0];
             echo <<<HTML
             <div class="callout callout-danger">
             <h5>BŁĄD!</h5>
-            <p>$error1</p>
+            <p>Uzupełnij wszystkie pola!</p>
             </div>
             HTML;
         }
