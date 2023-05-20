@@ -28,6 +28,8 @@
     <link href="C:/xampp/htdocs/git/projekt/school_diary/plugins/fontawesome-free/css/fontawesome.css" rel="stylesheet">
     <link href="C:/xampp/htdocs/git/projekt/school_diary/plugins/fontawesome-free/css/brands.css" rel="stylesheet">
     <link href="C:/xampp/htdocs/git/projekt/school_diary/plugins/fontawesome-free/css/solid.css" rel="stylesheet">
+    <!-- Custom style -->
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
@@ -35,7 +37,8 @@
     <nav class="main-header navbar navbar-expand-md navbar-olive navbar-dark">
         <div class="container">
         <a href="admin_main.php" class="navbar-brand">
-            <span class="brand-text"><b>dziennik</b><br>lekcyjny</span>
+            <img src="../../resources/logo2.png" width="40" height="40">
+            <span class="brand-text"><b>dziennik</b> lekcyjny</span>
         </a>
 
         <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +52,7 @@
                 <a href="admin_main.php" class="nav-link">Strona główna</a>
             </li>
             <li class="nav-item">
-                <a href="admin_edit_users.php" class="nav-link">Wyświetl lub edytuj użytkowników</a>
+                <a href="admin_edit_users.php" class="nav-link">Użytkownicy</a>
             </li>
             <li class="nav-item">
                 <a href="admin_add_user.php" class="nav-link">Dodawanie użytkownika</a>
@@ -65,9 +68,9 @@
             <!-- SEARCH FORM -->
             <form class="form-inline ml-0 ml-md-3">
             <div class="input-group input-group-sm">
-                <input class="form-control" type="search" placeholder="szukaj" aria-label="Search">
+                <input class="form-control form-control-border" type="search" placeholder="szukaj" aria-label="Search">
                 <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
+                <button class="btn search-btn" type="submit">
                     <i class="fas fa-search"></i>
                 </button>
                 </div>
@@ -76,7 +79,7 @@
             <!-- ACCOUNT ICON -->
             <li class="nav-item">
             <a href="admin_account.php" class="nav-link">
-                <i class="fa fa-solid fa-user-shield" style="color: #ffffff;"></i>
+                <i class="fa fa-solid fa-user-shield fa-lg"></i>
             </a>
             </li>
         </ul>
@@ -236,7 +239,7 @@
                     </select>
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <span class="fa-people-group"></span>
+                            <span class="fa fa-people-group"></span>
                         </div>
                     </div>
                 </div>
