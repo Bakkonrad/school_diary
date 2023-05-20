@@ -111,7 +111,7 @@
                 <img src="../../resources/pexels-cdc-3992949.jpg" width="400" height="270">
               </div>
               <div class="row justify-content-md-center">
-                <label>dzieciak na matmie</label>
+                <label>dzieciak na matmie hihi</label>
               </div>
             </div> <!-- /.card-body -->
           </div> <!-- /.card -->
