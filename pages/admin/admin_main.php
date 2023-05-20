@@ -73,11 +73,29 @@
           </div>
         </form>
         <!-- ACCOUNT ICON -->
-        <li class="nav-item">
-          <a href="admin_account.php" class="nav-link">
-            <i class="fa fa-solid fa-user-shield fa-lg"></i>
-          </a>
-        </li>
+        <li class="dropdown user user-menu open nav-item">
+            <a class="nav-link" data-toggle="dropdown" aria-expanded="true">
+              <i class="fa fa-solid fa-user-shield fa-lg"></i>
+            </a>
+            <ul class="dropdown-menu" >
+              <li class="user-header">
+                <img src="../../resources/admin.jpg" class="img-circle" alt="User Image">
+                <?php
+                  echo <<< HTML
+                    <p><b>imię i nazwisko: </b>$_SESSION[firstName] $_SESSION[lastName]</p>
+                    <p><b>email: </b>$_SESSION[email]</p>
+                    <p style="margin-bottom: 20px;"><b>login: </b>$_SESSION[login]</p>
+                  HTML;
+                ?>
+              </li>
+              <br><br><br>
+              <li class="user-footer">
+                <div class="text-center" id="logout-div">
+                    <a href="../../scripts/logout.php" type="button" id="logout-btn" class="btn btn-block btn-danger" >Wyloguj</a>
+                </div>
+              </li>
+            </ul>
+          </li>
       </ul>
     </div>
   </nav> <!-- /.navbar -->
