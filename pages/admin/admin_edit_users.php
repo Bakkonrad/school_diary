@@ -176,8 +176,9 @@ if ($_SESSION['role'] != 1) {
                                                     aria-controls="example1"></label></div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
+                                <br>
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-6">
                                         <!-- okienko do edytowania użytownika -->
                                         <?php
                                             if(isset($_GET["userUpdateId"]))
@@ -189,57 +190,58 @@ if ($_SESSION['role'] != 1) {
                                                 $updateUser = $result->fetch_assoc(); 
 
                                                 echo <<< HTML
-                                                <div class="card card-primary">
-                                                <form action="../../scripts/update_user.php" method="post">
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="firstName" placeholder="Podaj imię" value="$updateUser[firstName]" autofocus>
-                                                <div class="input-group-append">
-                                                    <div class="input-group-text">
-                                                        <span class="fas fa-user"></span>
+                                            <div class="card card-olive card-outline">
+                                            <div class="card-body">
+                                                    <form action="../../scripts/update_user.php" method="post">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" name="firstName" placeholder="Podaj imię" value="$updateUser[firstName]" autofocus>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-user"></span>
+                                                        </div> <!-- /.input-group-text -->
+                                                    </div> <!-- /.input-group-append -->
+                                                </div> <!-- /.input-group -->
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" name="lastName" placeholder="Podaj nazwisko" value="$updateUser[lastName]" >
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-user"></span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="lastName" placeholder="Podaj nazwisko" value="$updateUser[lastName]" >
-                                                <div class="input-group-append">
-                                                    <div class="input-group-text">
-                                                        <span class="fas fa-user"></span>
+                                                </div> <!-- /.input-group -->
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" name="login" placeholder="Podaj login" value="$updateUser[login]">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-user"></span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="login" placeholder="Podaj login" value="$updateUser[login]">
-                                                <div class="input-group-append">
-                                                    <div class="input-group-text">
-                                                        <span class="fas fa-user"></span>
+                                                </div> <!-- /.input-group -->
+                                                <div class="input-group mb-3">
+                                                    <input type="email" class="form-control" name="email" placeholder="Podaj email" value="$updateUser[email]">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-envelope"></span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <input type="email" class="form-control" name="email" placeholder="Podaj email" value="$updateUser[email]">
-                                                <div class="input-group-append">
-                                                    <div class="input-group-text">
-                                                        <span class="fas fa-envelope"></span>
+                                                </div> <!-- /.input-group -->
+                                                <div class="input-group mb-3">
+                                                    <input type="email" class="form-control" name="confirm_email" placeholder="Powtórz email">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-envelope"></span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <input type="email" class="form-control" name="confirm_email" placeholder="Powtórz email">
-                                                <div class="input-group-append">
-                                                    <div class="input-group-text">
-                                                        <span class="fas fa-envelope"></span>
+                                                </div> <!-- /.input-group -->
+                                                <div class="input-group mb-3">
+                                                    <input type="date" class="form-control" name="birthday" value="$updateUser[birthday]">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-calendar"></span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <input type="date" class="form-control" name="birthday" value="$updateUser[birthday]">
-                                                <div class="input-group-append">
-                                                    <div class="input-group-text">
-                                                        <span class="fas fa-calendar"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="input-group mb-3">
+                                                </div> <!-- /.input-group -->
+                                                <div class="input-group mb-3">
                                             <select class="form-control" name="class">
                                             HTML;
                                                     require "../../scripts/connect.php";
@@ -262,7 +264,7 @@ if ($_SESSION['role'] != 1) {
                                                         <span class="fas fa-people-group"></span>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> <!-- /.input-group -->
                                             <div class="input-group mb-3">
                                             <select class="form-control" name="role">
                                             HTML;
@@ -283,22 +285,22 @@ if ($_SESSION['role'] != 1) {
                                                 </select>
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
-                                                        <span class="fa-people-group"></span>
+                                                        <span class="fa fa-people-group"></span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <!-- /.col -->
+                                            </div> <!-- /.input-group -->
                                             <div class="d-flex justify-content-center align-items-center">
                                                 <button type="submit" class="btn bg-olive btn-block">Zaktualizuj</button>
-                                            </div>
-                                            <!-- /.col -->
-                                            </div>
+                                            </div> <!-- button -->
+                                            </div> <!-- /.card-body -->
+                                                </div> <!-- /.card -->
                                             </form>
-                                            </div>
                                             HTML;
-
-                                            }
-                                            ?>
+                                            
+                                        }
+                                        ?>
+                                        </div> <!-- ./col -->
+                                        </div> <!-- ./row -->
                                         
                                         <table id="example1"
                                             class="table table-bordered table-striped dataTable dtr-inline"
