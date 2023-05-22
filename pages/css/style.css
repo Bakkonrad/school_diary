@@ -37,8 +37,17 @@
 }
 
 /* ? .dropdown .dropdown-menu .user-header .img-circle {
-   ? border: 10px solid #3d9970;
+    ? border: 10px solid #3d9970;
 } */
+
+
+#navbar-dropdown-btn {
+    color: #3d9970;
+}
+
+#navbar-dropdown-btn:hover {
+    color: #2e7052;
+}
 
 /* * dropdown menu logout button */
 .dropdown .dropdown-menu .user-footer #logout-div #logout-btn {
@@ -60,23 +69,12 @@
     color:white
 }
 
-/* * navbar search button */
-.search-btn {
-    border-color: #ffffff;
-    background-color: #ffffff;
-    color: #3d9970;
-}
 
 /* * buttons on hover */
 .btn:hover {
     border-color: #2e7052;
     background-color: #307858;
     color: white;
-}
-
-/* * navbar search form */
-.form-control-border{
-    background-color: #3d9970;
 }
 
 .form-control-border:focus{

@@ -60,25 +60,36 @@
         </div>
 
         <!-- Right navbar links -->
-        <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-        <!-- SEARCH FORM -->
-        <form class="form-inline ml-0 ml-md-3">
-            <div class="input-group input-group-sm">
-            <input class="form-control form-control-border" type="search" placeholder="szukaj" aria-label="Search">
-            <div class="input-group-append">
-                <button class="btn search-btn" type="submit">
-                <i class="fas fa-search"></i>
-                </button>
+        <div class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+            <!-- ACCOUNT ICON -->
+            <div class="dropdown user user-menu open nav-item">
+                <a class="nav-link" data-toggle="dropdown" aria-expanded="true">
+                <span class="fa fa-stack">
+                    <i class="fa fa-thin fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-solid fa-user-shield fa-stack-1x fa-inverse" id="navbar-dropdown-btn"></i>
+                </span>
+                </a>
+                <ul class="dropdown-menu" >
+                    <li class="user-header">
+                    <img src="../../resources/teacher.jpg" class="img-circle" alt="User Image">
+                    <?php
+                        echo <<< HTML
+                        <p><b>imię i nazwisko: </b>$_SESSION[firstName] $_SESSION[lastName]</p>
+                        <hr>
+                        <p><b>email: </b>$_SESSION[email]</p>
+                        <p style="margin-bottom: 20px;"><b>login: </b>$_SESSION[login]</p>
+                        HTML;
+                    ?>
+                    </li>
+                    <br><br><br>
+                    <li class="user-footer">
+                    <div class="text-center" id="logout-div">
+                        <a href="../../scripts/logout.php" type="button" id="logout-btn" class="btn btn-block btn-danger" >Wyloguj</a>
+                    </div>
+                    </li>
+                </ul>
             </div>
-            </div>
-        </form>
-        <!-- ACCOUNT ICON -->
-        <li class="nav-item">
-            <a href="teacher_account.php" class="nav-link">
-                <i class="fa fa-solid fa-chalkboard-user fa-lg"></i>
-            </a>
-        </li>
-        </ul>
+        </div> <!-- ./right-nav -->
     </div>
     </nav> <!-- /.navbar -->
 

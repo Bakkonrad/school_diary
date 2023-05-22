@@ -63,7 +63,7 @@
       <br>
       <img src="../resources/logo.png" width="200" height="60">
       <br><br>
-      <a href="./" class="h1"><b>dziennik</b> lekcyjny</a><br><br>
+      <h2 class="h1"><b>dziennik</b> lekcyjny</h2>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Zaloguj się do systemu</p>
