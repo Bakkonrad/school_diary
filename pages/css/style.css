@@ -50,13 +50,13 @@
 }
 
 /* * dropdown menu logout button */
-.dropdown .dropdown-menu .user-footer #logout-div #logout-btn {
+.dropdown .dropdown-menu .user-footer #logout-div #logout-btn, #delete-btn {
     background-color: #dc3545;
     border-color: #a82936;
     color: white;
 }
 
-.dropdown .dropdown-menu .user-footer #logout-div #logout-btn:hover {
+.dropdown .dropdown-menu .user-footer #logout-div #logout-btn:hover, #delete-btn:hover {
     background-color: #a82936;
     border-color: #a82936;
     color: white;

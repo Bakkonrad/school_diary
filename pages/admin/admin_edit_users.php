@@ -68,29 +68,29 @@ if ($_SESSION['role'] != 1) {
                     <!-- ACCOUNT ICON -->
                     <div class="dropdown user user-menu open nav-item">
                         <a class="nav-link" data-toggle="dropdown" aria-expanded="true">
-                        <span class="fa fa-stack">
-                            <i class="fa fa-thin fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-solid fa-user-shield fa-stack-1x fa-inverse" id="navbar-dropdown-btn"></i>
-                        </span>
+                            <span class="fa fa-stack">
+                                <i class="fa fa-thin fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-solid fa-user-shield fa-stack-1x fa-inverse" id="navbar-dropdown-btn"></i>
+                            </span>
                         </a>
-                        <ul class="dropdown-menu" >
-                        <li class="user-header">
-                            <img src="../../resources/admin.jpg" class="img-circle" alt="User Image">
-                            <?php
-                            echo <<< HTML
+                        <ul class="dropdown-menu">
+                            <li class="user-header">
+                                <img src="../../resources/admin.jpg" class="img-circle" alt="User Image">
+                                <?php
+                                echo <<< HTML
                                 <p><b>imię i nazwisko: </b>$_SESSION[firstName] $_SESSION[lastName]</p>
                                 <hr>
                                 <p><b>email: </b>$_SESSION[email]</p>
                                 <p style="margin-bottom: 20px;"><b>login: </b>$_SESSION[login]</p>
                             HTML;
-                            ?>
-                        </li>
-                        <br><br><br>
-                        <li class="user-footer">
-                            <div class="text-center" id="logout-div">
-                                <a href="../../scripts/logout.php" type="button" id="logout-btn" class="btn btn-block btn-danger" >Wyloguj</a>
-                            </div>
-                        </li>
+                                ?>
+                            </li>
+                            <br><br><br>
+                            <li class="user-footer">
+                                <div class="text-center" id="logout-div">
+                                    <a href="../../scripts/logout.php" type="button" id="logout-btn" class="btn btn-block btn-danger">Wyloguj</a>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -98,98 +98,93 @@ if ($_SESSION['role'] != 1) {
         </nav> <!-- /.navbar -->
 
         <div class="content-wrapper">
-        <!-- <div class="content-wrapper">
+            <!-- <div class="content-wrapper">
             <div class="content-header">
                 <div class="text-center">
                     <h1 class="m-0">Wyświetlanie użytkowników</h1>
                     <!- <h1 class="m-0"> Strona główna <small>zalogowany</small></h1> -->
-                <!-- </div> /.container-fluid -->
-            <!-- </div> /.content-header --> 
+            <!-- </div> /.container-fluid -->
+            <!-- </div> /.content-header -->
 
             <!-- Main content -->
             <div class="content">
                 <div class="container">
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <?php
-                                if (isset($_SESSION['errors'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
-                                {
-                                    //sprawdza czyw tablicy errors jest więcej niż 3 błędy, jesli tak to wyświetla inny komunikat
-                            
-                                    if (count($_SESSION['errors']) > 1 && count($_SESSION['errors']) < 4) {
-                                        
-                                        $error1 = $_SESSION['errors'][0];
-                                        $error2 = $_SESSION['errors'][1];
-                                        echo <<<HTML
+                            if (isset($_SESSION['errors'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
+                            {
+                                //sprawdza czyw tablicy errors jest więcej niż 3 błędy, jesli tak to wyświetla inny komunikat
+
+                                if (count($_SESSION['errors']) > 1 && count($_SESSION['errors']) < 4) {
+
+                                    $error1 = $_SESSION['errors'][0];
+                                    $error2 = $_SESSION['errors'][1];
+                                    echo <<<HTML
                                         <div class="callout callout-danger">
                                         <h5>BŁĄD!</h5>
                                         <p>$error1</p>
                                         <p>$error2</p>
                                         </div>
                                         HTML;
-                            
-                                    } 
-                                    if (count($_SESSION['errors']) > 4) {
-                            
-                                        $error1 = $_SESSION['errors'][0];
-                                        echo <<<HTML
+                                }
+                                if (count($_SESSION['errors']) > 4) {
+
+                                    $error1 = $_SESSION['errors'][0];
+                                    echo <<<HTML
                                         <div class="callout callout-danger">
                                         <h5>BŁĄD!</h5>
                                         <p>Uzupełnij wszystkie pola!</p>
                                         </div>
                                         HTML;
-                                    }
-                                    if (count($_SESSION['errors']) == 1) {
-                            
-                                        $error1 = $_SESSION['errors'][0];
-                                        echo <<<HTML
+                                }
+                                if (count($_SESSION['errors']) == 1) {
+
+                                    $error1 = $_SESSION['errors'][0];
+                                    echo <<<HTML
                                         <div class="callout callout-danger">
                                         <h5>BŁĄD!</h5>
                                         <p>$error1</p>
                                         </div>
                                         HTML;
-                                    }
-                            
                                 }
-                                unset($_SESSION['errors']);
-                            
-                                if (isset($_SESSION['notification'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
-                                {
-                                    echo <<< HTML
+                            }
+                            unset($_SESSION['errors']);
+
+                            if (isset($_SESSION['notification'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
+                            {
+                                echo <<< HTML
                                         <div class="callout callout-success">
                                         <h5>SUKCES!</h5>
                                         <p>$_SESSION[notification]</p>
                                         </div>
                                         HTML;
-                                    unset($_SESSION['notification']);
-                                }
-                                ?>
+                                unset($_SESSION['notification']);
+                            }
+                            ?>
 
-                                <div class="row">
+                            <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <h1 class="m-0">Wyświetlanie użytkowników</h1>
                                 </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <div id="example1_filter" class="dataTables_filter"><label>Szukaj:<input
-                                                    type="search" class="form-control form-control-sm" placeholder="" name="search"
-                                                    aria-controls="example1"></label></div>
-                                    </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div id="example1_filter" class="dataTables_filter"><label>Szukaj:<input type="search" class="form-control form-control-sm" placeholder="" name="search" aria-controls="example1"></label></div>
                                 </div>
-                                <br>
-                                <div class="row justify-content-center">
-                                    <div class="col-sm-6">
-                                        <!-- okienko do edytowania użytownika -->
-                                        <?php
-                                            if(isset($_GET["userUpdateId"]))
-                                            {
-                                                require_once "../../scripts/connect.php";
-                                                $_SESSION["userUpdateId"] = $_GET["userUpdateId"]; //pobiera id uzytkownika z adresu url
-                                                $sql = "SELECT * FROM users WHERE id = $_SESSION[userUpdateId]"; //pobiera dane uzytkownika z bazy danych
-                                                $result = $conn->query($sql);
-                                                $updateUser = $result->fetch_assoc(); 
+                            </div>
+                            <br>
+                            <div class="row justify-content-center">
+                                <div class="col-sm-6">
+                                    <!-- okienko do edytowania użytownika -->
+                                    <?php
+                                    if (isset($_GET["userUpdateId"])) {
+                                        require_once "../../scripts/connect.php";
+                                        $_SESSION["userUpdateId"] = $_GET["userUpdateId"]; //pobiera id uzytkownika z adresu url
+                                        $sql = "SELECT * FROM users WHERE id = $_SESSION[userUpdateId]"; //pobiera dane uzytkownika z bazy danych
+                                        $result = $conn->query($sql);
+                                        $updateUser = $result->fetch_assoc();
 
-                                                echo <<< HTML
+                                        echo <<< HTML
                                             <div class="card card-olive card-outline">
                                             <div class="card-body">
                                                     <form action="../../scripts/update_user.php" method="post">
@@ -244,20 +239,17 @@ if ($_SESSION['role'] != 1) {
                                                 <div class="input-group mb-3">
                                             <select class="form-control" name="class">
                                             HTML;
-                                                    require "../../scripts/connect.php";
-                                                    $sql = "SELECT * FROM `classes`";
-                                                    $result = $conn->query($sql);
-                                                    while ($class = $result->fetch_assoc()) {
-                                                        if($class['class_id'] == $updateUser['class'])
-                                                        {
-                                                            echo "<option value='$class[class_id]' selected>$class[class]</option>";
-                                                        }
-                                                        else
-                                                        {
-                                                            echo "<option value='$class[class_id]'>$class[class]</option>";
-                                                        }
-                                                    }
-                                                    echo <<< HTML
+                                        require "../../scripts/connect.php";
+                                        $sql = "SELECT * FROM `classes`";
+                                        $result = $conn->query($sql);
+                                        while ($class = $result->fetch_assoc()) {
+                                            if ($class['class_id'] == $updateUser['class']) {
+                                                echo "<option value='$class[class_id]' selected>$class[class]</option>";
+                                            } else {
+                                                echo "<option value='$class[class_id]'>$class[class]</option>";
+                                            }
+                                        }
+                                        echo <<< HTML
                                                 </select>
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
@@ -268,20 +260,17 @@ if ($_SESSION['role'] != 1) {
                                             <div class="input-group mb-3">
                                             <select class="form-control" name="role">
                                             HTML;
-                                                    require "../../scripts/connect.php";
-                                                    $sql = "SELECT * FROM `roles`";
-                                                    $result = $conn->query($sql);
-                                                    while ($role = $result->fetch_assoc()) {
-                                                        if($role['role_id'] == $updateUser['role'])
-                                                        {
-                                                            echo "<option value='$role[role_id]' selected>$role[role]</option>";
-                                                        }
-                                                        else
-                                                        {
-                                                            echo "<option value='$role[role_id]'>$role[role]</option>";
-                                                        }
-                                                    }
-                                                    echo <<< HTML
+                                        require "../../scripts/connect.php";
+                                        $sql = "SELECT * FROM `roles`";
+                                        $result = $conn->query($sql);
+                                        while ($role = $result->fetch_assoc()) {
+                                            if ($role['role_id'] == $updateUser['role']) {
+                                                echo "<option value='$role[role_id]' selected>$role[role]</option>";
+                                            } else {
+                                                echo "<option value='$role[role_id]'>$role[role]</option>";
+                                            }
+                                        }
+                                        echo <<< HTML
                                                 </select>
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
@@ -296,51 +285,27 @@ if ($_SESSION['role'] != 1) {
                                                 </div> <!-- /.card -->
                                             </form>
                                             HTML;
-                                            
-                                        }
-                                        ?>
-                                        </div> <!-- ./col -->
-                                        </div> <!-- ./row -->
-                                        
-                                        <table id="example1"
-                                            class="table table-bordered table-striped dataTable dtr-inline"
-                                            aria-describedby="example1_info">
-                                            <thead>
-                                                <tr>
-                                                    <th class="sorting sorting_asc" tabindex="0"
-                                                        aria-controls="example1" rowspan="1" colspan="1"
-                                                        aria-sort="descending"
-                                                        aria-label="Sortuj według Id">Id</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example1"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Sortuj według Imię">Imię</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example1"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Sortuj według Nazwisko">Nazwisko</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example1"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Sortuj według Nazwisko">Data urodzenia</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example1"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Sortuj według Login">Login</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example1"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Sortuj według Id">email</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example1"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Sortuj według Klasa">Klasa</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example1"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Sortuj według Rola">Rola</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example1"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Sortuj według Rola">Usuń</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example1"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Sortuj według Rola">Edytuj</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                    }
+                                    ?>
+                                </div> <!-- ./col -->
+                            </div> <!-- ./row -->
+
+                            <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
+                                <thead>
+                                    <tr>
+                                        <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="descending" aria-label="Sortuj według Id">Id</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Imię">Imię</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Nazwisko">Nazwisko</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Nazwisko">Data urodzenia</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Login">Login</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Id">email</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Klasa">Klasa</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Rola">Rola</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Rola">Usuń</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Rola">Edytuj</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
                                     <?php
                                     require "../../scripts/connect.php";
@@ -364,15 +329,12 @@ if ($_SESSION['role'] != 1) {
                                     $sql = "SELECT users.id, users.firstName, users.lastName, users.birthday, users.email, users.login, classes.class, roles.role FROM `users` JOIN `classes` ON `users`.`class` = `classes`.`class_id` JOIN `roles` ON `users`.`role` = `roles`.`role_id` LIMIT $recordsPerPage OFFSET " . ($currentPage - 1) * $recordsPerPage . ";";
                                     $result = $conn->query($sql);
 
-                                                if($result->num_rows == 0)
-                                                {
-                                                    echo "<tr><td colspan ='100%'>Brak rekordów do wyświwetlenia</td></tr>";
-                                                }
-                                                else // jesli sa rekordy w tabli to je wyswietl
-                                                {
-                                                    while($user = $result->fetch_assoc())
-                                                    {
-                                                        echo <<< HTML
+                                    if ($result->num_rows == 0) {
+                                        echo "<tr><td colspan ='100%'>Brak rekordów do wyświwetlenia</td></tr>";
+                                    } else // jesli sa rekordy w tabli to je wyswietl
+                                    {
+                                        while ($user = $result->fetch_assoc()) {
+                                            echo <<< HTML
                                                         <tr>
                                                     <td class="dtr-control sorting_1" tabindex="0">$user[id]</td>
                                                             <td>$user[firstName]</td>
@@ -382,27 +344,58 @@ if ($_SESSION['role'] != 1) {
                                                             <td>$user[email]</td>
                                                             <td>$user[class]</td>
                                                             <td>$user[role]</td>
-                                                            <td><a href="../../scripts/delete_user.php?userDeleteId=$user[id]">Usuń</a></td>
-                                                            <td><a href="./admin_edit_users.php?userUpdateId=$user[id]">Edytuj</a></td>
+                                                            <td>
+                                                            <!-- Przycisk potwierdzający usuwanie -->
+                                                            <button type="button" class="btn btn-danger"  id="delete-btn" data-toggle="modal" data-target="#confirmDelete$user[id]">Usuń</button>
+                                                        <!-- Modal - potwierdzenie usunięcia użytkownika, musi być tutaj żeby zbierał dane o konkretnym użytkowniku --> 
+                                                        <div class="modal fade" id="confirmDelete$user[id]" tabindex="0" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="confirmDeleteLabel">Potwierdź operację</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        Czy na pewno chcesz usunąć użytkownika <strong>$user[firstName] $user[lastName]</strong>?
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <div class="row">
+                                                                            <div class="col-4">
+                                                                                <button type="button" class="btn btn-secondary" style="background-color:grey" data-dismiss="modal">Anuluj</button>
+                                                                            </div>
+                                                                            <div class="col-8">
+                                                                                <a href="../../scripts/delete_user.php?userDeleteId=$user[id]">
+                                                                                    <button type="button" class="btn btn-danger" id="delete-btn">Usuń użytkownika</button>
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- /.modal -->
+                                                        </td>
+                                                        <td><a href="./admin_edit_users.php?userUpdateId=$user[id]"><button type="button" class="btn btn-olive">Edytuj</button></a></td>
                                                         </tr>
                                                     HTML;
-                                                    }
-                                                }
-                                                $conn->close();
-                                            ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- <div class="row">
+                                        }
+                                    }
+                                    $conn->close();
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
                                     <div class="col-sm-12 col-md-5">
                                         <div class="dataTables_info" id="example1_info" role="status"
                                             aria-live="polite">Showing 1 to 10 of 57 entries</div>
                                     </div> -->
-                                    <div class="col-sm-12 col-md-7">
-                                        <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
-                                            <ul class="pagination">
-                                                <?php
+                    <div class="col-sm-12 col-md-7">
+                        <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+                            <ul class="pagination">
+                                <?php
 
                                 if ($currentPage == 1) //przycisk previous
                                 {
@@ -445,24 +438,24 @@ if ($_SESSION['role'] != 1) {
                                         HTML;
                                 }
                                 ?>
-                                </ul>
-                            </div> <!-- /.paginacja -->
-                        </div> <!-- /.col -->
-                    </div> <!-- /.example1-wrapper -->
-                </div> <!-- /.card-body -->
-            </div> <!-- /.container -->
-        </div> <!-- /.content -->
-        </div> <!-- /.content-wrapper -->
+                            </ul>
+                        </div> <!-- /.paginacja -->
+                    </div> <!-- /.col -->
+                </div> <!-- /.example1-wrapper -->
+            </div> <!-- /.card-body -->
+        </div> <!-- /.container -->
+    </div> <!-- /.content -->
+    </div> <!-- /.content-wrapper -->
 
-        <!-- Main Footer -->
-        <footer class="main-footer">
-            <!-- To the right -->
-            <div class="float-right d-none d-sm-inline">
-                <img src="../../resources/logo.png" width="100" height="32">
-            </div>
-            <!-- Default to the left -->
-            <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
-        </footer>
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <!-- To the right -->
+        <div class="float-right d-none d-sm-inline">
+            <img src="../../resources/logo.png" width="100" height="32">
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
+    </footer>
     </div> <!-- ./wrapper -->
 
 
