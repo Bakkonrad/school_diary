@@ -67,26 +67,36 @@ if ($_SESSION['role'] != 1) {
                 </div> <!-- /.collapse navbar-collapse -->
 
                 <!-- Right navbar links -->
-                <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                    <!-- SEARCH FORM -->
-                    <form class="form-inline ml-0 ml-md-3">
-                        <div class="input-group input-group-sm">
-                            <input class="form-control form-control-border" type="search" placeholder="szukaj"
-                                aria-label="Search">
-                            <div class="input-group-append">
-                                <button class="btn search-btn" type="submit">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                <div class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                     <!-- ACCOUNT ICON -->
-                    <li class="nav-item">
-                        <a href="admin_account.php" class="nav-link">
-                            <i class="fa fa-solid fa-user-shield fa-lg"></i>
+                    <div class="dropdown user user-menu open nav-item">
+                        <a class="nav-link" data-toggle="dropdown" aria-expanded="true">
+                            <span class="fa fa-stack">
+                                <i class="fa fa-thin fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-solid fa-user-shield fa-stack-1x fa-inverse" id="navbar-dropdown-btn"></i>
+                            </span>
                         </a>
-                    </li>
-                </ul>
+                        <ul class="dropdown-menu">
+                            <li class="user-header">
+                                <img src="../../resources/admin.jpg" class="img-circle" alt="User Image">
+                                <?php
+                                echo <<< HTML
+                                <p><b>imię i nazwisko: </b>$_SESSION[firstName] $_SESSION[lastName]</p>
+                                <hr>
+                                <p><b>email: </b>$_SESSION[email]</p>
+                                <p style="margin-bottom: 20px;"><b>login: </b>$_SESSION[login]</p>
+                            HTML;
+                                ?>
+                            </li>
+                            <br><br><br>
+                            <li class="user-footer">
+                                <div class="text-center" id="logout-div">
+                                    <a href="../../scripts/logout.php" type="button" id="logout-btn" class="btn btn-block btn-danger">Wyloguj</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div> <!-- /.container -->
         </nav> <!-- /.navbar -->
 
@@ -109,7 +119,6 @@ if ($_SESSION['role'] != 1) {
                             if (isset($_SESSION['errors'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
                             {
                                 //sprawdza czyw tablicy errors jest więcej niż 3 błędy, jesli tak to wyświetla inny komunikat
-                            
                                 if (count($_SESSION['errors']) > 1 && count($_SESSION['errors']) < 4) {
 
                                     $error1 = $_SESSION['errors'][0];
@@ -121,7 +130,6 @@ if ($_SESSION['role'] != 1) {
                                         <p>$error2</p>
                                         </div>
                                         HTML;
-
                                 }
                                 if (count($_SESSION['errors']) > 4) {
 
@@ -143,13 +151,12 @@ if ($_SESSION['role'] != 1) {
                                         </div>
                                         HTML;
                                 }
-
                             }
                             unset($_SESSION['errors']);
 
                             if (isset($_SESSION['notification'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
                             {
-                                echo <<<HTML
+                                echo <<< HTML
                                         <div class="callout callout-success">
                                         <h5>SUKCES!</h5>
                                         <p>$_SESSION[notification]</p>
@@ -164,13 +171,12 @@ if ($_SESSION['role'] != 1) {
                                     <h1 class="m-0">Wyświetlanie użytkowników</h1>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
-                                    <div id="example1_filter" class="dataTables_filter"><label>Szukaj:<input
-                                                type="search" class="form-control form-control-sm" placeholder=""
-                                                name="search" aria-controls="example1"></label></div>
+                                    <div id="example1_filter" class="dataTables_filter"><label>Szukaj:<input type="search" class="form-control form-control-sm" placeholder="" name="search" aria-controls="example1"></label></div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-12">
+                            <br>
+                            <div class="row justify-content-center">
+                                <div class="col-sm-6">
                                     <!-- okienko do edytowania użytownika -->
                                     <?php
                                     if (isset($_GET["userUpdateId"])) {
@@ -180,58 +186,60 @@ if ($_SESSION['role'] != 1) {
                                         $result = $conn->query($sql);
                                         $updateUser = $result->fetch_assoc();
 
-                                        echo <<<HTML
-                                                <div class="card card-primary">
-                                                <form action="../../scripts/update_user.php" method="post">
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="firstName" placeholder="Podaj imię" value="$updateUser[firstName]" autofocus>
-                                                <div class="input-group-append">
-                                                    <div class="input-group-text">
-                                                        <span class="fas fa-user"></span>
+                                        echo <<< HTML
+                                            <div class="card card-olive card-outline">
+                                            <div class="card-body">
+                                                    <form action="../../scripts/update_user.php" method="post">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" name="firstName" placeholder="Podaj imię" value="$updateUser[firstName]" autofocus>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-user"></span>
+                                                        </div> <!-- /.input-group-text -->
+                                                    </div> <!-- /.input-group-append -->
+                                                </div> <!-- /.input-group -->
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" name="lastName" placeholder="Podaj nazwisko" value="$updateUser[lastName]" >
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-user"></span>
+                                                        </div>
+
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="lastName" placeholder="Podaj nazwisko" value="$updateUser[lastName]" >
-                                                <div class="input-group-append">
-                                                    <div class="input-group-text">
-                                                        <span class="fas fa-user"></span>
+                                                </div> <!-- /.input-group -->
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control" name="login" placeholder="Podaj login" value="$updateUser[login]">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-user"></span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="login" placeholder="Podaj login" value="$updateUser[login]">
-                                                <div class="input-group-append">
-                                                    <div class="input-group-text">
-                                                        <span class="fas fa-user"></span>
+                                                </div> <!-- /.input-group -->
+                                                <div class="input-group mb-3">
+                                                    <input type="email" class="form-control" name="email" placeholder="Podaj email" value="$updateUser[email]">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-envelope"></span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <input type="email" class="form-control" name="email" placeholder="Podaj email" value="$updateUser[email]">
-                                                <div class="input-group-append">
-                                                    <div class="input-group-text">
-                                                        <span class="fas fa-envelope"></span>
+                                                </div> <!-- /.input-group -->
+                                                <div class="input-group mb-3">
+                                                    <input type="email" class="form-control" name="confirm_email" placeholder="Powtórz email">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-envelope"></span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <input type="email" class="form-control" name="confirm_email" placeholder="Powtórz email">
-                                                <div class="input-group-append">
-                                                    <div class="input-group-text">
-                                                        <span class="fas fa-envelope"></span>
+                                                </div> <!-- /.input-group -->
+                                                <div class="input-group mb-3">
+                                                    <input type="date" class="form-control" name="birthday" value="$updateUser[birthday]">
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">
+                                                            <span class="fas fa-calendar"></span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                                <input type="date" class="form-control" name="birthday" value="$updateUser[birthday]">
-                                                <div class="input-group-append">
-                                                    <div class="input-group-text">
-                                                        <span class="fas fa-calendar"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="input-group mb-3">
+                                                </div> <!-- /.input-group -->
+                                                <div class="input-group mb-3">
                                             <select class="form-control" name="class">
                                             HTML;
                                         require "../../scripts/connect.php";
@@ -244,14 +252,15 @@ if ($_SESSION['role'] != 1) {
                                                 echo "<option value='$class[class_id]'>$class[class]</option>";
                                             }
                                         }
-                                        echo <<<HTML
+
+                                        echo <<< HTML
                                                 </select>
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
                                                         <span class="fas fa-people-group"></span>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> <!-- /.input-group -->
                                             <div class="input-group mb-3">
                                             <select class="form-control" name="role">
                                             HTML;
@@ -265,26 +274,25 @@ if ($_SESSION['role'] != 1) {
                                                 echo "<option value='$role[role_id]'>$role[role]</option>";
                                             }
                                         }
-                                        echo <<<HTML
+                                        echo <<< HTML
                                                 </select>
                                                 <div class="input-group-append">
                                                     <div class="input-group-text">
-                                                        <span class="fa-people-group"></span>
+                                                        <span class="fa fa-people-group"></span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <!-- /.col -->
+                                            </div> <!-- /.input-group -->
                                             <div class="d-flex justify-content-center align-items-center">
                                                 <button type="submit" class="btn bg-olive btn-block">Zaktualizuj</button>
-                                            </div>
-                                            <!-- /.col -->
-                                            </div>
+                                            </div> <!-- button -->
+                                            </div> <!-- /.card-body -->
+                                                </div> <!-- /.card -->
                                             </form>
-                                            </div>
                                             HTML;
-
                                     }
                                     ?>
+                                </div> <!-- ./col -->
+                            </div> <!-- ./row -->
 
                                     <table id="example1" class="table table-bordered table-striped dataTable dtr-inline"
                                         aria-describedby="example1_info">
@@ -352,23 +360,55 @@ if ($_SESSION['role'] != 1) {
                                                             <td>$user[email]</td>
                                                             <td>$user[class]</td>
                                                             <td>$user[role]</td>
-                                                            <td><a href="../../scripts/delete_user.php?userDeleteId=$user[id]">Usuń</a></td>
-                                                            <td><a href="./admin_edit_users.php?userUpdateId=$user[id]">Edytuj</a></td>
+                                                            <td>
+                                                            <!-- Przycisk potwierdzający usuwanie -->
+                                                            <button type="button" class="btn btn-danger"  id="delete-btn" data-toggle="modal" data-target="#confirmDelete$user[id]">Usuń</button>
+                                                        <!-- Modal - potwierdzenie usunięcia użytkownika, musi być tutaj żeby zbierał dane o konkretnym użytkowniku --> 
+                                                        <div class="modal fade" id="confirmDelete$user[id]" tabindex="0" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="confirmDeleteLabel">Potwierdź operację</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        Czy na pewno chcesz usunąć użytkownika <strong>$user[firstName] $user[lastName]</strong>?
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <div class="row">
+                                                                            <div class="col-4">
+                                                                                <button type="button" class="btn btn-secondary" style="background-color:grey" data-dismiss="modal">Anuluj</button>
+                                                                            </div>
+                                                                            <div class="col-8">
+                                                                                <a href="../../scripts/delete_user.php?userDeleteId=$user[id]">
+                                                                                    <button type="button" class="btn btn-danger" id="delete-btn">Usuń użytkownika</button>
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- /.modal -->
+                                                        </td>
+                                                        <td><a href="./admin_edit_users.php?userUpdateId=$user[id]"><button type="button" class="btn btn-olive">Edytuj</button></a></td>
                                                         </tr>
                                                     HTML;
-                                                }
-                                            }
-                                            $conn->close();
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <!-- <div class="row">
+                                        }
+                                    }
+                                    $conn->close();
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
                                     <div class="col-sm-12 col-md-5">
                                         <div class="dataTables_info" id="example1_info" role="status"
                                             aria-live="polite">Showing 1 to 10 of 57 entries</div>
                                     </div> -->
+
                             <div class="col-sm-12 col-md-7">
                                 <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
                                     <ul class="pagination">
@@ -413,26 +453,27 @@ if ($_SESSION['role'] != 1) {
                                             <a href="./admin_edit_users.php?page=$nextPage" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Następna</a>
                                         </li>
                                         HTML;
-                                        }
-                                        ?>
-                                    </ul>
-                                </div> <!-- /.paginacja -->
-                            </div> <!-- /.col -->
-                        </div> <!-- /.example1-wrapper -->
-                    </div> <!-- /.card-body -->
-                </div> <!-- /.container -->
-            </div> <!-- /.content -->
-        </div> <!-- /.content-wrapper -->
+                                }
+                                ?>
+                            </ul>
+                        </div> <!-- /.paginacja -->
+                    </div> <!-- /.col -->
+                </div> <!-- /.example1-wrapper -->
+            </div> <!-- /.card-body -->
+        </div> <!-- /.container -->
+    </div> <!-- /.content -->
+    </div> <!-- /.content-wrapper -->
 
-        <!-- Main Footer -->
-        <footer class="main-footer">
-            <!-- To the right -->
-            <div class="float-right d-none d-sm-inline">
-                <img src="../../resources/logo.png" width="100" height="32">
-            </div>
-            <!-- Default to the left -->
-            <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
-        </footer>
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <!-- To the right -->
+        <div class="float-right d-none d-sm-inline">
+            <img src="../../resources/logo.png" width="100" height="32">
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
+    </footer>
     </div> <!-- ./wrapper -->
 
 
