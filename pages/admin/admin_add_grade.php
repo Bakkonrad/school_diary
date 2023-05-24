@@ -135,7 +135,7 @@
                       <button type="submit" class="btn btn-secondary btn-sm" name="search">Szukaj</button>
                     </form>
                       <div class="d-flex justify-content-center align-items-center">
-                                                <a href="./admin_add_grade.php?$addGrade=true"><button type="submit" class="btn bg-olive btn-block" >Dodaj ocenę</button></a>
+                                                <a href="./admin_add_grade.php?addGrade=true"><button type="submit" class="btn bg-olive btn-block" >Dodaj ocenę</button></a>
                                             </div>
                     </div>
                   </div>
@@ -144,32 +144,26 @@
                                     <div class="col-sm-12">
                                         <!-- okienko do edytowania użytownika -->
                                         <?php
-                                            if(isset($_GET["addGrade"]))
+                                            if(isset($_GET["addGrade"]) && ($_GET["addGrade"] == "true")) //jeśli w adresie url jest zmienna addGrade
                                             {
                                                 require_once "../../scripts/connect.php";
-                                                $_SESSION["userUpdateId"] = $_GET["userUpdateId"]; //pobiera id uzytkownika z adresu url
-                                                $sql = "SELECT * FROM users WHERE id = $_SESSION[userUpdateId]"; //pobiera dane uzytkownika z bazy danych
-                                                $result = $conn->query($sql);
-                                                $updateUser = $result->fetch_assoc(); 
-
+                                                
                                                 echo <<< HTML
                                                 <div class="card card-primary">
+                                                <!-- <div class="card-header text-center">
+                                                  <h3>Dodaj ocenę</h3>
+                                                </div> -->
                                                 <form action="../../scripts/add_grade.php" method="post">
-                                            <div class="input-group mb-3"> 
-                                            <select class="form-control" name="class">
+                                            <div class="input-group mb-3">
+                                            <select class="form-control" name="class" id="class">
                                             HTML;
+                                                    
                                                     require "../../scripts/connect.php";
                                                     $sql = "SELECT * FROM `classes`";
                                                     $result = $conn->query($sql);
                                                     while ($class = $result->fetch_assoc()) {
-                                                        if($class['class_id'] == $updateUser['class'])
-                                                        {
-                                                            echo "<option value='$class[class_id]' selected>$class[class]</option>";
-                                                        }
-                                                        else
-                                                        {
-                                                            echo "<option value='$class[class_id]'>$class[class]</option>";
-                                                        }
+                                                        echo "<option
+                                                        value='$class[class_id]'>$class[class]</option>";
                                                     }
                                                     echo <<< HTML
                                                 </select>
@@ -178,41 +172,69 @@
                                                         <span class="fas fa-people-group"></span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="input-group mb-3">
-                                            <select class="form-control" name="role">
+                                                <div class="input-group mb-3" >
+                                                <select class="form-control" name="student" id="student">
+
+                                                </select>
+                                            <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-people-group"></span>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <div class="input-group mb-3">
+                                            <select class="form-control" name="subject" id="subject">
                                             HTML;
+                                                    
                                                     require "../../scripts/connect.php";
-                                                    $sql = "SELECT * FROM `roles`";
+                                                    $sql = "SELECT * FROM `subjects`";
                                                     $result = $conn->query($sql);
-                                                    while ($role = $result->fetch_assoc()) {
-                                                        if($role['role_id'] == $updateUser['role'])
-                                                        {
-                                                            echo "<option value='$role[role_id]' selected>$role[role]</option>";
-                                                        }
-                                                        else
-                                                        {
-                                                            echo "<option value='$role[role_id]'>$role[role]</option>";
-                                                        }
+                                                    while ($subject = $result->fetch_assoc()) {
+                                                        echo "<option
+                                                        value='$subject[id]'>$subject[name]</option>";
                                                     }
                                                     echo <<< HTML
                                                 </select>
-                                                <div class="input-group-append">
+                                            <div class="input-group-append">
                                                     <div class="input-group-text">
-                                                        <span class="fa-people-group"></span>
+                                                        <span class="fas fa-people-group"></span>
                                                     </div>
                                                 </div>
-                                            </div>
+                                                <div class="input-group mb-3">
+                                            <select class="form-control" name="grade" id="grade">
+                                            HTML;
+                                                    
+                                                    require "../../scripts/connect.php";
+                                                    $sql = "SELECT * FROM `types_of_grades`";
+                                                    $result = $conn->query($sql);
+                                                    while ($grade = $result->fetch_assoc()) {
+                                                        echo "<option
+                                                        value='$grade[id]'>$grade[grade]</option>";
+                                                    }
+                                                    echo <<< HTML
+                                                </select>
+                                            <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-people-group"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                  <input type="text" class="form-control" name="note" placeholder="Notatka">
+                                                  <div class="input-group-append">
+                                                      <div class="input-group-text">
+                                                          <span class="fas fa-user"></span>
+                                                      </div>
+                                                  </div>
+                                              </div>
                                             <!-- /.col -->
                                             <div class="d-flex justify-content-center align-items-center">
-                                                <button type="submit" class="btn bg-olive btn-block">Zaktualizuj</button>
+                                                <button type="submit" class="btn bg-olive btn-block">Dodaj ocenę</button>
                                             </div>
                                             <!-- /.col -->
                                             </div>
                                             </form>
                                             </div>
                                             HTML;
-
                                             }
                                             ?>
                                         <!-- okienko do edytowania użytownika -->
@@ -247,17 +269,33 @@
                                     } else {
                                         $currentPage = 1;
                                     }
+
                                     
                                     if((isset($_POST['student'])) && (!empty($_POST['student'])))
                                     {
                                       $student = $_POST['student'];
-                                      
 
+                                      $sql = "SELECT COUNT(*) FROM `users`WHERE `users`.`login` = '$student';";  //zapytanie zliczające wszystkie rekordy
+                                      $result = $conn->query($sql);
+                                      $row = $result->fetch_assoc();
+                                      $student_exists = $row['COUNT(*)']; //liczba wszystkich rekordów w bazie
+
+                                      if($student_exists == 0)
+                                      {
+                                        echo <<< HTML
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>Uwaga!</strong> Uczeń o podanym loginie nie istnieje w bazie danych.
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true">×</span>
+                                        </button>
+                                        HTML;
+                                      }
+                                      
                                       $sql = "SELECT COUNT(*) AS all_student_grades FROM `grades` JOIN `users` ON `grades`.`student` = `users`.id WHERE `users`.`login` = '$student';";  //zapytanie zliczające wszystkie rekordy
                                       $result = $conn->query($sql);
                                       $row = $result->fetch_assoc();
                                       $all_modified_grades = $row['all_student_grades']; //liczba wszystkich rekordów w bazie
-                                      $numberOfPages = ceil($all_student_grades / $recordsPerPage); //liczba stron
+                                      $numberOfPages = ceil($all_modified_grades / $recordsPerPage); //liczba stron
   
                                       $sql = "SELECT users.login,users.firstName, users.lastName, grades.grade, grades.note, grades.subject, grades.added_by, grades.created_at, grades.operation_id FROM `users` JOIN `grades` ON `users`.`id` = `grades`.`student` WHERE `users`.`login` = '$student' ORDER BY `grades`.`created_at` DESC LIMIT $recordsPerPage OFFSET " . ($currentPage - 1) * $recordsPerPage . ";";
   
@@ -265,6 +303,7 @@
 
                                       if($result->num_rows == 0)
                                       {
+                                          //$all_student_grades = 0;
                                           echo "<tr><td colspan ='100%'>Brak ocen!</td></tr>";
                                       }
                                       else // jesli sa rekordy w tabli to je wyswietl
@@ -288,89 +327,19 @@
                                       }
                                       $conn->close();
                                     }
+                                    
+                                    //jeśli został wybrany student ale nie ma takiego w bazie
+                                    // elseif((isset($_POST['student'])) && (!empty($_POST['student'])) && ($student_exists == 0))
+                                    // {
+                                    //   echo "<tr><td colspan ='100%'>Nie ma takiego ucznia!</td></tr>";
+                                    //   $numberOfPages = 1; //liczba stron kiedy nie ma takiego ucznia
+                                    // }
                                     else
                                     {
                                       echo "<tr><td colspan ='100%'>Podaj imię i nazwisko ucznia!</td></tr>";
                                       $numberOfPages = 1; //liczba stron kiedy nie podano danych do wyszukania
                                     }
-
-
-
-
-
-      
                         ?>
-
-                        <!-- <tr class="odd">
-                          <td class="dtr-control sorting_1" tabindex="0">Gecko</td>
-                          <td>Firefox 1.0</td>
-                          <td>Win 98+ / OSX.2+</td>
-                          <td>1.7</td>
-                          <td>A</td>
-                        </tr>
-                        <tr class="even">
-                          <td class="dtr-control sorting_1" tabindex="0">Gecko</td>
-                          <td>Firefox 1.5</td>
-                          <td>Win 98+ / OSX.2+</td>
-                          <td>1.8</td>
-                          <td>A</td>
-                        </tr>
-                        <tr class="odd">
-                          <td class="dtr-control sorting_1" tabindex="0">Gecko</td>
-                          <td>Firefox 2.0</td>
-                          <td>Win 98+ / OSX.2+</td>
-                          <td>1.8</td>
-                          <td>A</td>
-                        </tr>
-                        <tr class="even">
-                          <td class="dtr-control sorting_1" tabindex="0">Gecko</td>
-                          <td>Firefox 3.0</td>
-                          <td>Win 2k+ / OSX.3+</td>
-                          <td>1.9</td>
-                          <td>A</td>
-                        </tr>
-                        <tr class="odd">
-                          <td class="sorting_1 dtr-control">Gecko</td>
-                          <td>Camino 1.0</td>
-                          <td>OSX.2+</td>
-                          <td>1.8</td>
-                          <td>A</td>
-                        </tr>
-                        <tr class="even">
-                          <td class="sorting_1 dtr-control">Gecko</td>
-                          <td>Camino 1.5</td>
-                          <td>OSX.3+</td>
-                          <td>1.8</td>
-                          <td>A</td>
-                        </tr>
-                        <tr class="odd">
-                          <td class="sorting_1 dtr-control">Gecko</td>
-                          <td>Netscape 7.2</td>
-                          <td>Win 95+ / Mac OS 8.6-9.2</td>
-                          <td>1.7</td>
-                          <td>A</td>
-                        </tr>
-                        <tr class="even">
-                          <td class="sorting_1 dtr-control">Gecko</td>
-                          <td>Netscape Browser 8</td>
-                          <td>Win 98SE+</td>
-                          <td>1.7</td>
-                          <td>A</td>
-                        </tr>
-                        <tr class="odd">
-                          <td class="sorting_1 dtr-control">Gecko</td>
-                          <td>Netscape Navigator 9</td>
-                          <td>Win 98+ / OSX.2+</td>
-                          <td>1.8</td>
-                          <td>A</td>
-                        </tr>
-                        <tr class="even">
-                          <td class="sorting_1 dtr-control">Gecko</td>
-                          <td>Mozilla 1.0</td>
-                          <td>Win 95+ / OSX.1+</td>
-                          <td>1</td>
-                          <td>A</td>
-                        </tr> -->
                       </tbody>
                     </table>
                   </div>
@@ -426,16 +395,18 @@
                         }
                         ?>
                       </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /.card-body -->
-          </div>
-        </div> <!-- /.container-fluid -->
-      </div> <!-- /.content -->
-    </div> <!-- /.content-wrapper -->
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+                      <!-- /.card-body -->
+                      </div>
+                      </div> <!-- /.container-fluid -->
+                      </div> <!-- /.content -->
+                      </div> <!-- /.content-wrapper -->
 
     <!-- Main Footer -->
     <footer class="main-footer">
@@ -457,6 +428,40 @@
   <!-- AdminLTE App -->
   <script src="../../dist/js/adminlte.min.js"></script>
 
+  <script>
+  // Pobieranie uczniów na podstawie wybranej klasy
+  function getStudentsByClass() {
+    var select  edClass = document.getElementById("class").value;
+
+    // Wywołanie żądania AJAX, aby pobrać uczniów z serwera
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() { 
+      if (this.readyState == 4 && this.status == 200) {
+        var students = JSON.parse(this.responseText);
+
+        // Wyczyść listę uczniów
+        var studentSelect = document.getElementById("student");
+        studentSelect.innerHTML = "";
+
+        // Dodaj nowych uczniów do listy
+        for (var i = 0; i < students.length; i++) {
+          var studentOption = document.createElement("option");
+          studentOption.value = students[i].id;
+          studentOption.text = students[i].name;
+          studentSelect.appendChild(studentOption);
+        }
+      }
+    };
+    
+    // Przesyłanie danych do skryptu PHP, który pobierze uczniów
+    xmlhttp.open("GET", "../../scripts/get_students.php?class=" + selectedClass, true);
+    xmlhttp.send();
+  }
+  // Dodaj wywołanie funkcji getStudentsByClass() na zmianę wybranej klasy
+  document.getElementById("class").addEventListener("change", getStudentsByClass);
+</script>
+
 </body>
+
 
 </html>
