@@ -18,7 +18,8 @@ if ($_SESSION['role'] != 1) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>KoalaSchool | Użytkownicy</title>
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <!-- DataTables -->
@@ -41,7 +42,9 @@ if ($_SESSION['role'] != 1) {
                     <span class="brand-text"><b>dziennik</b> lekcyjny</span>
                 </a>
 
-                <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler order-1" type="button" data-toggle="collapse"
+                    data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                    aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -116,7 +119,6 @@ if ($_SESSION['role'] != 1) {
                             if (isset($_SESSION['errors'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
                             {
                                 //sprawdza czyw tablicy errors jest więcej niż 3 błędy, jesli tak to wyświetla inny komunikat
-
                                 if (count($_SESSION['errors']) > 1 && count($_SESSION['errors']) < 4) {
 
                                     $error1 = $_SESSION['errors'][0];
@@ -202,6 +204,7 @@ if ($_SESSION['role'] != 1) {
                                                         <div class="input-group-text">
                                                             <span class="fas fa-user"></span>
                                                         </div>
+
                                                     </div>
                                                 </div> <!-- /.input-group -->
                                                 <div class="input-group mb-3">
@@ -249,6 +252,7 @@ if ($_SESSION['role'] != 1) {
                                                 echo "<option value='$class[class_id]'>$class[class]</option>";
                                             }
                                         }
+
                                         echo <<< HTML
                                                 </select>
                                                 <div class="input-group-append">
@@ -290,51 +294,63 @@ if ($_SESSION['role'] != 1) {
                                 </div> <!-- ./col -->
                             </div> <!-- ./row -->
 
-                            <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
-                                <thead>
-                                    <tr>
-                                        <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="descending" aria-label="Sortuj według Id">Id</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Imię">Imię</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Nazwisko">Nazwisko</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Nazwisko">Data urodzenia</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Login">Login</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Id">email</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Klasa">Klasa</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Rola">Rola</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Rola">Usuń</th>
-                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Sortuj według Rola">Edytuj</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                                    <table id="example1" class="table table-bordered table-striped dataTable dtr-inline"
+                                        aria-describedby="example1_info">
+                                        <thead>
+                                            <tr>
+                                                <th class="sorting sorting_asc" tabindex="0" aria-controls="example1"
+                                                    rowspan="1" colspan="1" aria-sort="descending"
+                                                    aria-label="Sortuj według Id">Id</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Sortuj według Imię">Imię</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Sortuj według Nazwisko">Nazwisko</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Sortuj według Nazwisko">Data urodzenia</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Sortuj według Login">Login</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Sortuj według Id">email</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Sortuj według Klasa">Klasa</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Sortuj według Rola">Rola</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Sortuj według Rola">Usuń</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
+                                                    colspan="1" aria-label="Sortuj według Rola">Edytuj</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                    <?php
-                                    require "../../scripts/connect.php";
-                                    mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
+                                            <?php
+                                            require "../../scripts/connect.php";
+                                            mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
+                                            
+                                            $recordsPerPage = 2; //ilość rekordów na stronie
+                                            
+                                            if (isset($_GET['page'])) //jesli jest ustawiona zmienna page
+                                            {
+                                                $currentPage = $_GET['page'];
+                                            } else {
+                                                $currentPage = 1;
+                                            }
 
-                                    $recordsPerPage = 2; //ilość rekordów na stronie
+                                            $sql = "SELECT COUNT(*) AS allUsers FROM `users`;"; //zapytanie zliczające wszystkie rekordy
+                                            $result = $conn->query($sql);
+                                            $row = $result->fetch_assoc();
+                                            $allUsers = $row['allUsers']; //liczba wszystkich rekordów w bazie
+                                            $numberOfPages = ceil($allUsers / $recordsPerPage); //liczba stron
+                                            
+                                            $sql = "SELECT users.id, users.firstName, users.lastName, users.birthday, users.email, users.login, classes.class, roles.role FROM `users` JOIN `classes` ON `users`.`class` = `classes`.`class_id` JOIN `roles` ON `users`.`role` = `roles`.`role_id` LIMIT $recordsPerPage OFFSET " . ($currentPage - 1) * $recordsPerPage . ";";
+                                            $result = $conn->query($sql);
 
-                                    if (isset($_GET['page'])) //jesli jest ustawiona zmienna page
-                                    {
-                                        $currentPage = $_GET['page'];
-                                    } else {
-                                        $currentPage = 1;
-                                    }
-
-                                    $sql = "SELECT COUNT(*) AS allUsers FROM `users`;";  //zapytanie zliczające wszystkie rekordy
-                                    $result = $conn->query($sql);
-                                    $row = $result->fetch_assoc();
-                                    $allUsers = $row['allUsers']; //liczba wszystkich rekordów w bazie
-                                    $numberOfPages = ceil($allUsers / $recordsPerPage); //liczba stron
-
-                                    $sql = "SELECT users.id, users.firstName, users.lastName, users.birthday, users.email, users.login, classes.class, roles.role FROM `users` JOIN `classes` ON `users`.`class` = `classes`.`class_id` JOIN `roles` ON `users`.`role` = `roles`.`role_id` LIMIT $recordsPerPage OFFSET " . ($currentPage - 1) * $recordsPerPage . ";";
-                                    $result = $conn->query($sql);
-
-                                    if ($result->num_rows == 0) {
-                                        echo "<tr><td colspan ='100%'>Brak rekordów do wyświwetlenia</td></tr>";
-                                    } else // jesli sa rekordy w tabli to je wyswietl
-                                    {
-                                        while ($user = $result->fetch_assoc()) {
-                                            echo <<< HTML
+                                            if ($result->num_rows == 0) {
+                                                echo "<tr><td colspan ='100%'>Brak rekordów do wyświwetlenia</td></tr>";
+                                            } else // jesli sa rekordy w tabli to je wyswietl
+                                            {
+                                                while ($user = $result->fetch_assoc()) {
+                                                    echo <<<HTML
                                                         <tr>
                                                     <td class="dtr-control sorting_1" tabindex="0">$user[id]</td>
                                                             <td>$user[firstName]</td>
@@ -392,46 +408,47 @@ if ($_SESSION['role'] != 1) {
                                         <div class="dataTables_info" id="example1_info" role="status"
                                             aria-live="polite">Showing 1 to 10 of 57 entries</div>
                                     </div> -->
-                    <div class="col-sm-12 col-md-7">
-                        <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
-                            <ul class="pagination">
-                                <?php
 
-                                if ($currentPage == 1) //przycisk previous
-                                {
-                                    echo <<< HTML
+                            <div class="col-sm-12 col-md-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+                                    <ul class="pagination">
+                                        <?php
+
+                                        if ($currentPage == 1) //przycisk previous
+                                        {
+                                            echo <<<HTML
                                         <li class="paginate_button page-item previous disabled" id="example1_previous">
                                             <a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Poprzednia</a>
                                         </li>
                                         HTML;
-                                } else {
-                                    $previousPage = $currentPage - 1;
-                                    echo <<< HTML
+                                        } else {
+                                            $previousPage = $currentPage - 1;
+                                            echo <<<HTML
                                         <li class="paginate_button page-item previous" id="example1_previous">
                                             <a href="./admin_edit_users.php?page=$previousPage" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Poprzednia</a>
                                         </li>
                                         HTML;
-                                }
+                                        }
 
-                                for ($i = 1; $i <= $numberOfPages; $i++) //przyciski z numerami stron
-                                {
-                                    echo <<< HTML
+                                        for ($i = 1; $i <= $numberOfPages; $i++) //przyciski z numerami stron
+                                        {
+                                            echo <<<HTML
                                         <li class="paginate_button page-item">
                                             <a href="./admin_edit_users.php?page=$i" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">$i</a>
                                         </li>
                                         HTML;
-                                }
+                                        }
 
-                                if ($currentPage == $numberOfPages) //przycisk next
-                                {
-                                    echo <<< HTML
+                                        if ($currentPage >= $numberOfPages) //przycisk next
+                                        {
+                                            echo <<<HTML
                                         <li class="paginate_button page-item next disabled" id="example1_next">
                                             <a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Następna</a>
                                         </li>
                                         HTML;
-                                } else {
-                                    $nextPage = $currentPage + 1;
-                                    echo <<< HTML
+                                        } else {
+                                            $nextPage = $currentPage + 1;
+                                            echo <<<HTML
                                         <li class="paginate_button page-item next" id="example1_next">
                                             <a href="./admin_edit_users.php?page=$nextPage" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Następna</a>
                                         </li>
@@ -446,6 +463,7 @@ if ($_SESSION['role'] != 1) {
         </div> <!-- /.container -->
     </div> <!-- /.content -->
     </div> <!-- /.content-wrapper -->
+
 
     <!-- Main Footer -->
     <footer class="main-footer">
