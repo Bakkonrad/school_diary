@@ -5,7 +5,7 @@ if (!isset($_SESSION['isLogged'])) {
     header('Location: ../index.php');
     exit();
 }
-if ($_SESSION['role'] != 1) {
+if ($_SESSION['role'] != 3) {
     header("Location: ../index.php");
     exit();
 }
@@ -16,11 +16,10 @@ if ($_SESSION['role'] != 1) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>KoalaSchool | Modyfikowane ocen</title>
+    <title>KoalaSchool | Historia ocen</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
@@ -34,14 +33,12 @@ if ($_SESSION['role'] != 1) {
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand-md navbar-olive navbar-dark">
             <div class="container">
-                <a href="admin_main.php" class="navbar-brand">
+                <a href="student_main.php" class="navbar-brand">
                     <img src="../../resources/logo2.png" width="40" height="40">
                     <span class="brand-text"><b>dziennik</b> lekcyjny</span>
                 </a>
 
-                <button class="navbar-toggler order-1" type="button" data-toggle="collapse"
-                    data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -49,32 +46,47 @@ if ($_SESSION['role'] != 1) {
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="admin_main.php" class="nav-link">Strona główna</a>
+                            <a href="student_main.php" class="nav-link">Strona główna</a>
                         </li>
                         <li class="nav-item">
-                            <a href="admin_edit_users.php" class="nav-link">Użytkownicy</a>
+                            <a href="student_grades.php" class="nav-link">Oceny</a>
                         </li>
                         <li class="nav-item">
-                            <a href="admin_add_user.php" class="nav-link">Dodawanie użytkownika</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="admin_add_grade.php" class="nav-link">Dodawanie ocen</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="admin_add_grade.php" class="nav-link">Historia modyfikacji ocen</a>
+                            <a href="student_modified_grades.php" class="nav-link">Historia ocen</a>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Right navbar links -->
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                    
                     <!-- ACCOUNT ICON -->
-                    <li class="nav-item">
-                        <a href="admin_account.php" class="nav-link">
-                            <i class="fa fa-solid fa-user-shield fa-lg"></i>
+                    <div class="dropdown user user-menu open nav-item" id="navbar-dropdown-item">
+                        <a class="nav-link " data-toggle="dropdown" aria-expanded="true" id="navbar-dropdown-link">
+                            <span class="fa fa-stack">
+                                <i class="fa fa-thin fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-solid fa-user-graduate fa-stack-1x fa-inverse" id="navbar-dropdown-btn"></i>
+                            </span>
                         </a>
-                    </li>
+                        <ul class="dropdown-menu">
+                            <li class="user-header">
+                                <img src="../../resources/student.jpg" class="img-circle" alt="User Image">
+                                <?php
+                                echo <<< HTML
+                                <p><b>imię i nazwisko: </b>$_SESSION[firstName] $_SESSION[lastName]</p>
+                                <hr>
+                                <p><b>email: </b>$_SESSION[email]</p>
+                                <p style="margin-bottom: 20px;"><b>login: </b>$_SESSION[login]</p>
+                                HTML;
+                                ?>
+                            </li>
+                            <br><br><br>
+                            <li class="user-footer">
+                                <div class="text-center" id="logout-div">
+                                    <a href="../../scripts/logout.php" type="button" id="logout-btn" class="btn btn-block btn-danger">Wyloguj</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </ul>
             </div>
         </nav> <!-- /.navbar -->
@@ -83,7 +95,7 @@ if ($_SESSION['role'] != 1) {
         <div class="content-wrapper">
             <div class="content-header">
                 <div class="container">
-                    <h1 class="m-0">Dodawanie ocen</h1>
+                    <h1 class="m-0">Historia ocen</h1>
                     <!-- <h1 class="m-0"> Strona główna <small>zalogowany</small></h1> -->
                 </div> <!-- /.container-fluid -->
             </div> <!-- /.content-header -->
@@ -122,54 +134,27 @@ if ($_SESSION['role'] != 1) {
                       </div>
                     </div>
                   </div> -->
-                                    <div class="col-sm-12 col-md-6">
-                                        <div id="example1_filter" class="dataTables_filter">
-                                            <label>Szukaj ocen ucznia:<input type="search"
-                                                    class="form-control form-control-sm"
-                                                    placeholder="Imię i nazwisko ucznia"
-                                                    aria-controls="example1"></label>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <table id="example1"
-                                            class="table table-bordered table-striped dataTable dtr-inline"
-                                            aria-describedby="example1_info">
+                                        <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
                                             <thead>
                                                 <tr>
-                                                    <th class="sorting sorting_asc" tabindex="0"
-                                                        aria-controls="example1" rowspan="1" colspan="1"
-                                                        aria-sort="ascending"
-                                                        aria-label="Rendering engine: activate to sort column descending">
+                                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
                                                         Imię ucznia</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example1"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Browser: activate to sort column ascending">Nazwisko
+                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Nazwisko
                                                         ucznia</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example1"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Platform(s): activate to sort column ascending">
+                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">
                                                         Stara ocena</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example1"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="Engine version: activate to sort column ascending">
+                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">
                                                         Nowa ocena</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example1"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="CSS grade: activate to sort column ascending">
+                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">
                                                         Przedmiot</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example1"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="CSS grade: activate to sort column ascending">Dodał
+                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Dodał
                                                     </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example1"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="CSS grade: activate to sort column ascending">Data
+                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Data
                                                         dodania oceny</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example1"
-                                                        rowspan="1" colspan="1"
-                                                        aria-label="CSS grade: activate to sort column ascending">Data
+                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Data
                                                         modyfikacji oceny</th>
                                                 </tr>
                                             </thead>
@@ -179,9 +164,9 @@ if ($_SESSION['role'] != 1) {
                                                 //require_once "connect.php"; 
                                                 require "../../scripts/connect.php";
                                                 mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
-                                                
+
                                                 $recordsPerPage = 2; //ilość rekordów na stronie
-                                                
+
                                                 if (isset($_GET['page'])) //jesli jest ustawiona zmienna page
                                                 {
                                                     $currentPage = $_GET['page'];
@@ -194,7 +179,7 @@ if ($_SESSION['role'] != 1) {
                                                 $row = $result->fetch_assoc();
                                                 $all_modified_grades = $row['all_modified_grades']; //liczba wszystkich rekordów w bazie
                                                 $numberOfPages = ceil($all_modified_grades / $recordsPerPage); //liczba stron
-                                                
+
                                                 $sql = "SELECT users.firstName, users.lastName, hog.old_grade, hog.new_grade, grades.subject, hog.added_by, grades.created_at as `grades_created_at`, hog.created_at as `hog_created_at` FROM `users` JOIN `grades` ON `users`.`id` = `grades`.`student` JOIN `history_of_grades` hog ON `grades`.`operation_id` = `hog`.`grade_id` ORDER BY `hog`.`created_at` DESC LIMIT $recordsPerPage OFFSET " . ($currentPage - 1) * $recordsPerPage . ";";
 
                                                 $result = $conn->query($sql);
@@ -317,7 +302,7 @@ if ($_SESSION['role'] != 1) {
                                                     $previousPage = $currentPage - 1;
                                                     echo <<<HTML
         <li class="paginate_button page-item previous" id="example1_previous">
-            <a href="./admin_add_grade.php?page=$previousPage" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Poprzednia</a>
+            <a href="./student_add_grade.php?page=$previousPage" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Poprzednia</a>
         </li>
         HTML;
                                                 }
@@ -326,7 +311,7 @@ if ($_SESSION['role'] != 1) {
                                                 {
                                                     echo <<<HTML
         <li class="paginate_button page-item">
-            <a href="./admin_add_grade.php?page=$i" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">$i</a>
+            <a href="./student_add_grade.php?page=$i" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">$i</a>
         </li>
         HTML;
                                                 }
@@ -342,7 +327,7 @@ if ($_SESSION['role'] != 1) {
                                                     $nextPage = $currentPage + 1;
                                                     echo <<<HTML
         <li class="paginate_button page-item next" id="example1_next">
-            <a href="./admin_add_grade.php?page=$nextPage" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Następna</a>
+            <a href="./student_add_grade.php?page=$nextPage" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Następna</a>
         </li>
         HTML;
                                                 }

@@ -67,7 +67,7 @@ if ($_SESSION['role'] != 2) {
                         <a class="nav-link" data-toggle="dropdown" aria-expanded="true">
                             <span class="fa fa-stack">
                                 <i class="fa fa-thin fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-solid fa-user-shield fa-stack-1x fa-inverse" id="navbar-dropdown-btn"></i>
+                                <i class="fa fa-solid fa-chalkboard-user fa-stack-1x fa-inverse" id="navbar-dropdown-btn"></i>
                             </span>
                         </a>
                         <ul class="dropdown-menu">

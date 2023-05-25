@@ -111,6 +111,13 @@ a i:hover {
     color: #307858;
 }
 
+#m_page_btn {
+    justify-content: center;
+    align-items: baseline;
+    height: 70px;
+    width: 150px;
+}
+
 /* .navbar-nav .nav-item a.active  {
     color:#FEFCFB;
     font-weight: bold;

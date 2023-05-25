@@ -51,7 +51,7 @@
                 <a href="student_grades.php" class="nav-link">Oceny</a>
             </li>
             <li class="nav-item">
-                <a href="student_statistics.php" class="nav-link">Statystyki</a>
+                <a href="student_modified_grades.php" class="nav-link">Historia ocen</a>
             </li>
             </ul>
         </div>
@@ -63,7 +63,7 @@
                 <a class="nav-link" data-toggle="dropdown" aria-expanded="true">
                 <span class="fa fa-stack">
                     <i class="fa fa-thin fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-solid fa-user-shield fa-stack-1x fa-inverse" id="navbar-dropdown-btn"></i>
+                    <i class="fa fa-solid fa-user-graduate fa-stack-1x fa-inverse" id="navbar-dropdown-btn"></i>
                 </span>
                 </a>
                 <ul class="dropdown-menu" >

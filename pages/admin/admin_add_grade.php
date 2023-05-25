@@ -442,7 +442,7 @@
   <script>
   // Pobieranie uczniów na podstawie wybranej klasy
   function getStudentsByClass() {
-    var select  edClass = document.getElementById("class").value;
+    var selectedClass = document.getElementById("class").value;
 
     // Wywołanie żądania AJAX, aby pobrać uczniów z serwera
     var xmlhttp = new XMLHttpRequest();
