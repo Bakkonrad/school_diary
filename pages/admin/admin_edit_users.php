@@ -361,7 +361,15 @@ if ($_SESSION['role'] != 1) {
                                             $allUsers = $row['allUsers']; //liczba wszystkich rekordów w bazie
                                             $numberOfPages = ceil($allUsers / $recordsPerPage); //liczba stron
                                             
-                                            $sql = "SELECT users.id, users.firstName, users.lastName, users.birthday, users.email, users.login, classes.class, roles.role FROM `users` JOIN `classes` ON `users`.`class` = `classes`.`class_id` JOIN `roles` ON `users`.`role` = `roles`.`role_id` LIMIT $recordsPerPage OFFSET " . ($currentPage - 1) * $recordsPerPage . ";";
+                                            if(isset($name))
+                                            {
+                                                $sql = "SELECT users.id, users.firstName, users.lastName, users.birthday, users.email, users.login, classes.class, roles.role FROM `users` JOIN `classes` ON `users`.`class` = `classes`.`class_id` JOIN `roles` ON `users`.`role` = `roles`.`role_id` WHERE `users`.`firstName` = '$name' AND `users`.`lastName` = '$surname' LIMIT $recordsPerPage OFFSET " . ($currentPage - 1) * $recordsPerPage . ";";
+                                            }
+                                            else
+                                            {
+                                                $sql = "SELECT users.id, users.firstName, users.lastName, users.birthday, users.email, users.login, classes.class, roles.role FROM `users` JOIN `classes` ON `users`.`class` = `classes`.`class_id` JOIN `roles` ON `users`.`role` = `roles`.`role_id` LIMIT $recordsPerPage OFFSET " . ($currentPage - 1) * $recordsPerPage . ";";
+                                            }
+                                            
                                             $result = $conn->query($sql);
 
                                             if ($result->num_rows == 0) {
