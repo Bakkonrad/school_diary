@@ -112,10 +112,18 @@ a i:hover {
 }
 
 #m_page_btn {
-    justify-content: center;
+    justify-content: bottom center;
     align-items: baseline;
-    height: 70px;
+    height: 90px;
     width: 150px;
+    position: relative;
+}
+
+#m_page_btn h6 {
+    position: absolute;
+    bottom: 3%;
+    width: 100%;
+    left: 0%;
 }
 
 /* .navbar-nav .nav-item a.active  {
