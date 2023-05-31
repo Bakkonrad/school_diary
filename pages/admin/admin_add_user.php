@@ -231,24 +231,6 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                <select class="form-control" name="class">
-                <?php
-                        require "../../scripts/connect.php";
-                        $sql = "SELECT * FROM `classes`";
-                        $result = $conn->query($sql);
-                        while ($class = $result->fetch_assoc()) {
-                            echo "<option
-                            value='$class[class_id]'>$class[class]</option>";
-                        }
-                        ?>
-                    </select>
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-people-group"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-group mb-3">
                 <select class="form-control" name="role">
                 <?php
                         require "../../scripts/connect.php";
@@ -263,6 +245,24 @@
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fa fa-people-group"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                <select class="form-control" name="class">
+                <?php
+                        require "../../scripts/connect.php";
+                        $sql = "SELECT * FROM `classes`";
+                        $result = $conn->query($sql);
+                        while ($class = $result->fetch_assoc()) {
+                            echo "<option
+                            value='$class[class_id]'>$class[class]</option>";
+                        }
+                        ?>
+                    </select>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-people-group"></span>
                         </div>
                     </div>
                 </div>

@@ -122,8 +122,11 @@
                         $sql = "SELECT * FROM `classes`";
                         $result = $conn->query($sql);
                         while ($class = $result->fetch_assoc()) {
-                            echo "<option
-                            value='$class[class_id]'>$class[class]</option>";
+                            if ($class['class_id'] == $_POST['class']) {
+                              echo "<option value='$class[class_id]' selected>$class[class]</option>";
+                          } else {
+                              echo "<option value='$class[class_id]'>$class[class]</option>";
+                          }
                         }
                         ?>
                     </select>
@@ -195,38 +198,90 @@
                         while($user = $result->fetch_assoc())
                         {
                             echo <<< HTML
-                            <tr>
-                        <td class="dtr-control sorting_1" tabindex="0">$user[firstName]</td>
+                              <tr>
+                              <td class="dtr-control sorting_1" tabindex="0">$user[firstName]</td>
                                 <td>$user[lastName]</td>
                                 <td><button type="button" class="btn btn-danger"  id="delete-btn" data-toggle="modal" data-target="#addGrade$user[id]">Dodaj ocenę</button> 
                                 <!-- Modal - dodanie oceny dla ucznia --> 
                                 <div class="modal fade" id="addGrade$user[id]" tabindex="0" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="confirmDeleteLabel">Dodaj ocenę </h5>
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        Czy na pewno chcesz usunąć użytkownika <strong>$user[firstName] $user[lastName]</strong>?
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <div class="row">
-                                                                            <div class="col-4">
-                                                                                <button type="button" class="btn btn-secondary" style="background-color:grey" data-dismiss="modal">Anuluj</button>
-                                                                            </div>
-                                                                            <div class="col-8">
-                                                                                <a href="../../scripts/add_grade.php?userDeleteId=$user[id]">
-                                                                                    <button type="button" class="btn btn-danger" id="delete-btn">Dodaj ocenę</button>
-                                                                                </a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                  <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                              <h5 class="modal-title" id="confirmDeleteLabel">Dodaj ocenę </h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                              </button>
+                                          </div>
+                                          <div class="modal-body">
+                                              <form action="../../scripts/add_grade.php" method="post">
+                                              <div class="input-group mb-3">
+                                                  <select class="form-control" name="subject">
+                              HTML;
+                                                          require "../../scripts/connect.php";
+                                                          $sql = "SELECT * FROM `subjects` WHERE `class` = $_SESSION[class_id]";
+                                                          $result = $conn->query($sql);
+                                                          while ($subject = $result->fetch_assoc()) {
+                                                              echo "<option
+                                                              value='$subject[id]'>$subject[subject]</option>";
+                                                          }
+                                                          
+                                                      echo <<< HTML
+                                                      </select>
+                                                      <div class="input-group-append">
+                                                          <div class="input-group-text">
+                                                              <span class="fa fa-people-group"></span>
+                                                          </div>
+                                                      </div>
+                                                        </div>
+                                                  </select>
+                                              <div class="input-group mb-3">
+                                                  <select class="form-control" name="grade">
+                              HTML;
+                                                          require "../../scripts/connect.php";
+                                                          $sql = "SELECT * FROM `types_of_grades`";
+                                                          $result = $conn->query($sql);
+                                                          while ($type_of_grade = $result->fetch_assoc()) {
+                                                              echo "<option
+                                                              value='$type_of_grade[id]'>$type_of_grade[grade]</option>";
+                                                          }
+                                                      echo <<< HTML
+                                                      </select>
+                                                      <div class="input-group-append">
+                                                          <div class="input-group-text">
+                                                              <span class="fa fa-people-group"></span>
+                                                          </div>
+                                                      </div>
+                                                        </div>
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" name="note" placeholder="Notatka">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">
+                                                                    <span class="fas fa-user"></span>
                                                                 </div>
                                                             </div>
-                                                        </div> <!-- /.modal --></td>
+                                                        </div>
+                                                  <!-- /.col -->
+                                                  <div class="d-flex justify-content-center align-items-center">
+                                                      <button type="submit" class="btn bg-olive btn-block">Ddaj ocenę</button>
+                                                  </div>
+                                              
+                                              </form>
+                                          </div>
+                                          <div class="modal-footer">
+                                              <div class="row">
+                                                  <div class="col-4">
+                                                      <button type="button" class="btn btn-secondary" style="background-color:grey" data-dismiss="modal">Anuluj</button>
+                                                  </div>
+                                                  <div class="col-8">
+                                                      <a href="../../scripts/add_grade.php?userDeleteId=$user[id]">
+                                                          <button type="button" class="btn btn-danger" id="delete-btn">Dodaj ocenę</button>
+                                                      </a>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div> <!-- /.modal --></td>
                             </tr>
                         HTML;
                         }
