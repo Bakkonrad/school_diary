@@ -28,6 +28,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>KoalaSchool | Logowanie</title>
+  <link rel="icon" type="image/x-icon" href="../resources/logo2.png">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -41,6 +42,8 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="hold-transition login-page">
+<div class="content index-content">
+
 <div class="login-box">
   <!-- /.login-logo -->
   <?php 
@@ -66,7 +69,7 @@
       <h2 class="h1"><b>dziennik</b> lekcyjny</h2>
     </div>
     <div class="card-body">
-      <p class="login-box-msg">Zaloguj się do systemu</p>
+      <!-- <p class="login-box-msg">Zaloguj się do systemu</p> -->
 
       <form action="../scripts/login.php" method="post">
         <div class="input-group mb-3">
@@ -85,32 +88,35 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-8">
+        <div class="row justify-content-center">
+          <!-- <div class="col-8">
             <div class="icheck-olive">
               <input type="checkbox" id="remember">
               <label for="remember">
                 Nie wylogowuj
               </label>
             </div>
-          </div>
+          </div> -->
           <!-- /.col -->
-          <div class="col-4">
-              <button type="submit" class="btn btn-block">Zaloguj</button> <!-- ma przejsc do skryptu gdzie sprawdzi poprawność danych -->
+          <div class="col-10">
+              <button type="submit" class="btn btn-block" id="loginBtn">Zaloguj się do systemu</button> <!-- ma przejsc do skryptu gdzie sprawdzi poprawność danych -->
           </div>
           <!-- /.col -->
         </div>
       </form>
       <br>
-      <p class="mb-1">
-        <a href="forgot-password.php">Nie pamiętam hasła</a>
-      </p>
+      <div class="row justify-content-center">
+        <p class="mb-1">
+          <a href="forgot-password.php">Nie pamiętam hasła</a>
+        </p>
+      </div>
     </div>
     <!-- /.card-body -->
   </div>
   <!-- /.card -->
 </div>
 <!-- /.login-box -->
+</div> <!-- /.wrapper -->
 
 <!-- jQuery -->
 <script src="../plugins/jquery/jquery.min.js"></script>

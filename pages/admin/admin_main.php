@@ -17,6 +17,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>KoalaSchool | Strona główna</title>
+  <link rel="icon" type="image/x-icon" href="../../resources/logo2.png">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -156,6 +157,7 @@
       </div> <!-- /.container-fluid -->
     </div> <!-- /.content -->
   </div> <!-- /.content-wrapper -->
+</div> <!-- ./wrapper -->
 
   <!-- Main Footer -->
   <footer class="main-footer">
@@ -166,8 +168,6 @@
     <!-- Default to the left -->
     <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
   </footer>
-</div>
-<!-- ./wrapper -->
 
 
 <!-- jQuery -->

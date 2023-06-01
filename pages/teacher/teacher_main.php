@@ -17,6 +17,7 @@ if ($_SESSION['role'] != 2) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>KoalaSchool | Strona główna</title>
+    <link rel="icon" type="image/x-icon" href="../../resources/logo2.png">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -52,7 +53,7 @@ if ($_SESSION['role'] != 2) {
                             <a href="teacher_main.php" class="nav-link">Strona główna</a>
                         </li>
                         <li class="nav-item">
-                            <a href="teacher_show_grades.php" class="nav-link">Wyświetl oceny</a>
+                            <a href="teacher_modified_grades.php" class="nav-link">Historia ocen</a>
                         </li>
                         <li class="nav-item">
                             <a href="teacher_add_grade.php" class="nav-link">Dodaj ocenę</a>
@@ -70,16 +71,16 @@ if ($_SESSION['role'] != 2) {
                                 <i class="fa fa-solid fa-chalkboard-user fa-stack-1x fa-inverse" id="navbar-dropdown-btn"></i>
                             </span>
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-right">
                             <li class="user-header">
                                 <img src="../../resources/teacher.jpg" class="img-circle" alt="User Image">
                                 <?php
                                 echo <<< HTML
-                        <p><b>imię i nazwisko: </b>$_SESSION[firstName] $_SESSION[lastName]</p>
-                        <hr>
-                        <p><b>email: </b>$_SESSION[email]</p>
-                        <p style="margin-bottom: 20px;"><b>login: </b>$_SESSION[login]</p>
-                        HTML;
+                                <p><b>imię i nazwisko: </b>$_SESSION[firstName] $_SESSION[lastName]</p>
+                                <hr>
+                                <p><b>email: </b>$_SESSION[email]</p>
+                                <p style="margin-bottom: 20px;"><b>login: </b>$_SESSION[login]</p>
+                                HTML;
                                 ?>
                             </li>
                             <br><br><br>
@@ -107,8 +108,8 @@ if ($_SESSION['role'] != 2) {
                                     <br><br>
                                     <div class="row justify-content-center">
                                         <div class="col-3">
-                                            <a href="teacher_show_grades.php" class="btn" id="m_page_btn">
-                                            <i class="fa fa-solid fa-graduation-cap fa-xl"></i><br><h6>Wyświetl<br>oceny</h6></a>
+                                            <a href="teacher_modified_grades.php" class="btn" id="m_page_btn">
+                                            <i class="fa fa-solid fa-graduation-cap fa-xl"></i><br><h6>Wyświetl<br>historię ocen</h6></a>
                                         </div>
                                         <div class="col-3">
                                             <a href="teacher_add_grade.php" class="btn" id="m_page_btn">
@@ -155,6 +156,7 @@ if ($_SESSION['role'] != 2) {
             </div> <!-- /.content -->
         </div> <!-- /.content-wrapper -->
 
+    </div>
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- To the right -->
@@ -164,7 +166,6 @@ if ($_SESSION['role'] != 2) {
             <!-- Default to the left -->
             <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
         </footer>
-    </div>
     <!-- ./wrapper -->
 
 

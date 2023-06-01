@@ -5,7 +5,7 @@ if (!isset($_SESSION['isLogged'])) {
     header('Location: ../index.php');
     exit();
 }
-if ($_SESSION['role'] != 1) {
+if ($_SESSION['role'] != 2) {
     header("Location: ../index.php");
     exit();
 }
@@ -17,6 +17,7 @@ if ($_SESSION['role'] != 1) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>KoalaSchool | Historia ocen</title>
+    <link rel="icon" type="image/x-icon" href="../../resources/logo2.png">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -48,20 +49,14 @@ if ($_SESSION['role'] != 1) {
                 <div class="collapse navbar-collapse order-3" id="navbarCollapse">
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
-                        <li class="nav-item">
+                    <li class="nav-item">
                             <a href="teacher_main.php" class="nav-link">Strona główna</a>
                         </li>
                         <li class="nav-item">
-                            <a href="teacher_edit_users.php" class="nav-link">Użytkownicy</a>
+                            <a href="teacher_modified_grades.php" class="nav-link">Historia ocen</a>
                         </li>
                         <li class="nav-item">
-                            <a href="teacher_add_user.php" class="nav-link">Dodawanie użytkownika</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="teacher_add_grade.php" class="nav-link">Dodawanie ocen</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="teacher_add_grade.php" class="nav-link">Historia modyfikacji ocen</a>
+                            <a href="teacher_add_grade.php" class="nav-link">Dodaj ocenę</a>
                         </li>
                     </ul>
                 </div>
@@ -380,6 +375,7 @@ if ($_SESSION['role'] != 1) {
             </div> <!-- /.content -->
         </div> <!-- /.content-wrapper -->
 
+    </div> <!-- ./wrapper -->
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- To the right -->
@@ -389,8 +385,6 @@ if ($_SESSION['role'] != 1) {
             <!-- Default to the left -->
             <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
         </footer>
-    </div>
-    <!-- ./wrapper -->
 
 
     <!-- jQuery -->

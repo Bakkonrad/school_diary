@@ -14,21 +14,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>KoalaSchool | Dodawanie ocen</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KoalaSchool | Dodawanie ocen</title>
+    <link rel="icon" type="image/x-icon" href="../../resources/logo2.png">
 
-<!-- Google Font: Source Sans Pro -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-<!-- Font Awesome -->
-<link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-<link href="../../plugins/fontawesome-free/css/fontawesome.css" rel="stylesheet">
-<link href="../../plugins/fontawesome-free/css/brands.css" rel="stylesheet">
-<link href="../../plugins/fontawesome-free/css/solid.css" rel="stylesheet">
-<!-- Theme style -->
-<link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-<!-- Custom style -->
-<link rel="stylesheet" href="../css/style.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+    <link href="../../plugins/fontawesome-free/css/fontawesome.css" rel="stylesheet">
+    <link href="../../plugins/fontawesome-free/css/brands.css" rel="stylesheet">
+    <link href="../../plugins/fontawesome-free/css/solid.css" rel="stylesheet">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+    <!-- Custom style -->
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
@@ -51,7 +52,7 @@
             <a href="teacher_main.php" class="nav-link">Strona główna</a>
             </li>
             <li class="nav-item">
-            <a href="teacher_show_grades.php" class="nav-link">Wyświetl oceny</a>
+            <a href="teacher_modified_grades.php" class="nav-link">Historia ocen</a>
             </li>
             <li class="nav-item">
             <a href="teacher_add_grade.php" class="nav-link">Dodaj ocenę</a>
@@ -137,6 +138,7 @@
         </div> <!-- /.container-fluid -->
     </div> <!-- /.content -->
     </div> <!-- /.content-wrapper -->
+</div> <!-- ./wrapper -->
 
     <!-- Main Footer -->
     <footer class="main-footer">
@@ -147,8 +149,6 @@
     <!-- Default to the left -->
     <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
     </footer>
-    </div>
-    <!-- ./wrapper -->
 
 
     <!-- jQuery -->
