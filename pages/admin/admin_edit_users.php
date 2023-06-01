@@ -101,19 +101,10 @@ if ($_SESSION['role'] != 1) {
         </nav> <!-- /.navbar -->
 
         <div class="content-wrapper">
-            <!-- <div class="content-wrapper">
-            <div class="content-header">
-                <div class="text-center">
-                    <h1 class="m-0">Wyświetlanie użytkowników</h1>
-                    <!- <h1 class="m-0"> Strona główna <small>zalogowany</small></h1> -->
-            <!-- </div> /.container-fluid -->
-            <!-- </div> /.content-header -->
-
             <!-- Main content -->
             <div class="content">
                 <div class="container">
-                    <!-- /.card-header -->
-                    <div class="card-body">
+                    <br>
                         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <?php
                             if (isset($_SESSION['errors'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
@@ -165,7 +156,7 @@ if ($_SESSION['role'] != 1) {
                                 unset($_SESSION['notification']);
                             }
                             ?>
-
+                          
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <h1 class="m-0">Wyświetlanie użytkowników</h1>
@@ -195,6 +186,13 @@ if ($_SESSION['role'] != 1) {
                                         echo <<< HTML
                                             <div class="card card-olive card-outline">
                                             <div class="card-body">
+                                            <div class="float" id="close-x">
+                                                <a href="admin_edit_users.php" class="btn"><i class="fa fa-solid fa-close"></i></a>
+                                            </div>
+                                            <br>
+                                            <div class="card-header text-center">
+                                                <h1 class="h1"><b>Edytowanie </b>użytkownika</h1>
+                                            </div>
                                                     <form action="../../scripts/update_user.php" method="post">
                                                 <div class="input-group mb-3">
                                                     <input type="text" class="form-control" name="firstName" placeholder="Podaj imię" value="$updateUser[firstName]" autofocus>
@@ -299,36 +297,34 @@ if ($_SESSION['role'] != 1) {
                                     ?>
                                 </div> <!-- ./col -->
                             </div> <!-- ./row -->
-
+                            <div class="card card-olive card-outline">
+                            <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <h3 class="m-0">Wyświetlanie użytkowników</h3>
+                                    <br>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div id="example1_filter" class="dataTables_filter"><label>Szukaj:<input type="search" class="form-control form-control-sm" placeholder="" name="search" aria-controls="example1"></label></div>
+                                </div>
+                            </div> <!-- ./row -->
                                     <table id="example1" class="table table-bordered table-striped dataTable dtr-inline"
                                         aria-describedby="example1_info">
                                         <thead>
                                             <tr>
-                                                <th class="sorting sorting_asc" tabindex="0" aria-controls="example1"
-                                                    rowspan="1" colspan="1" aria-sort="descending"
-                                                    aria-label="Sortuj według Id">Id</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                    colspan="1" aria-label="Sortuj według Imię">Imię</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                    colspan="1" aria-label="Sortuj według Nazwisko">Nazwisko</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                    colspan="1" aria-label="Sortuj według Nazwisko">Data urodzenia</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                    colspan="1" aria-label="Sortuj według Login">Login</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                    colspan="1" aria-label="Sortuj według Id">email</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                    colspan="1" aria-label="Sortuj według Klasa">Klasa</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                    colspan="1" aria-label="Sortuj według Rola">Rola</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                    colspan="1" aria-label="Sortuj według Rola">Usuń</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                    colspan="1" aria-label="Sortuj według Rola">Edytuj</th>
+                                                <th>Id</th>
+                                                <th>Imię</th>
+                                                <th>Nazwisko</th>
+                                                <th>Data urodzenia</th>
+                                                <th>Login</th>
+                                                <th>email</th>
+                                                <th>Klasa</th>
+                                                <th>Rola</th>
+                                                <th>Usuń</th>
+                                                <th>Edytuj</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-
                                             <?php
                                             require "../../scripts/connect.php";
                                             mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
@@ -428,14 +424,12 @@ if ($_SESSION['role'] != 1) {
                                     ?>
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
                     <!-- <div class="row">
                                     <div class="col-sm-12 col-md-5">
                                         <div class="dataTables_info" id="example1_info" role="status"
                                             aria-live="polite">Showing 1 to 10 of 57 entries</div>
                                     </div> -->
-
+                                    <br>
                             <div class="col-sm-12 col-md-7">
                                 <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
                                     <ul class="pagination">
@@ -482,11 +476,15 @@ if ($_SESSION['role'] != 1) {
                                         HTML;
                                 }
                                 ?>
+                                <br>
+                                </div>
+                                </div>
                             </ul>
                         </div> <!-- /.paginacja -->
                     </div> <!-- /.col -->
                 </div> <!-- /.example1-wrapper -->
             </div> <!-- /.card-body -->
+            </div> <!-- /.card -->
         </div> <!-- /.container -->
     </div> <!-- /.content -->
     </div> <!-- /.content-wrapper -->

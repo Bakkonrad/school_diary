@@ -16,7 +16,7 @@ if ($_SESSION['role'] != 1) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>KoalaSchool | Modyfikowane ocen</title>
+    <title>KoalaSchool | Historia ocen</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -34,7 +34,7 @@ if ($_SESSION['role'] != 1) {
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand-md navbar-olive navbar-dark">
             <div class="container">
-                <a href="admin_main.php" class="navbar-brand">
+                <a href="teacher_main.php" class="navbar-brand">
                     <img src="../../resources/logo2.png" width="40" height="40">
                     <span class="brand-text"><b>dziennik</b> lekcyjny</span>
                 </a>
@@ -49,32 +49,53 @@ if ($_SESSION['role'] != 1) {
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="admin_main.php" class="nav-link">Strona główna</a>
+                            <a href="teacher_main.php" class="nav-link">Strona główna</a>
                         </li>
                         <li class="nav-item">
-                            <a href="admin_edit_users.php" class="nav-link">Użytkownicy</a>
+                            <a href="teacher_edit_users.php" class="nav-link">Użytkownicy</a>
                         </li>
                         <li class="nav-item">
-                            <a href="admin_add_user.php" class="nav-link">Dodawanie użytkownika</a>
+                            <a href="teacher_add_user.php" class="nav-link">Dodawanie użytkownika</a>
                         </li>
                         <li class="nav-item">
-                            <a href="admin_add_grade.php" class="nav-link">Dodawanie ocen</a>
+                            <a href="teacher_add_grade.php" class="nav-link">Dodawanie ocen</a>
                         </li>
                         <li class="nav-item">
-                            <a href="admin_add_grade.php" class="nav-link">Historia modyfikacji ocen</a>
+                            <a href="teacher_add_grade.php" class="nav-link">Historia modyfikacji ocen</a>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Right navbar links -->
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                    
                     <!-- ACCOUNT ICON -->
-                    <li class="nav-item">
-                        <a href="admin_account.php" class="nav-link">
-                            <i class="fa fa-solid fa-user-shield fa-lg"></i>
-                        </a>
+            <div class="dropdown user user-menu open nav-item">
+                <a class="nav-link" data-toggle="dropdown" aria-expanded="true">
+                <span class="fa fa-stack">
+                    <i class="fa fa-thin fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-solid fa-chalkboard-user fa-stack-1x fa-inverse" id="navbar-dropdown-btn"></i>
+                </span>
+                </a>
+                <ul class="dropdown-menu" >
+                    <li class="user-header">
+                    <img src="../../resources/teacher.jpg" class="img-circle" alt="User Image">
+                    <?php
+                        echo <<< HTML
+                        <p><b>imię i nazwisko: </b>$_SESSION[firstName] $_SESSION[lastName]</p>
+                        <hr>
+                        <p><b>email: </b>$_SESSION[email]</p>
+                        <p style="margin-bottom: 20px;"><b>login: </b>$_SESSION[login]</p>
+                        HTML;
+                    ?>
                     </li>
+                    <br><br><br>
+                    <li class="user-footer">
+                    <div class="text-center" id="logout-div">
+                        <a href="../../scripts/logout.php" type="button" id="logout-btn" class="btn btn-block btn-danger" >Wyloguj</a>
+                    </div>
+                    </li>
+                </ul>
+            </div>
                 </ul>
             </div>
         </nav> <!-- /.navbar -->
@@ -317,7 +338,7 @@ if ($_SESSION['role'] != 1) {
                                                     $previousPage = $currentPage - 1;
                                                     echo <<<HTML
         <li class="paginate_button page-item previous" id="example1_previous">
-            <a href="./admin_add_grade.php?page=$previousPage" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Poprzednia</a>
+            <a href="./teacher_add_grade.php?page=$previousPage" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Poprzednia</a>
         </li>
         HTML;
                                                 }
@@ -326,7 +347,7 @@ if ($_SESSION['role'] != 1) {
                                                 {
                                                     echo <<<HTML
         <li class="paginate_button page-item">
-            <a href="./admin_add_grade.php?page=$i" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">$i</a>
+            <a href="./teacher_add_grade.php?page=$i" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">$i</a>
         </li>
         HTML;
                                                 }
@@ -342,7 +363,7 @@ if ($_SESSION['role'] != 1) {
                                                     $nextPage = $currentPage + 1;
                                                     echo <<<HTML
         <li class="paginate_button page-item next" id="example1_next">
-            <a href="./admin_add_grade.php?page=$nextPage" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Następna</a>
+            <a href="./teacher_add_grade.php?page=$nextPage" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Następna</a>
         </li>
         HTML;
                                                 }

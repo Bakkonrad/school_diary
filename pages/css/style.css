@@ -111,6 +111,25 @@ a i:hover {
     color: #307858;
 }
 
+#m_page_btn {
+    justify-content: bottom center;
+    align-items: baseline;
+    height: 90px;
+    width: 150px;
+    position: relative;
+}
+
+#m_page_btn h6 {
+    position: absolute;
+    bottom: 3%;
+    width: 100%;
+    left: 0%;
+}
+
+#close-x {
+    float: right;
+}
+
 /* .navbar-nav .nav-item a.active  {
     color:#FEFCFB;
     font-weight: bold;

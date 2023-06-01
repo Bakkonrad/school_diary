@@ -52,7 +52,7 @@
             <a href="student_grades.php" class="nav-link">Oceny</a>
           </li>
           <li class="nav-item">
-            <a href="student_statistics.php" class="nav-link">Statystyki</a>
+            <a href="student_modified_grades.php" class="nav-link">Historia ocen</a>
           </li>
         </ul>
       </div>
@@ -64,7 +64,7 @@
           <a class="nav-link " data-toggle="dropdown" aria-expanded="true" id="navbar-dropdown-link">
             <span class="fa fa-stack">
               <i class="fa fa-thin fa-circle fa-stack-2x"></i>
-              <i class="fa fa-solid fa-user-shield fa-stack-1x fa-inverse" id="navbar-dropdown-btn"></i>
+              <i class="fa fa-solid fa-user-graduate fa-stack-1x fa-inverse" id="navbar-dropdown-btn"></i>
             </span>
           </a>
           <ul class="dropdown-menu" >
@@ -109,13 +109,15 @@
             <div class="card-body">
               <h4>Co chcesz zrobić?</h4>
               <br>
-              <div class="row justify-content-md-center">
-                <a href="student_grades.php" class="btn btn-app bg-olive">
-                <i class="fa fa-solid fa-graduation-cap"></i> Oceny
-                </a>
-                <a href="student_statistics.php" class="btn btn-app bg-olive">
-                <i class="fa fa-solid fa-chart-bar"></i> Statystyki
-                </a>
+              <div class="row justify-content-center">
+                <div class="col-3">
+                  <a href="student_grades.php" class="btn" id="m_page_btn">
+                  <i class="fa fa-solid fa-graduation-cap fa-xl"></i><br><h5>Oceny</h5></a>
+                </div>
+                <div class="col-3">
+                  <a href="student_modified_grades.php" class="btn" id="m_page_btn">
+                    <i class="fa fa-solid fa-pen-to-square fa-xl"></i><br><h5>Historia ocen</h5></a>
+                  </div>
               </div> <!-- /.row -->
               <br>
               <div class="row justify-content-md-center">

@@ -44,38 +44,37 @@ if ($_SESSION['role'] != 3) {
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+              
+        <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="student_main.php" class="nav-link">Strona główna</a>
+            </li>
+            <li class="nav-item">
+                <a href="student_grades.php" class="nav-link">Oceny</a>
+            </li>
+            <li class="nav-item">
+                <a href="student_modified_grades.php" class="nav-link">Historia ocen</a>
+            </li>
+            </ul>
+        </div>
 
-                <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-                    <!-- Left navbar links -->
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a href="student_main.php" class="nav-link">Strona główna</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="student_grades.php" class="nav-link">Oceny</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="student_statistics.php" class="nav-link">Statystyki</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Right navbar links -->
-                <div class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                    <!-- ACCOUNT ICON -->
-                    <div class="dropdown user user-menu open nav-item">
-                        <a class="nav-link" data-toggle="dropdown" aria-expanded="true">
-                            <span class="fa fa-stack">
-                                <i class="fa fa-thin fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-solid fa-user-shield fa-stack-1x fa-inverse"
-                                    id="navbar-dropdown-btn"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="user-header">
-                                <img src="../../resources/student.jpg" class="img-circle" alt="User Image">
-                                <?php
-                                echo <<<HTML
+        <!-- Right navbar links -->
+        <div class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+            <!-- ACCOUNT ICON -->
+            <div class="dropdown user user-menu open nav-item">
+                <a class="nav-link" data-toggle="dropdown" aria-expanded="true">
+                <span class="fa fa-stack">
+                    <i class="fa fa-thin fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-solid fa-user-graduate fa-stack-1x fa-inverse" id="navbar-dropdown-btn"></i>
+                </span>
+                </a>
+                <ul class="dropdown-menu" >
+                    <li class="user-header">
+                    <img src="../../resources/student.jpg" class="img-circle" alt="User Image">
+                    <?php
+                        echo <<< HTML
                         <p><b>imię i nazwisko: </b>$_SESSION[firstName] $_SESSION[lastName]</p>
                         <hr>
                         <p><b>email: </b>$_SESSION[email]</p>

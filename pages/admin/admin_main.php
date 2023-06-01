@@ -95,45 +95,75 @@
 
   <!-- Content Header (Page header) -->
   <div class="content-wrapper">
-    <div class="content-header">
+    <!-- Main content -->
+    <div class="content">
       <div class="container">
-            <h1 class="m-0"> Strona główna</h1>
-            <!-- <h1 class="m-0"> Strona główna <small>zalogowany</small></h1> -->
+        <br>
+        <!-- <h2 class="m-0"> Strona główna</h2> -->
       </div> <!-- /.container-fluid -->
     </div> <!-- /.content-header -->
 
     <!-- Main content -->
     <div class="content">
       <div class="container">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="card card-olive card-outline">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="card card-olive card-outline">
+            <div class="card-body">
+              <h3>Co chcesz zrobić?</h3>
+              <br><br>
+              <div class="row justify-content-center">
+                <div class="col-3">
+                  <a href="admin_edit_users.php" class="btn" id="m_page_btn">
+                    <i class="fa fa-solid fa-user-group fa-xl"></i><br><h6>Wyświetl / edytuj<br>użytkowników</h6></a>
+                </div>
+                <div class="col-3">
+                  <a href="admin_add_user.php" class="btn" id="m_page_btn">
+                    <i class="fa fa-solid fa-user-plus fa-xl"></i><br><h6>Dodaj<br>użytkownika</h6></a>
+                </div>
+                <!-- <div class="col-3">
+                  <a href="student_modified_grades.php" class="btn" id="m_page_btn">
+                    <i class="fa fa-solid fa-pen-to-square fa-xl"></i><br><h6>Historia<br>ocen</h6></a>
+                </div> -->
+                <div class="col-3">
+                  <a href="admin_add_grade.php" class="btn" id="m_page_btn">
+                    <i class="fa fa-solid fa-plus fa-xl"></i><br><h6>Dodaj<br>ocenę</h6></a>
+                </div>
+              </div> <!-- /.row -->
+              <h1> </h1>
+              <br><br>
+            </div> <!-- /.card-body -->
+          </div> <!-- /.card -->
+        </div> <!-- /.col -->
+        <div class="col-lg-4">
+          <div class="card card-olive card-outline">
+            <div class="card-body">
+              <h2>Witaj, 
+              <?php
+                echo <<< HTML
+                    $_SESSION[firstName]</h2>
+                    <p class="card-text">dzisiejsza data: <b>
+                HTML;
+                $dzien = date('d');
+                $dzien_tyg = date('l');
+                $miesiac = date('n');
+                $rok = date('Y');
 
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div> <!-- /.card -->
-          </div> <!-- /.col-md-6 -->
-          <div class="col-lg-6">
-            <div class="card card-olive card-outline">
-              <div class="card-header">
-                <h5 class="card-title m-0">Featured</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
+                $miesiac_pl = array(1 => 'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia');
 
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-olive">Go somewhere</a>
-              </div>
-            </div>
-          </div> <!-- /.col-md-6 -->
-        </div> <!-- /.row -->
+                $dzien_tyg_pl = array('Monday' => 'poniedziałek', 'Tuesday' => 'wtorek', 'Wednesday' => 'środa', 'Thursday' => 'czwartek', 'Friday' => 'piątek', 'Saturday' => 'sobota', 'Sunday' => 'niedziela');
+              
+                echo $dzien_tyg_pl[$dzien_tyg].", ".$dzien." ".$miesiac_pl[$miesiac]." ".$rok."r.";
+                //echo date("l, d M Y"); // po angielsku
+              ?>
+              </b></p>
+              <br>
+              <h4>Słówko na dzisiaj:</h4>
+              <p><script src="https://wordsmith.org/words/word.js" type="text/javascript"></script></p>
+            </div> <!-- /.card-body -->
+          </div> <!-- /.card -->
+        </div> <!-- /.col -->
+      </div> <!-- /.row -->
       </div> <!-- /.container-fluid -->
     </div> <!-- /.content -->
   </div> <!-- /.content-wrapper -->
