@@ -130,6 +130,16 @@ a i:hover {
     float: right;
 }
 
+#cancelBtn {
+    background-color: #7a7a7a;
+    border-color: #5f5f5f;
+    color: white;
+}
+
+#cancelBtn:hover {
+    background-color: #5f5f5f;
+}
+
 /* .navbar-nav .nav-item a.active  {
     color:#FEFCFB;
     font-weight: bold;
