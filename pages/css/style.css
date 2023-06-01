@@ -126,6 +126,10 @@ a i:hover {
     left: 0%;
 }
 
+#close-x {
+    float: right;
+}
+
 /* .navbar-nav .nav-item a.active  {
     color:#FEFCFB;
     font-weight: bold;

@@ -115,19 +115,19 @@
               <div class="row justify-content-center">
                 <div class="col-3">
                   <a href="admin_edit_users.php" class="btn" id="m_page_btn">
-                    <i class="fa fa-solid fa-user-group fa-xl"></i><br><h6>Wyświetl<br>użytkowników</h6></a>
+                    <i class="fa fa-solid fa-user-group fa-xl"></i><br><h6>Wyświetl / edytuj<br>użytkowników</h6></a>
                 </div>
                 <div class="col-3">
                   <a href="admin_add_user.php" class="btn" id="m_page_btn">
                     <i class="fa fa-solid fa-user-plus fa-xl"></i><br><h6>Dodaj<br>użytkownika</h6></a>
                 </div>
-                <div class="col-3">
+                <!-- <div class="col-3">
                   <a href="student_modified_grades.php" class="btn" id="m_page_btn">
                     <i class="fa fa-solid fa-pen-to-square fa-xl"></i><br><h6>Historia<br>ocen</h6></a>
-                </div>
+                </div> -->
                 <div class="col-3">
                   <a href="admin_add_grade.php" class="btn" id="m_page_btn">
-                    <i class="fa fa-solid fa-graduation-cap fa-xl"></i><br><h6>Dodaj<br>ocenę</h6></a>
+                    <i class="fa fa-solid fa-plus fa-xl"></i><br><h6>Dodaj<br>ocenę</h6></a>
                 </div>
               </div> <!-- /.row -->
               <h1> </h1>
