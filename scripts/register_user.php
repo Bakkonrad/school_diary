@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //ochrona przed wejsciem na strone p
     //require "./connect.php";
 
     $stmt = $conn->prepare("INSERT INTO `users` (`firstName`, `lastName`, `birthday`, `email`, `password`, `login`,`class`,`role`) VALUES (?,?,?,?,?,?,?,?)");
-    $stmt->bind_param('ssssssii', $firstName, $lastName, $birthday, $email, password_hash($password,PASSWORD_DEFAULT), strtolower($login),$class, $role );
+    $stmt->bind_param('ssssssii', $firstName, $lastName, $birthday, $email, password_hash($password,PASSWORD_ARGON2ID), strtolower($login),$class, $role );
 
     $stmt->execute();
 

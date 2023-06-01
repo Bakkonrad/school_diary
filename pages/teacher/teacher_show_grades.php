@@ -96,7 +96,30 @@
     <div class="content-wrapper">
     <div class="content-header">
         <div class="container">
-            <h1 class="m-0">Widok ocen</h1>
+            <h1 class="m-0">Historia wystawienia ocen</h1>
+            <?php
+                require_once "../../scripts/connect.php";
+
+                if ($conn->connect_errno!=0) {
+                    echo "Error: ".$conn->connect_errno;
+                }
+                else {
+                    $sql = "SELECT `hog`.`old_grade`, `hog`.`new_grade`, `` FROM `history_of_grades` hog WHERE `added_by` = $_SESSION[id] ORDER BY `created_at` DESC";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) 
+                    {
+                        while ($row = $result->fetch_assoc()) 
+                        {
+                            echo "<tr><td>$row2[name]</td><td>$row[grade]</td></tr>";
+                        }
+                    }
+                    else 
+                    {
+                        echo "<p class='text-center'>Brak ocen do wyświetlenia</p>";
+                    }
+                    }
+                    
+            ?>
             <!-- <h1 class="m-0"> Strona główna <small>zalogowany</small></h1> -->
         </div> <!-- /.container-fluid -->
     </div> <!-- /.content-header -->
@@ -105,33 +128,7 @@
     <div class="content">
         <div class="container">
         <div class="row">
-            <div class="col-lg-6">
-            <div class="card card-olive card-outline">
-                <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-
-                <p class="card-text">
-                    Some quick example text to build on the card title and make up the bulk of the card's
-                    content.
-                </p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-                </div>
-            </div> <!-- /.card -->
-            </div> <!-- /.col-md-6 -->
-            <div class="col-lg-6">
-            <div class="card card-olive card-outline">
-                <div class="card-header">
-                <h5 class="card-title m-0">Featured</h5>
-                </div>
-                <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn">Go somewhere</a>
-                </div>
-            </div>
-            </div> <!-- /.col-md-6 -->
+            
         </div> <!-- /.row -->
         </div> <!-- /.container-fluid -->
     </div> <!-- /.content -->

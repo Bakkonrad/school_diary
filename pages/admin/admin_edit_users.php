@@ -156,6 +156,21 @@ if ($_SESSION['role'] != 1) {
                                 unset($_SESSION['notification']);
                             }
                             ?>
+                          
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <h1 class="m-0">Wyświetlanie użytkowników</h1>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <form action="../../scripts/search_user.php" method="post">
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" name="name_and_surname" class="form-control" placeholder="Podaj imię i nazwisko">
+                                            <div class="input-group-append">
+                                                <button type="submit" name="searchBtn" class="btn btn-primary">Szukaj</button>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
                             <br>
                             <div class="row justify-content-center">
                                 <div class="col-sm-6">
@@ -323,13 +338,34 @@ if ($_SESSION['role'] != 1) {
                                                 $currentPage = 1;
                                             }
 
-                                            $sql = "SELECT COUNT(*) AS allUsers FROM `users`;"; //zapytanie zliczające wszystkie rekordy
+                                            if((isset($_SESSION['name'])) && (!empty($_SESSION['name']))) //jesli uzyto szukania 
+                                            {
+                                                $name = $_SESSION['name'];
+                                                $surname = $_SESSION['surname'];
+                                                $sql = "SELECT COUNT(*) AS allUsers FROM `users`WHERE firstName = '$name' AND lastName = '$surname';";
+
+                                                //usuwanie zmiennych sesyjnych
+                                                unset($_SESSION['name']);
+                                                unset($_SESSION['surname']);
+                                            }
+                                            else
+                                            {
+                                                $sql = "SELECT COUNT(*) AS allUsers FROM `users`;"; //zapytanie zliczające wszystkie rekordy
+                                            }
                                             $result = $conn->query($sql);
                                             $row = $result->fetch_assoc();
                                             $allUsers = $row['allUsers']; //liczba wszystkich rekordów w bazie
                                             $numberOfPages = ceil($allUsers / $recordsPerPage); //liczba stron
                                             
-                                            $sql = "SELECT users.id, users.firstName, users.lastName, users.birthday, users.email, users.login, classes.class, roles.role FROM `users` JOIN `classes` ON `users`.`class` = `classes`.`class_id` JOIN `roles` ON `users`.`role` = `roles`.`role_id` LIMIT $recordsPerPage OFFSET " . ($currentPage - 1) * $recordsPerPage . ";";
+                                            if(isset($name))
+                                            {
+                                                $sql = "SELECT users.id, users.firstName, users.lastName, users.birthday, users.email, users.login, classes.class, roles.role FROM `users` JOIN `classes` ON `users`.`class` = `classes`.`class_id` JOIN `roles` ON `users`.`role` = `roles`.`role_id` WHERE `users`.`firstName` = '$name' AND `users`.`lastName` = '$surname' LIMIT $recordsPerPage OFFSET " . ($currentPage - 1) * $recordsPerPage . ";";
+                                            }
+                                            else
+                                            {
+                                                $sql = "SELECT users.id, users.firstName, users.lastName, users.birthday, users.email, users.login, classes.class, roles.role FROM `users` JOIN `classes` ON `users`.`class` = `classes`.`class_id` JOIN `roles` ON `users`.`role` = `roles`.`role_id` LIMIT $recordsPerPage OFFSET " . ($currentPage - 1) * $recordsPerPage . ";";
+                                            }
+                                            
                                             $result = $conn->query($sql);
 
                                             if ($result->num_rows == 0) {
