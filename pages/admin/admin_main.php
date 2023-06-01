@@ -95,14 +95,7 @@
 
   <!-- Content Header (Page header) -->
   <div class="content-wrapper">
-    <!-- Main content -->
-    <div class="content">
-      <div class="container">
-        <br>
-        <!-- <h2 class="m-0"> Strona główna</h2> -->
-      </div> <!-- /.container-fluid -->
-    </div> <!-- /.content-header -->
-
+  <br>
     <!-- Main content -->
     <div class="content">
       <div class="container">
@@ -121,10 +114,6 @@
                   <a href="admin_add_user.php" class="btn" id="m_page_btn">
                     <i class="fa fa-solid fa-user-plus fa-xl"></i><br><h6>Dodaj<br>użytkownika</h6></a>
                 </div>
-                <!-- <div class="col-3">
-                  <a href="student_modified_grades.php" class="btn" id="m_page_btn">
-                    <i class="fa fa-solid fa-pen-to-square fa-xl"></i><br><h6>Historia<br>ocen</h6></a>
-                </div> -->
                 <div class="col-3">
                   <a href="admin_add_grade.php" class="btn" id="m_page_btn">
                     <i class="fa fa-solid fa-plus fa-xl"></i><br><h6>Dodaj<br>ocenę</h6></a>

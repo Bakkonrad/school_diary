@@ -344,8 +344,7 @@
                       </div>
                       </div>
                       </div>
-                      </div>
-                      <!-- /.card-body -->
+                      </div> <!-- /.card-body -->
                       </div>
                       </div> <!-- /.container-fluid -->
                       </div> <!-- /.content -->

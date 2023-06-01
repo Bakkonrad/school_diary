@@ -94,13 +94,8 @@ if ($_SESSION['role'] != 2) {
             </div>
         </nav> <!-- /.navbar -->
 
-        <!-- Content Header (Page header) -->
         <div class="content-wrapper">
-            <div class="content-header">
-                <div class="container">
-                </div> <!-- /.container-fluid -->
-            </div> <!-- /.content-header -->
-
+            <br>
             <!-- Main content -->
             <div class="content">
                 <div class="container">
@@ -109,22 +104,19 @@ if ($_SESSION['role'] != 2) {
                             <div class="card card-olive card-outline">
                                 <div class="card-body">
                                     <h4>Co chcesz zrobić?</h4>
-                                    <br>
-                                    <div class="row justify-content-md-center">
-                                        <a href="teacher_show_grades.php" class="btn btn-app bg-olive">
-                                            <i class="fa fa-solid fa-graduation-cap"></i> Wyświetl oceny
-                                        </a>
-                                        <a href="teacher_add_grade.php" class="btn btn-app bg-olive">
-                                            <i class="fa fa-solid fa-plus"></i> Dodaj oceny
-                                        </a>
+                                    <br><br>
+                                    <div class="row justify-content-center">
+                                        <div class="col-3">
+                                            <a href="teacher_show_grades.php" class="btn" id="m_page_btn">
+                                            <i class="fa fa-solid fa-graduation-cap fa-xl"></i><br><h6>Wyświetl<br>oceny</h6></a>
+                                        </div>
+                                        <div class="col-3">
+                                            <a href="teacher_add_grade.php" class="btn" id="m_page_btn">
+                                            <i class="fa fa-solid fa-plus fa-xl"></i><br><h6>Dodaj<br>ocenę</h6></a>
+                                        </div>
                                     </div> <!-- /.row -->
-                                    <br>
-                                    <div class="row justify-content-md-center">
-                                        <img src="../../resources/pexels-cdc-3992949.jpg" width="400" height="270">
-                                    </div>
-                                    <div class="row justify-content-md-center">
-                                        <label>dzieciak na matmie hihi</label>
-                                    </div>
+                                    <h2> </h2>
+                                    <br><br>
                                 </div> <!-- /.card-body -->
                             </div> <!-- /.card -->
                         </div> <!-- /.col -->
@@ -134,10 +126,20 @@ if ($_SESSION['role'] != 2) {
                                     <h2>Witaj,
                                         <?php
                                         echo <<< HTML
-                    $_SESSION[firstName]</h2>
-                    <p class="card-text">dzisiejsza data: <b>
-                HTML;
-                                    echo date("l, d M Y");
+                                            $_SESSION[firstName]</h2>
+                                            <p class="card-text">dzisiejsza data: <b>
+                                        HTML;
+                                        $dzien = date('d');
+                                        $dzien_tyg = date('l');
+                                        $miesiac = date('n');
+                                        $rok = date('Y');
+
+                                        $miesiac_pl = array(1 => 'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia');
+
+                                        $dzien_tyg_pl = array('Monday' => 'poniedziałek', 'Tuesday' => 'wtorek', 'Wednesday' => 'środa', 'Thursday' => 'czwartek', 'Friday' => 'piątek', 'Saturday' => 'sobota', 'Sunday' => 'niedziela');
+                                    
+                                        echo $dzien_tyg_pl[$dzien_tyg].", ".$dzien." ".$miesiac_pl[$miesiac]." ".$rok."r.";
+                                        // echo date("l, d M Y"); // po angielsku
                                     ?>
                                     </b></p>
                                     <br>
@@ -145,12 +147,6 @@ if ($_SESSION['role'] != 2) {
                                     <p>
                                         <script src="https://wordsmith.org/words/word.js" type="text/javascript"></script>
                                     </p>
-                                    <br>
-                                    <h4>Ostatnio dodana ocena:</h4>
-                                    <p>Przedmiot: </p>
-                                    <p>Ocena: </p>
-                                    <p>Data: </p>
-                                    <p>Nauczyciel: </p>
                                 </div> <!-- /.card-body -->
                             </div> <!-- /.card -->
                         </div> <!-- /.col -->

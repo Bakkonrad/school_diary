@@ -340,6 +340,60 @@ if ($_SESSION['role'] != 3) {
                         </div>
                         <!-- /.card-body -->
                     </div>
+                    <div class="card card-olive card-outline">
+                        <div class="card-body">
+                            <h3>Historia ocen</h3>
+                            <br>
+                        <?php
+                        echo <<<HTML
+                            <div class="row justify-content-center">
+                                <div class="col-10">
+                                    <div class="card card-outline card-success collapsed-card">
+                                        <div class="card-header">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <h6>01.06.2023</h6>
+                                                </div>
+                                                <div class="col-9">
+                                                    <h3 class="card-title">Dodano nową ocenę z przedmiotu user[subject]!</h3>
+                                                </div>
+                                                <div class="col-1 card-tools">
+                                                    <button type="button" class="btn btn-tool" id="toolBtn" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            Dodano ocenę user[new_grade] z przedmiotu user[subject] dnia user[grades_created_at].
+                                        </div>
+                                    </div> <!-- /.card-success -->
+                                    </div> <!-- /.col-10 -->
+                            </div> <!-- /.row -->
+                            <div class="row justify-content-center">
+                                <div class="col-10">
+                                    <div class="card card-outline card-danger collapsed-card">
+                                        <div class="card-header">
+                                        <div class="row">
+                                                <div class="col-2">
+                                                    <h6>01.06.2023</h6>
+                                                </div>
+                                                <div class="col-9">
+                                                    <h3 class="card-title">Usunięto ocenę z przedmiotu user[subject]!</h3>
+                                                </div>
+                                                <div class="col-1 card-tools">
+                                                    <button type="button" class="btn btn-tool" id="toolBtn" data-card-widget="collapse"><i class="fas fa-plus"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            Usunięto ocenę user[old_grade] z przedmiotu user[subject] (dodaną dnia user[grades_created_at]).
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        HTML;
+                        ?>
+                        </div> <!-- /.card-body -->
+                    </div> <!-- /.card -->
                 </div> <!-- /.container-fluid -->
             </div> <!-- /.content -->
         </div> <!-- /.content-wrapper -->

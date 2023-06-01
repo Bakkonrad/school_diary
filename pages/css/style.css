@@ -126,7 +126,7 @@ a i:hover {
     left: 0%;
 }
 
-#close-x {
+#close-x, #toolBtn {
     float: right;
 }
 
@@ -138,6 +138,12 @@ a i:hover {
 
 #cancelBtn:hover {
     background-color: #5f5f5f;
+}
+
+#toolBtn {
+    background-color: transparent;
+    border-color: transparent;
+    color: #7a7a7a;
 }
 
 /* .navbar-nav .nav-item a.active  {
