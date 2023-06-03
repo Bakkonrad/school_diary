@@ -67,7 +67,7 @@ if ($_SESSION['role'] != 3) {
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
-                            <img src="../../resources/student.jpg" class="profile-user-img img-fluid img-circle" alt="User Image">
+                                <img src="../../resources/student.jpg" class="profile-user-img img-fluid img-circle" alt="User Image">
                                 <?php
                                 echo <<< HTML
                                             <p>
@@ -363,8 +363,8 @@ if ($_SESSION['role'] != 3) {
                         <div class="card-body">
                             <h3>Historia ocen</h3>
                             <br>
-                        <?php
-                        echo <<<HTML
+                            <?php
+                            echo <<<HTML
                             <div class="row justify-content-center">
                                 <div class="col-10">
                                     <div class="card card-outline card-success collapsed-card">
@@ -410,23 +410,125 @@ if ($_SESSION['role'] != 3) {
                                 </div>
                             </div>
                         HTML;
-                        ?>
+                            ?>
                         </div> <!-- /.card-body -->
                     </div> <!-- /.card -->
+                    <div class="container-fluid">
+                        <div class="card card-outline card-olive">
+                            <div class="card-body">
+                            <h3>Historia ocen</h3>
+                            <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="timeline">
+
+                                            <div class="time-label">
+                                                <span class="bg-olive">10 Feb. 2014</span> <!-- data -->
+                                            </div>
+
+
+                                            <div>
+                                                <i class="fas fa-plus bg-success"></i>
+                                                <div class="timeline-item">
+                                                    <span class="time"><i class="fas fa-clock"></i> 12:05</span> <!-- godzina -->
+                                                    <h3 class="timeline-header"><b>Dodano nową ocenę!</b></h3> <!-- Nauczyciel -->
+                                                    <div class="timeline-body">
+                                                        Dodano ocenę [ocena] z przedmiotu [przedmiot] przez [nauczyciel] 
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <i class="fas fa-times bg-danger"></i>
+                                                <div class="timeline-item">
+                                                    <span class="time"><i class="fas fa-clock"></i> 12:05</span> <!-- godzina -->
+                                                    <h3 class="timeline-header"><b>Usunięto ocenę!</b></h3>
+                                                    <div class="timeline-body">
+                                                        Usunięto ocenę [ocena] z przedmiotu [przedmiot] przez [nauczyciel] 
+                                                    </div>
+                                                </div>
+                                            </div>
+
+<!-- 
+                                            <div>
+                                                <i class="fas fa-comments bg-yellow"></i>
+                                                <div class="timeline-item">
+                                                    <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
+                                                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                                                    <div class="timeline-body">
+                                                        Take me to your leader!
+                                                        Switzerland is small and neutral!
+                                                        We are more like Germany, ambitious and misunderstood!
+                                                    </div>
+                                                    <div class="timeline-footer">
+                                                        <a class="btn btn-warning btn-sm">View comment</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="time-label">
+                                                <span class="bg-green">3 Jan. 2014</span>
+                                            </div>
+
+
+                                            <div>
+                                                <i class="fa fa-camera bg-purple"></i>
+                                                <div class="timeline-item">
+                                                    <span class="time"><i class="fas fa-clock"></i> 2 days ago</span>
+                                                    <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+                                                    <div class="timeline-body">
+                                                        <img src="https://placehold.it/150x100" alt="..." s10kgbb4p="">
+                                                        <img src="https://placehold.it/150x100" alt="..." s10kgbb4p="">
+                                                        <img src="https://placehold.it/150x100" alt="..." s10kgbb4p="">
+                                                        <img src="https://placehold.it/150x100" alt="..." s10kgbb4p="">
+                                                        <img src="https://placehold.it/150x100" alt="..." s10kgbb4p="">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div>
+                                                <i class="fas fa-video bg-maroon"></i>
+                                                <div class="timeline-item">
+                                                    <span class="time"><i class="fas fa-clock"></i> 5 days ago</span>
+                                                    <h3 class="timeline-header"><a href="#">Mr. Doe</a> shared a video</h3>
+                                                    <div class="timeline-body">
+                                                        <div class="embed-responsive embed-responsive-16by9">
+                                                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/tMWkeBIohBs" allowfullscreen=""></iframe>
+                                                        </div>
+                                                    </div>
+                                                    <div class="timeline-footer">
+                                                        <a href="#" class="btn btn-sm bg-maroon">See comments</a>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
+                                            <div>
+                                                <i class="fas fa-clock bg-gray"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div> <!-- /.container-fluid -->
             </div> <!-- /.content -->
         </div> <!-- /.content-wrapper -->
     </div> <!-- ./wrapper -->
 
-        <!-- Main Footer -->
-        <footer class="main-footer">
-            <!-- To the right -->
-            <div class="float-right d-none d-sm-inline">
-                <img src="../../resources/logo.png" width="100" height="32">
-            </div>
-            <!-- Default to the left -->
-            <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
-        </footer>
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <!-- To the right -->
+        <div class="float-right d-none d-sm-inline">
+            <img src="../../resources/logo.png" width="100" height="32">
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
+    </footer>
 
 
     <!-- jQuery -->

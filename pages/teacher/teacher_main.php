@@ -114,7 +114,9 @@ if ($_SESSION['role'] != 2) {
                         <div class="col-lg-8">
                             <div class="card card-olive card-outline">
                                 <div class="card-body">
-                                    <h4>Co chcesz zrobić?</h4>
+                                <div class="row justify-content-center">
+                <h2>Wybierz, co chcesz zrobić:</h2>
+              </div>
                                     <br><br>
                                     <div class="row justify-content-center">
                                         <div class="col-3">
