@@ -35,7 +35,7 @@
   <nav class="main-header navbar navbar-expand-md navbar-olive navbar-dark">
     <div class="container">
       <a href="student_main.php" class="navbar-brand">
-        <img src="../../resources/logo2.png" width="40" height="40">
+        <img src="../../resources/logo2.png" id="navLogo">
         <span class="brand-text"><b>dziennik</b> lekcyjny</span>
       </a>
 
@@ -63,27 +63,46 @@
         <!-- ACCOUNT ICON -->
         <div class="dropdown user user-menu open nav-item" id="navbar-dropdown-item">
           <a class="nav-link " data-toggle="dropdown" aria-expanded="true" id="navbar-dropdown-link">
-            <span class="fa fa-stack">
-              <i class="fa fa-thin fa-circle fa-stack-2x"></i>
-              <i class="fa fa-solid fa-user-graduate fa-stack-1x fa-inverse" id="navbar-dropdown-btn"></i>
-            </span>
+              <i class="fa fa-solid fa-user-graduate" id="navbar-dropdown-btn"></i>
           </a>
           <ul class="dropdown-menu" >
             <li class="user-header">
-              <img src="../../resources/student.jpg" class="img-circle" alt="User Image">
+              <img src="../../resources/student.jpg" class="profile-user-img img-fluid img-circle" alt="User Image">
               <?php
                 echo <<< HTML
-                  <p><b>imię i nazwisko: </b>$_SESSION[firstName] $_SESSION[lastName]</p>
+                  <p>
+                  <h5><b>$_SESSION[firstName] $_SESSION[lastName]</b></h5>
+                  <span class="text-muted">$_SESSION[email]</span>
+                  </p>
                   <hr>
-                  <p><b>email: </b>$_SESSION[email]</p>
-                  <p style="margin-bottom: 20px;"><b>login: </b>$_SESSION[login]</p>
+                  <div style="text-align:left">
+                    <p>
+                      <div class="row">
+                        <div class="col-1">
+                          <i class="fas fa-user"></i> 
+                        </div>
+                        <div class="col-11">
+                          <span class="text-muted">login:</span> $_SESSION[login]
+                        </div> <!-- /.col -->
+                      </div> <!-- /.row -->
+                      <div class="row">
+                        <div class="col-1">
+                          <i class="fa fa-people-group"></i> 
+                        </div>
+                        <div class="col-11">
+                          <span class="text-muted">klasa:</span> $_SESSION[class] <!-- trzeba zaciągnąć klasę -->
+                        </div> <!-- /.col -->
+                      </div> <!-- /.row -->
+                      <br>
+                    </p>
+                  </div>
                 HTML;
               ?>
             </li>
-            <br><br><br>
+            <br><br><br><br>
             <li class="user-footer">
               <div class="text-center" id="logout-div">
-                  <a href="../../scripts/logout.php" type="button" id="logout-btn" class="btn btn-block btn-danger" >Wyloguj</a>
+                  <a href="../../scripts/logout.php" type="button" id="logout-btn" class="btn btn-block btn-danger" ><i class="fa fa-solid fa-right-from-bracket"></i>  Wyloguj</a>
               </div>
             </li>
           </ul>
@@ -102,7 +121,9 @@
         <div class="col-lg-8">
           <div class="card card-olive card-outline">
             <div class="card-body">
-              <h4>Co chcesz zrobić?</h4>
+              <div class="row justify-content-center">
+                <h2>Wybierz, co chcesz zrobić:</h2>
+              </div>
               <br><br>
               <div class="row justify-content-center">
                 <div class="col-3">
@@ -115,7 +136,7 @@
                   </div>
               </div> <!-- /.row -->
               <h1> </h1>
-              <br><br><br>
+              <!-- <br><br><br> -->
             </div> <!-- /.card-body -->
           </div> <!-- /.card -->
         </div> <!-- /.col -->
@@ -144,7 +165,7 @@
               <br>
               <h4>Słówko na dzisiaj:</h4>
               <p><script src="https://wordsmith.org/words/word.js" type="text/javascript"></script></p>
-              <br>
+              <!-- <br> -->
             </div> <!-- /.card-body -->
           </div> <!-- /.card -->
         </div> <!-- /.col -->

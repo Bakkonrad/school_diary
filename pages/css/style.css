@@ -72,6 +72,14 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+#navLogo {
+    background-color: #ffffff;
+    border-radius: 50%;
+    border: 1.5px solid #ffffff;
+    width: 40px;
+    height: 40px;
+}
+
 .brand-text {
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
@@ -80,19 +88,53 @@
 
 .dropdown .dropdown-menu {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 1px solid #7a7a7a !important;
+    border-radius: 5px !important;
 }
 
 #navbar-dropdown-btn {
+    cursor: pointer;
     color: #3d9970;
+    text-decoration: none;
+    position: relative;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    padding: 15px;
 }
 
-#navbar-dropdown-btn:hover {
-    color: #2e7052;
+#navbar-dropdown-btn::before{
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.dropdown .dropdown-menu .user-header .img-circle {
-    background-color: #3d9970;
+#navbar-dropdown-btn::after{
+    content: '';
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 50%;
+    z-index: 0;
+    background-color: #ffffff;
+    transition: 0.2s;
 }
+
+#navbar-dropdown-btn:hover::after {
+    transform: scale(.8);
+}
+
+.dropdown .dropdown-menu .user-header .profile-user-img {
+    border: 3px solid #3d9970 !important;
+    margin: 0 auto;
+    padding: 3px;
+}
+
 /* * dropdown menu logout button */
 .dropdown .dropdown-menu .user-footer #logout-div #logout-btn, #delete-btn {
     background-color: #dc3545;
@@ -106,6 +148,14 @@
     color: white;
 }
 
+.card-body {
+    min-height: 20rem;
+    /* margin-bottom: 10%; */
+}
+
+.login-box .card .card-body {
+    min-height: 10rem !important;
+}
 
 /* * icons in forms and all buttons */
 .input-group-text, .btn {
@@ -113,7 +163,6 @@
     background-color:#3d9970; 
     color:white
 }
-
 
 /* * buttons on hover */
 .btn:hover {
@@ -148,8 +197,6 @@ a:hover {
 /* * icon buttons*/
 a i {
     color: #ffffff;
-    /* ? border-radius: 50%;
-    ? border-color: white;  */
 }
 
 a i:hover {
@@ -164,11 +211,20 @@ a i:hover {
     position: relative;
 }
 
+/* #m_page_btn:hover {
+    background: linear-gradient(0deg, rgba(25,62,46,1) 0%, rgba(61,153,112,1) 50%);
+    transition: 0.2s;
+} */
+
 #m_page_btn h6 {
     position: absolute;
     bottom: 3%;
     width: 100%;
     left: 0%;
+}
+
+#m_page_btn i:hover {
+    color: white;
 }
 
 #close-x, #toolBtn {
