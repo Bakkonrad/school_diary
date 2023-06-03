@@ -17,6 +17,8 @@ if ($_SESSION['role'] != 1) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>KoalaSchool | Użytkownicy</title>
+    <link rel="icon" type="image/x-icon" href="../../resources/logo2.png">
+
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -156,22 +158,6 @@ if ($_SESSION['role'] != 1) {
                                 unset($_SESSION['notification']);
                             }
                             ?>
-                          
-                            <div class="row">
-                                <div class="col-sm-12 col-md-6">
-                                    <h1 class="m-0">Wyświetlanie użytkowników</h1>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <form action="../../scripts/search_user.php" method="post">
-                                        <div class="input-group input-group-sm">
-                                            <input type="text" name="name_and_surname" class="form-control" placeholder="Podaj imię i nazwisko">
-                                            <div class="input-group-append">
-                                                <button type="submit" name="searchBtn" class="btn btn-primary">Szukaj</button>
-                                            </div>
-                                        </div>
-                                </div>
-                            </div>
-                            <br>
                             <div class="row justify-content-center">
                                 <div class="col-sm-6">
                                     <!-- okienko do edytowania użytownika -->
@@ -305,7 +291,14 @@ if ($_SESSION['role'] != 1) {
                                     <br>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
-                                    <div id="example1_filter" class="dataTables_filter"><label>Szukaj:<input type="search" class="form-control form-control-sm" placeholder="" name="search" aria-controls="example1"></label></div>
+                                    <form action="../../scripts/search_user.php" method="post">
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" name="name_and_surname" class="form-control" placeholder="Podaj imię i nazwisko">
+                                            <div class="input-group-append">
+                                                <button type="submit" name="searchBtn" class="btn btn-primary">Szukaj</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div> <!-- ./row -->
                                     <table id="example1" class="table table-bordered table-striped dataTable dtr-inline"
@@ -403,16 +396,16 @@ if ($_SESSION['role'] != 1) {
                                                                         <div class="row">
                                                                             <div class="col-4">
                                                                                 <button type="button" class="btn btn-secondary" style="background-color:grey" data-dismiss="modal">Anuluj</button>
-                                                                            </div>
+                                                                            </div> <!-- /.col -->
                                                                             <div class="col-8">
                                                                                 <a href="../../scripts/delete_user.php?userDeleteId=$user[id]">
                                                                                     <button type="button" class="btn btn-danger" id="delete-btn">Usuń użytkownika</button>
                                                                                 </a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                                            </div> <!-- /.col -->
+                                                                        </div> <!-- /.row -->
+                                                                    </div> <!-- /.modal-footer -->
+                                                                </div> <!-- /.modal-content -->
+                                                            </div> <!-- /.modal-dialog -->
                                                         </div> <!-- /.modal -->
                                                         </td>
                                                         <td><a href="./admin_edit_users.php?userUpdateId=$user[id]"><button type="button" class="btn btn-olive">Edytuj</button></a></td>
@@ -424,12 +417,7 @@ if ($_SESSION['role'] != 1) {
                                     ?>
                                 </tbody>
                             </table>
-                    <!-- <div class="row">
-                                    <div class="col-sm-12 col-md-5">
-                                        <div class="dataTables_info" id="example1_info" role="status"
-                                            aria-live="polite">Showing 1 to 10 of 57 entries</div>
-                                    </div> -->
-                                    <br>
+                            <br>
                             <div class="col-sm-12 col-md-7">
                                 <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
                                     <ul class="pagination">
@@ -488,7 +476,7 @@ if ($_SESSION['role'] != 1) {
         </div> <!-- /.container -->
     </div> <!-- /.content -->
     </div> <!-- /.content-wrapper -->
-
+</div> <!-- ./wrapper -->
 
     <!-- Main Footer -->
     <footer class="main-footer">
@@ -499,7 +487,6 @@ if ($_SESSION['role'] != 1) {
         <!-- Default to the left -->
         <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
     </footer>
-    </div> <!-- ./wrapper -->
 
 
     <!-- jQuery -->

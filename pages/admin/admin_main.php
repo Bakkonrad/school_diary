@@ -17,6 +17,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>KoalaSchool | Strona główna</title>
+  <link rel="icon" type="image/x-icon" href="../../resources/logo2.png">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -95,14 +96,7 @@
 
   <!-- Content Header (Page header) -->
   <div class="content-wrapper">
-    <!-- Main content -->
-    <div class="content">
-      <div class="container">
-        <br>
-        <!-- <h2 class="m-0"> Strona główna</h2> -->
-      </div> <!-- /.container-fluid -->
-    </div> <!-- /.content-header -->
-
+  <br>
     <!-- Main content -->
     <div class="content">
       <div class="container">
@@ -121,10 +115,6 @@
                   <a href="admin_add_user.php" class="btn" id="m_page_btn">
                     <i class="fa fa-solid fa-user-plus fa-xl"></i><br><h6>Dodaj<br>użytkownika</h6></a>
                 </div>
-                <!-- <div class="col-3">
-                  <a href="student_modified_grades.php" class="btn" id="m_page_btn">
-                    <i class="fa fa-solid fa-pen-to-square fa-xl"></i><br><h6>Historia<br>ocen</h6></a>
-                </div> -->
                 <div class="col-3">
                   <a href="admin_add_grade.php" class="btn" id="m_page_btn">
                     <i class="fa fa-solid fa-plus fa-xl"></i><br><h6>Dodaj<br>ocenę</h6></a>
@@ -167,6 +157,7 @@
       </div> <!-- /.container-fluid -->
     </div> <!-- /.content -->
   </div> <!-- /.content-wrapper -->
+</div> <!-- ./wrapper -->
 
   <!-- Main Footer -->
   <footer class="main-footer">
@@ -177,8 +168,6 @@
     <!-- Default to the left -->
     <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
   </footer>
-</div>
-<!-- ./wrapper -->
 
 
 <!-- jQuery -->

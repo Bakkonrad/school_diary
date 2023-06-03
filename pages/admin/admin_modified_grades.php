@@ -17,6 +17,7 @@ if ($_SESSION['role'] != 1) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>KoalaSchool | Modyfikowane ocen</title>
+    <link rel="icon" type="image/x-icon" href="../../resources/logo2.png">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -358,6 +359,7 @@ if ($_SESSION['role'] != 1) {
                 </div> <!-- /.container-fluid -->
             </div> <!-- /.content -->
         </div> <!-- /.content-wrapper -->
+    </div> <!-- ./wrapper -->
 
         <!-- Main Footer -->
         <footer class="main-footer">
@@ -368,8 +370,6 @@ if ($_SESSION['role'] != 1) {
             <!-- Default to the left -->
             <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
         </footer>
-    </div>
-    <!-- ./wrapper -->
 
 
     <!-- jQuery -->

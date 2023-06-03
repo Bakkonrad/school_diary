@@ -18,6 +18,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>KoalaSchool | Dodawanie ocen</title>
+  <link rel="icon" type="image/x-icon" href="../../resources/logo2.png">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -97,27 +98,27 @@
 
     <!-- Content Header (Page header) -->
     <div class="content-wrapper">
-      <div class="content-header">
-        <div class="container">
-          <h1 class="m-0">Dodawanie ocen</h1>
-          <!-- <h1 class="m-0"> Strona główna <small>zalogowany</small></h1> -->
-        </div> <!-- /.container-fluid -->
-      </div> <!-- /.content-header -->
-
       <!-- Main content -->
       <div class="content">
         <div class="container">
-          <div class="card">
-            <!-- /.card-header -->
+          <br>
+          <div class="card card-olive card-outline">
             <div class="card-body">
+              <!-- /.card-header -->
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <h3 class="m-0">Dodawanie ocen</h3>
+                  <br>
+                </div> <!-- /.col -->
+              </div>  <!-- /.row -->
               <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <label class="mr-2">Wybierz klasę</label>
                 <div class="row">
-                  <div class="col-sm-12 col-md-6"> 
+                  <div class="col-4"> 
                     <!-- wybór klas -->
                     <form action="./admin_add_grade.php" method="post">
-                    <div class="input-group mb-3">
-                <select class="form-control" name="class">
-                <?php
+                      <select class="form-control" name="class">
+                      <?php
                         require "../../scripts/connect.php";
                         $sql = "SELECT * FROM `classes`";
                         $result = $conn->query($sql);
@@ -128,22 +129,17 @@
                               echo "<option value='$class[class_id]'>$class[class]</option>";
                           }
                         }
-                        ?>
-                    </select>
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-people-group"></span>
+                      ?>
+                      </select>
+                      </div>
+                      <div class="col-2">
+                        <div class="d-flex justify-content-center align-items-center">
+                          <button type="submit" class="btn bg-olive btn-block">Wyświetl uczniów</button>
                         </div>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center align-items-center">
-                    <button type="submit" class="btn bg-olive btn-block">Wybierz klasę</button>
-                </div>
+                      </div>
                     </form>
-                  </div>
                 </div>
                 <br>
-                <h3>Lista uczniów</h3>
                 <?php
                   //jeśli wybrano klase to pokaż tabele z uczniami
                   if((isset($_POST['class'])) || (isset($_SESSION['class_id'])))
@@ -156,12 +152,13 @@
                     echo <<<HTML
                   <div class="row">
                   <div class="col-sm-12">
+                      <h3>Lista uczniów</h3>
                     <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
                       <thead>
                         <tr>
-                          <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Imię</th>
-                          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Nazwisko</th>
-                          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Dodaj ocenę</th>
+                          <th>Imię</th>
+                          <th>Nazwisko</th>
+                          <th>Dodaj ocenę</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -199,15 +196,15 @@
                         {
                             echo <<< HTML
                               <tr>
-                              <td class="dtr-control sorting_1" tabindex="0">$user[firstName]</td>
+                              <td class="dtr-control sorting_1">$user[firstName]</td>
                                 <td>$user[lastName]</td>
-                                <td><button type="button" class="btn btn-danger"  id="delete-btn" data-toggle="modal" data-target="#addGrade$user[id]">Dodaj ocenę</button> 
+                                <td><button type="button" class="btn" data-toggle="modal" data-target="#addGrade$user[id]">Dodaj ocenę</button> 
                                 <!-- Modal - dodanie oceny dla ucznia --> 
-                                <div class="modal fade" id="addGrade$user[id]" tabindex="0" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+                                <div class="modal fade" id="addGrade$user[id]" role="dialog" aria-labelledby="confirmAddGradeLabel" aria-hidden="true">
                                   <div class="modal-dialog" role="document">
                                       <div class="modal-content">
                                           <div class="modal-header">
-                                              <h5 class="modal-title" id="confirmDeleteLabel">Dodaj ocenę </h5>
+                                              <h5 class="modal-title" id="AddGradeLabel">Dodaj ocenę uczniowi <b>$user[firstName]</b></h5>
                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                   <span aria-hidden="true">&times;</span>
                                               </button>
@@ -260,28 +257,25 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                  <!-- /.col -->
-                                                  <div class="d-flex justify-content-center align-items-center">
-                                                      <button type="submit" class="btn bg-olive btn-block">Ddaj ocenę</button>
-                                                  </div>
-                                              
+                                                  <!-- /.col -->                                              
                                               </form>
                                           </div>
                                           <div class="modal-footer">
                                               <div class="row">
                                                   <div class="col-4">
-                                                      <button type="button" class="btn btn-secondary" style="background-color:grey" data-dismiss="modal">Anuluj</button>
-                                                  </div>
+                                                      <button type="button" class="btn mr-auto" id="cancelBtn" data-dismiss="modal">Anuluj</button>
+                                                  </div> <!-- /.col -->
                                                   <div class="col-8">
-                                                      <a href="../../scripts/add_grade.php?userDeleteId=$user[id]">
-                                                          <button type="button" class="btn btn-danger" id="delete-btn">Dodaj ocenę</button>
+                                                      <a href="../../scripts/add_grade.php?userAddGrade=$user[id]"> <!-- przekierowanie do skryptu dodającego ocenę - trzeba dodać chyba geta by brał user id do userAddGrade -->
+                                                          <button type="button" class="btn btn-block ml-1">Dodaj ocenę</button>
                                                       </a>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div> <!-- /.modal --></td>
+                                                  </div> <!-- /.col -->
+                                              </div> <!-- /.row -->
+                                          </div> <!-- /.modal-footer -->
+                                      </div> <!-- /.modal-content -->
+                                  </div>  <!-- /.modal-dialog -->
+                              </div> <!-- /.modal -->
+                            </td> 
                             </tr>
                         HTML;
                         }
@@ -351,12 +345,13 @@
                       </div>
                       </div>
                       </div>
-                      </div>
-                      <!-- /.card-body -->
+                      </div> <!-- /.card-body -->
                       </div>
                       </div> <!-- /.container-fluid -->
                       </div> <!-- /.content -->
                       </div> <!-- /.content-wrapper -->
+    </div> <!-- ./wrapper -->
+
     <!-- Main Footer -->
     <footer class="main-footer">
       <!-- To the right -->
@@ -366,8 +361,7 @@
       <!-- Default to the left -->
       <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
     </footer>
-  </div>
-  <!-- ./wrapper -->
+    
   <!-- jQuery -->
   <script src="../../plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap 4 -->
