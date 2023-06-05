@@ -120,7 +120,7 @@
                       <select class="form-control" name="class">
                       <?php
                         require "../../scripts/connect.php";
-                        $sql = "SELECT * FROM `classes`";
+                        $sql = "SELECT * FROM `classes` WHERE `class_id` != 11"; // 11 - klasa minus
                         $result = $conn->query($sql);
                         while ($class = $result->fetch_assoc()) {
                             if ($class['class_id'] == $_POST['class']) {
@@ -150,6 +150,7 @@
                     }
 
                     echo <<<HTML
+                    <h3>Lista uczniów</h3>
                   <div class="row">
                   <div class="col-sm-12">
                       <h3>Lista uczniów</h3>

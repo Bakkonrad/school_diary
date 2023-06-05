@@ -53,6 +53,12 @@ else
                 exit();
             }
     }
+    else
+    {
+        $_SESSION['errors'] = "Nie ma takiego użytkownika!";
+        echo "<script>history.back();</script>"; //wraca do poprzedniej strony i pokazuje błędy
+        exit();
+    }
 }
 
 ?>

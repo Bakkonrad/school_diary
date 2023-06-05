@@ -1,29 +1,5 @@
 <?php
-    
-    function downloadUserData($id) //pobieranie danych o użytkowniku do zmiennych sesyjych , na ten moment nie używane
-    {
-        require "./connect.php";
-        mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
 
-        $sql = "SELECT users.id, users.firstName, users.lastName, users.birthday, users.email, users.login, classes.class, roles.role FROM `users` JOIN `classes` ON `users`.`class` = `classes`.`class_id` JOIN `roles` ON `users`.`role` = `roles`.`role_id` WHERE users.id = '$id';";
-
-        if($result = $conn->query($sql)) //tworzenie zmiennych sesyjnych z danymi uzytkownika
-        {
-            $row = $result->fetch_assoc();
-            $_SESSION['firstName'] = $row['firstName'];
-            $_SESSION['lastName'] = $row['lastName'];
-            $_SESSION['birthday'] = $row['birthday'];
-            $_SESSION['email'] = $row['email'];
-            $_SESSION['login'] = $row['login'];
-            $_SESSION['class'] = $row['class'];
-            $_SESSION['role'] = $row['role'];
-        }
-        else
-        {
-            throw new Exception(mysqli_connect_errno()); //rzuć nowym wyjątkiem z nr błędu
-        }
-        
-    }
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone przez url
 
@@ -116,5 +92,34 @@ else
             }
         
     }
+
+
+
+
+
+        // function downloadUserData($id) //pobieranie danych o użytkowniku do zmiennych sesyjych , na ten moment nie używane
+    // {
+    //     require "./connect.php";
+    //     mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
+
+    //     $sql = "SELECT users.id, users.firstName, users.lastName, users.birthday, users.email, users.login, classes.class, roles.role FROM `users` JOIN `classes` ON `users`.`class` = `classes`.`class_id` JOIN `roles` ON `users`.`role` = `roles`.`role_id` WHERE users.id = '$id';";
+
+    //     if($result = $conn->query($sql)) //tworzenie zmiennych sesyjnych z danymi uzytkownika
+    //     {
+    //         $row = $result->fetch_assoc();
+    //         $_SESSION['firstName'] = $row['firstName'];
+    //         $_SESSION['lastName'] = $row['lastName'];
+    //         $_SESSION['birthday'] = $row['birthday'];
+    //         $_SESSION['email'] = $row['email'];
+    //         $_SESSION['login'] = $row['login'];
+    //         $_SESSION['class'] = $row['class'];
+    //         $_SESSION['role'] = $row['role'];
+    //     }
+    //     else
+    //     {
+    //         throw new Exception(mysqli_connect_errno()); //rzuć nowym wyjątkiem z nr błędu
+    //     }
+        
+    // }
 
 ?>
