@@ -38,7 +38,7 @@ if ($_SESSION['role'] != 2) {
         <nav class="main-header navbar navbar-expand-md navbar-olive navbar-dark">
             <div class="container">
                 <a href="teacher_main.php" class="navbar-brand">
-                    <img src="../../resources/logo2.png" width="40" height="40">
+                    <img src="../../resources/logo2.png" id="navLogo">
                     <span class="brand-text"><b>dziennik</b> lekcyjny</span>
                 </a>
 
@@ -66,27 +66,37 @@ if ($_SESSION['role'] != 2) {
                     <!-- ACCOUNT ICON -->
                     <div class="dropdown user user-menu open nav-item">
                         <a class="nav-link" data-toggle="dropdown" aria-expanded="true">
-                            <span class="fa fa-stack">
-                                <i class="fa fa-thin fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-solid fa-chalkboard-user fa-stack-1x fa-inverse" id="navbar-dropdown-btn"></i>
-                            </span>
+                                <i class="fa fa-solid fa-chalkboard-user" id="navbar-dropdown-btn"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li class="user-header">
-                                <img src="../../resources/teacher.jpg" class="img-circle" alt="User Image">
+                                <img src="../../resources/teacher.jpg" class="profile-user-img img-fluid img-circle" alt="User Image">
                                 <?php
                                 echo <<< HTML
-                                <p><b>imię i nazwisko: </b>$_SESSION[firstName] $_SESSION[lastName]</p>
+                                <p>
+                                <h5><b>$_SESSION[firstName] $_SESSION[lastName]</b></h5>
+                                <span class="text-muted">$_SESSION[email]</span>
+                                </p>
                                 <hr>
-                                <p><b>email: </b>$_SESSION[email]</p>
-                                <p style="margin-bottom: 20px;"><b>login: </b>$_SESSION[login]</p>
-                                HTML;
-                                ?>
-                            </li>
-                            <br><br><br>
-                            <li class="user-footer">
-                                <div class="text-center" id="logout-div">
-                                    <a href="../../scripts/logout.php" type="button" id="logout-btn" class="btn btn-block btn-danger">Wyloguj</a>
+                                <div style="text-align:left">
+                                    <p>
+                                    <div class="row">
+                                        <div class="col-1">
+                                        <i class="fas fa-user"></i> 
+                                        </div>
+                                        <div class="col-11">
+                                        <span class="text-muted">login:</span> $_SESSION[login]
+                                    </div> <!-- /.col -->
+                                </div> <!-- /.row -->
+                                <br>
+                                </p>
+                  HTML;
+                ?>
+              </li>
+              <br><br><br>
+              <li class="user-footer">
+                <div class="text-center" id="logout-div">
+                    <a href="../../scripts/logout.php" type="button" id="logout-btn" class="btn btn-block btn-danger" ><i class="fa fa-solid fa-right-from-bracket"></i> Wyloguj</a>
                                 </div>
                             </li>
                         </ul>
@@ -104,7 +114,9 @@ if ($_SESSION['role'] != 2) {
                         <div class="col-lg-8">
                             <div class="card card-olive card-outline">
                                 <div class="card-body">
-                                    <h4>Co chcesz zrobić?</h4>
+                                <div class="row justify-content-center">
+                <h2>Wybierz, co chcesz zrobić:</h2>
+              </div>
                                     <br><br>
                                     <div class="row justify-content-center">
                                         <div class="col-3">
