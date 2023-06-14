@@ -11,17 +11,24 @@
         ${$key} = $value; //tworzenie zmiennych np.firstName
     }
 
+    // foreach($_POST as $key => $value) {
+    //     echo $key . " " . $value . "<br>";
+    // }
+    
+    // echo $_SESSION['addGradeId'];
+
+    require_once "connect.php";
     //dodawanie oceny do tabeli grades
     $stmt = $conn->prepare("INSERT INTO `grades` (`grade`, `note`, `subject`, `student`, `added_by`) VALUES (?,?,?,?,?)");
-    $stmt->bind_param('isiii', $grade, $note, $subject, $student, $added_by);
+    $stmt->bind_param('isiii', $grade, $note, $subject, $_SESSION['addGradeId'], $_SESSION['id']);
     $stmt->execute();
 
     // dodanie informacji o dodaniu oceny do tabeli history_of_grades aby potem wykorzystać tą informacje w historii modyfikacji ocen
-    $stmt = $conn->prepare("INSERT INTO `history_of_grades` (`grade_id`, `student`, `old_grade`,`added_by`) VALUES (?,?,?,?)");
-    $stmt->bind_param('iiii', $grade_id, $student, $grade, $added_by);
-    $stmt->execute();
+    // $stmt = $conn->prepare("INSERT INTO `history_of_grades` (`grade_id`, `student`, `new_grade`,`added_by`) VALUES (?,?,?,?)");
+    // $stmt->bind_param('iiii', $grade_id, $student, $grade, $added_by);
+    // $stmt->execute();
 
-    //echo $stmt->affected_rows;
+    echo $stmt->affected_rows;
 
     if ($stmt->affected_rows > 0) {
         $_SESSION['notification'] = "Udało się dodac ocenę!";
@@ -31,4 +38,6 @@
         $_SESSION['errors'] = "Nie udało się dodać oceny!";
         echo "<script>history.back();</script>"; //wraca do podstrony rejestracji i wyswietla bledy
     }
+
+    ?>
 

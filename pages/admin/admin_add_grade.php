@@ -111,7 +111,31 @@
       <!-- Main content -->
       <div class="content">
         <div class="container">
+          
           <br>
+          <?php
+
+          if (isset($_SESSION['errors'])) //jesli nie udało się dodać oceny
+          {
+              echo <<< HTML
+                  <div class="callout callout-success">
+                  <h5>BŁĄD!</h5>
+                  <p>$_SESSION[errors]</p>
+                  </div>
+                  HTML;
+              unset($_SESSION['errors']);
+          }
+          if (isset($_SESSION['notification'])) //jesli udało się dodać ocenę
+          {
+            echo <<< HTML
+                <div class="callout callout-success">
+                <h5>SUKCES!</h5>
+                <p>$_SESSION[notification]</p>
+                </div>
+                HTML;
+            unset($_SESSION['notification']);
+          }
+          ?>
           <div class="card card-olive card-outline">
             <div class="card-body">
               <!-- /.card-header -->
@@ -160,7 +184,6 @@
                     }
 
                     echo <<<HTML
-                    <h3>Lista uczniów</h3>
                   <div class="row">
                   <div class="col-sm-12">
                       <h3>Lista uczniów</h3>
@@ -185,7 +208,7 @@
                       $currentPage = 1;
                   }
 
-                  $sql = "SELECT COUNT(*) AS allUsers FROM `users`;"; //zapytanie zliczające wszystkich uczniów z klasy
+                  $sql = "SELECT COUNT(*) AS allUsers FROM `users` WHERE `class` = $_SESSION[class_id];"; //zapytanie zliczające wszystkich uczniów z klasy
                   $result = $conn->query($sql);
                   $row = $result->fetch_assoc();
                   $allUsers = $row['allUsers']; //liczba wszystkich rekordów w bazie
@@ -215,7 +238,7 @@
                                   <div class="modal-dialog" role="document">
                                       <div class="modal-content">
                                           <div class="modal-header">
-                                              <h5 class="modal-title" id="AddGradeLabel">Dodaj ocenę uczniowi <b>$user[firstName]</b></h5>
+                                              <h5 class="modal-title" id="AddGradeLabel">Dodaj ocenę uczniowi <b>$user[firstName] $user[lastName]</b></h5>
                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                   <span aria-hidden="true">&times;</span>
                                               </button>
@@ -230,7 +253,7 @@
                                                           $result = $conn->query($sql);
                                                           while ($subject = $result->fetch_assoc()) {
                                                               echo "<option
-                                                              value='$subject[id]'>$subject[subject]</option>";
+                                                              value='$subject[id]'>$subject[name]</option>";
                                                           }
                                                           
                                                       echo <<< HTML
@@ -269,7 +292,7 @@
                                                             </div>
                                                         </div>
                                                   <!-- /.col -->                                              
-                                              </form>
+                                              
                                           </div>
                                           <div class="modal-footer">
                                               <div class="row">
@@ -277,10 +300,13 @@
                                                       <button type="button" class="btn mr-auto" id="cancelBtn" data-dismiss="modal">Anuluj</button>
                                                   </div> <!-- /.col -->
                                                   <div class="col-8">
-                                                      <a href="../../scripts/add_grade.php?userAddGrade=$user[id]"> <!-- przekierowanie do skryptu dodającego ocenę - trzeba dodać chyba geta by brał user id do userAddGrade -->
-                                                          <button type="button" class="btn btn-block ml-1">Dodaj ocenę</button>
-                                                      </a>
+                                                          <button type="submit" class="btn btn-block ml-1">Dodaj ocenę</button>
+                                          HTML;
+                                                          //zmienna sesyjna z id ucznia
+                                                          $_SESSION['addGradeId'] = $user['id'];
+                                                          echo <<< HTML
                                                   </div> <!-- /.col -->
+                                                  </form>
                                               </div> <!-- /.row -->
                                           </div> <!-- /.modal-footer -->
                                       </div> <!-- /.modal-content -->
