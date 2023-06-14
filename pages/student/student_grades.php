@@ -114,51 +114,93 @@ if ($_SESSION['role'] != 3) {
 
         <!-- Content Header (Page header) -->
         <div class="content-wrapper">
-            <div class="content-header">
-                <div class="container">
-                    <h1 class="m-0">Oceny</h1>
-                    <!-- <h1 class="m-0"> Strona główna <small>zalogowany</small></h1> -->
-                </div> <!-- /.container-fluid -->
-            </div> <!-- /.content-header -->
-
             <!-- Main content -->
             <div class="content">
                 <div class="container">
-                    <div class="card">
+                    <br>
+                    <div class="card card-outline card-olive">
                         <!-- /.card-header -->
                         <div class="card-body">
+                            <h3>Twoje oceny</h3>
+                            <br>
                             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-6">
+                                    <div class="col-12">
                                         <div class="row">
-                                            <div class="col-sm-12">
+                                            <div class="col-12">
                                                 <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
                                                     <thead>
                                                         <tr>
-                                                            <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Przedmiot</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Oceny</th>
+                                                            <th style="width:30%">Przedmiot</th>
+                                                            <th>Oceny</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        //zapytanie o dane uczniów z danej klasy
+                                                        // Zapytanie o dane uczniów z danej klasy
                                                         require "../../scripts/connect.php";
-                                                        $sql = "SELECT * FROM `grades` WHERE `student` = '$_SESSION[id]';";
+                                                        $sql = "SELECT * FROM `grades` JOIN `types_of_grades` ON `grades`.`grade` = `types_of_grades`.`id` WHERE `grades`.`student` = '$_SESSION[id]';";
                                                         $result = $conn->query($sql);
 
                                                         if ($result->num_rows == 0) {
-                                                            //$all_student_grades = 0;
-                                                            echo "<tr><td colspan ='100%'>Brak ocen!</td></tr>";
-                                                        } else // jesli sa rekordy w tabli to je wyswietl
-                                                        {
+                                                            echo "<tr><td colspan ='2'>Brak ocen!</td></tr>";
+                                                        } else {
+                                                            $gradesBySubject = array();
+
                                                             while ($row = $result->fetch_assoc()) {
-                                                                $sql2 = "SELECT * FROM `subjects` WHERE `id` = '$row[subject]';";
+                                                                $subjectId = $row['subject'];
+                                                                $grade = $row['grade'];
+
+                                                                // Sprawdź, czy istnieje już tablica ocen dla danego przedmiotu
+                                                                if (!isset($gradesBySubject[$subjectId])) {
+                                                                    $gradesBySubject[$subjectId] = array();
+                                                                }
+
+                                                                // Dodaj ocenę do tablicy ocen dla danego przedmiotu
+                                                                $gradesBySubject[$subjectId][] = $grade;
+                                                            }
+
+                                                            // Wyświetl oceny dla poszczególnych przedmiotów
+                                                            foreach ($gradesBySubject as $subjectId => $grades) {
+                                                                $sql2 = "SELECT * FROM `subjects` WHERE `id` = '$subjectId';";
                                                                 $result2 = $conn->query($sql2);
                                                                 $row2 = $result2->fetch_assoc();
-                                                                echo "<tr><td>$row2[name]</td><td>$row[grade]</td></tr>";
+
+                                                                echo "<tr>";
+                                                                echo "<td>" . $row2['name'] . "</td>";
+                                                                echo "<td>";
+                                                                foreach ($grades as $grade) {
+                                                                    echo '<button type="button" id="gradeBtn" class="btn btn-olive" data-toggle="modal" data-target="#gradeInfo">' . $grade . '</button>';
+                                                                }
+                                                                echo "</tr>";
                                                             }
                                                         }
+
                                                         ?>
+                                                        <div class="modal fade" id="gradeInfo" aria-modal="true" role="dialog">
+                                                    <div class="modal-dialog modal-sm">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Więcej informacji</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>Przedmiot: <b>Matematyka</b></p>
+                                                                <p>Nauczyciel: <b>Jan Kowalski</b></p>
+                                                                <p>Data wystawienia: <b>12.12.2020</b></p>
+                                                                <p>Waga: <b>1</b></p>
+                                                                <p>Opis: <b>Test z matematyki</b></p>
+                                                            </div>
+                                                            <!-- <div class="modal-footer justify-content-between">
+                                                                <button type="button" class="btn" data-dismiss="modal" id="cancelBtn">Anuluj</button>
+                                                            </div> -->
+                                                        </div>
+
+                                                    </div>
+
+                                                </div> <!-- /.modal -->
                                                     </tbody>
                                                 </table>
                                             </div>
