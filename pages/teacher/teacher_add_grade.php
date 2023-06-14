@@ -89,11 +89,11 @@
                                 </div> <!-- /.row -->
                                 <br>
                                 </p>
-                  HTML;
+                    HTML;
                 ?>
-              </li>
-              <br><br><br>
-              <li class="user-footer">
+                </li>
+                <br><br><br>
+                <li class="user-footer">
                 <div class="text-center" id="logout-div">
                     <a href="../../scripts/logout.php" type="button" id="logout-btn" class="btn btn-block btn-danger" ><i class="fa fa-solid fa-right-from-bracket"></i> Wyloguj</a>
                     </div>
@@ -104,51 +104,287 @@
     </div>
     </nav> <!-- /.navbar -->
 
-    <!-- Content Header (Page header) -->
-    <div class="content-wrapper">
-    <div class="content-header">
-        <div class="container">
-            <h1 class="m-0">Dodawanie ocen</h1>
-            <!-- <h1 class="m-0"> Strona główna <small>zalogowany</small></h1> -->
-        </div> <!-- /.container-fluid -->
-    </div> <!-- /.content-header -->
-
-    <!-- Main content -->
-    <div class="content">
-        <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
+        <!-- Content Header (Page header) -->
+        <div class="content-wrapper">
+        <!-- Main content -->
+        <div class="content">
+            <div class="container">
+            
+            <br>
+            <?php
+            if (isset($_SESSION['errors'])) //jesli nie udało się dodać oceny
+            {
+                echo <<< HTML
+                    <div class="callout callout-success">
+                    <h5>BŁĄD!</h5>
+                    <p>$_SESSION[errors]</p>
+                    </div>
+                    HTML;
+                unset($_SESSION['errors']);
+            }
+            if (isset($_SESSION['notification'])) //jesli udało się dodać ocenę
+            {
+                echo <<< HTML
+                    <div class="callout callout-success">
+                    <h5>SUKCES!</h5>
+                    <p>$_SESSION[notification]</p>
+                    </div>
+                    HTML;
+                unset($_SESSION['notification']);
+            }
+            ?>
             <div class="card card-olive card-outline">
                 <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+                <!-- /.card-header -->
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                    <h3 class="m-0">Dodawanie ocen</h3>
+                    <br>
+                    </div> <!-- /.col -->
+                </div>  <!-- /.row -->
+                <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <label class="mr-2">Wybierz klasę</label>
+                    <div class="row">
+                    <div class="col-4"> 
+                        <!-- wybór klas -->
+                        <form action="./teacher_add_grade.php" method="post">
+                        <select class="form-control" name="class">
+                        <?php
+                            require "../../scripts/connect.php";
+                            $sql = "SELECT `classes`.`class_id`, `classes`.`class` FROM `classes` JOIN `subjects` ON `classes`.`class_id` = `subjects`.`class` WHERE `classes`.`class_id` != 11 AND `subjects`.`teacher` = $_SESSION[id]"; // 11 - klasa minus
+                            $result = $conn->query($sql);
+                            while ($class = $result->fetch_assoc()) {
+                                if ($class['class_id'] == $_POST['class']) {
+                                echo "<option value='$class[class_id]' selected>$class[class]</option>";
+                            } else {
+                                echo "<option value='$class[class_id]'>$class[class]</option>";
+                            }
+                            }
+                        ?>
+                        </select>
+                        </div>
+                        <div class="col-2">
+                            <div class="d-flex justify-content-center align-items-center">
+                            <button type="submit" class="btn bg-olive btn-block">Wyświetl uczniów</button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                    <br>
+                    <?php
+                    //jeśli wybrano klase to pokaż tabele z uczniami
+                    if((isset($_POST['class'])) || (isset($_SESSION['class_id'])))
+                    {
+                        if(isset($_POST['class']))
+                        {
+                        $_SESSION['class_id'] = $_POST['class'];
+                        }
 
-                <p class="card-text">
-                    Some quick example text to build on the card title and make up the bulk of the card's
-                    content.
-                </p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-                </div>
-            </div> <!-- /.card -->
-            </div> <!-- /.col-md-6 -->
-            <div class="col-lg-6">
-            <div class="card card-olive card-outline">
-                <div class="card-header">
-                <h5 class="card-title m-0">Featured</h5>
-                </div>
-                <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
+                        echo <<<HTML
+                    <div class="row">
+                    <div class="col-sm-12">
+                        <h3>Lista uczniów</h3>
+                        <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
+                        <thead>
+                            <tr>
+                            <th>Imię</th>
+                            <th>Nazwisko</th>
+                            <th>Dodaj ocenę</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    HTML;
+                    //pobranie uczniów z wybranej klasy
+                    require "../../scripts/connect.php";
+                    mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
+                    $recordsPerPage = 30; //ilość rekordów na stronie
+                    if (isset($_GET['page'])) //jesli jest ustawiona zmienna page
+                    {
+                        $currentPage = $_GET['page'];
+                    } else {
+                        $currentPage = 1;
+                    }
 
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-olive">Go somewhere</a>
-                </div>
-            </div>
-            </div> <!-- /.col-md-6 -->
-        </div> <!-- /.row -->
-        </div> <!-- /.container-fluid -->
-    </div> <!-- /.content -->
-    </div> <!-- /.content-wrapper -->
-</div> <!-- ./wrapper -->
+                    $sql = "SELECT COUNT(*) AS allUsers FROM `users` WHERE `class` = $_SESSION[class_id];"; //zapytanie zliczające wszystkich uczniów z klasy
+                    $result = $conn->query($sql);
+                    $row = $result->fetch_assoc();
+                    $allUsers = $row['allUsers']; //liczba wszystkich rekordów w bazie
+                    $numberOfPages = ceil($allUsers / $recordsPerPage); //liczba stron
+
+                    //zapytanie o dane uczniów z danej klasy
+                    $sql = "SELECT * FROM `users` WHERE `class` = $_SESSION[class_id] ORDER BY `lastName` ASC LIMIT " . (($currentPage - 1) * $recordsPerPage) . ", $recordsPerPage;";
+                    $result = $conn->query($sql);
+
+                        if($result->num_rows == 0)
+                        {
+                            //$all_student_grades = 0;
+                            echo "<tr><td colspan ='100%'>Brak uczniów w tej klasie!</td></tr>";
+                            $numberOfPages = 1;
+                        }
+                        else // jesli sa rekordy w tabli to je wyswietl
+                        {
+                            while($user = $result->fetch_assoc())
+                            {
+                                echo <<< HTML
+                                <tr>
+                                <td class="dtr-control sorting_1">$user[firstName]</td>
+                                    <td>$user[lastName]</td>
+                                    <td><button type="button" class="btn" data-toggle="modal" data-target="#addGrade$user[id]">Dodaj ocenę</button> 
+                                    <!-- Modal - dodanie oceny dla ucznia --> 
+                                    <div class="modal fade" id="addGrade$user[id]" role="dialog" aria-labelledby="confirmAddGradeLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="AddGradeLabel">Dodaj ocenę uczniowi <b>$user[firstName] $user[lastName]</b></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="../../scripts/add_grade.php" method="post">
+                                                <div class="input-group mb-3">
+                                                    <select class="form-control" name="subject">
+                                HTML;
+                                                            require "../../scripts/connect.php";
+                                                            $sql = "SELECT * FROM `subjects` WHERE `class` = $_SESSION[class_id] AND `teacher` = $_SESSION[id]";
+                                                            $result = $conn->query($sql);
+                                                            while ($subject = $result->fetch_assoc()) {
+                                                                echo "<option
+                                                                value='$subject[id]'>$subject[name]</option>";
+                                                            }
+                                                            
+                                                        echo <<< HTML
+                                                        </select>
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fa fa-list"></span>
+                                                            </div>
+                                                        </div>
+                                                            </div>
+                                                    </select>
+                                                <div class="input-group mb-3">
+                                                    <select class="form-control" name="grade">
+                                HTML;
+                                                            require "../../scripts/connect.php";
+                                                            $sql = "SELECT * FROM `types_of_grades`";
+                                                            $result = $conn->query($sql);
+                                                            while ($type_of_grade = $result->fetch_assoc()) {
+                                                                echo "<option
+                                                                value='$type_of_grade[id]'>$type_of_grade[grade]</option>";
+                                                            }
+                                                        echo <<< HTML
+                                                        </select>
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fa fa-people-group"></span>
+                                                            </div>
+                                                        </div>
+                                                            </div>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" name="note" placeholder="Notatka">
+                                                                <div class="input-group-append">
+                                                                    <div class="input-group-text">
+                                                                        <span class="fas fa-user"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                    <!-- /.col -->                                              
+                                                
+                                            </div>
+                                            <div class="modal-footer">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <button type="button" class="btn mr-auto" id="cancelBtn" data-dismiss="modal">Anuluj</button>
+                                                    </div> <!-- /.col -->
+                                                    <div class="col-8">
+                                                            <button type="submit" class="btn btn-block ml-1">Dodaj ocenę</button>
+                                            HTML;
+                                                            //zmienna sesyjna z id ucznia
+                                                            $_SESSION['addGradeId'] = $user['id'];
+                                                            echo <<< HTML
+                                                    </div> <!-- /.col -->
+                                                    </form>
+                                                </div> <!-- /.row -->
+                                            </div> <!-- /.modal-footer -->
+                                        </div> <!-- /.modal-content -->
+                                    </div>  <!-- /.modal-dialog -->
+                                </div> <!-- /.modal -->
+                                </td> 
+                                </tr>
+                            HTML;
+                            }
+                        }
+                        $conn->close();
+                        //przyciski paginacji
+                        echo <<<HTML
+                        </tbody>
+                        </table>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                        <!-- <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div> -->
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                        <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+                            <ul class="pagination">
+                        HTML;
+
+                        if ($currentPage == 1) //przycisk previous
+                            {
+                            echo <<<HTML
+            <li class="paginate_button page-item previous disabled" id="example1_previous">
+                <a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Poprzednia</a>
+            </li>
+            HTML;
+                            } else {
+                            $previousPage = $currentPage - 1;
+                            echo <<<HTML
+            <li class="paginate_button page-item previous" id="example1_previous">
+                <a href="./admin_add_grade.php?page=$previousPage" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Poprzednia</a>
+            </li>
+            HTML;
+                            }
+
+                            for ($i = 1; $i <= $numberOfPages; $i++) //przyciski z numerami stron
+                            {
+                            echo <<<HTML
+            <li class="paginate_button page-item">
+                <a href="./admin_add_grade.php?page=$i" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">$i</a>
+            </li>
+            HTML;
+                            }
+
+                            if ($currentPage >= $numberOfPages) //przycisk next
+                            {
+                            echo <<<HTML
+            <li class="paginate_button page-item next disabled" id="example1_next">
+                <a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Następna</a>
+            </li>
+            HTML;
+                            } else {
+                            $nextPage = $currentPage + 1;
+                            echo <<<HTML
+            <li class="paginate_button page-item next" id="example1_next">
+                <a href="./admin_add_grade.php?page=$nextPage" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Następna</a>
+            </li>
+            </ul>
+                        </div>
+                        </div>
+            HTML;
+                            }
+                    }
+                    ?>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div> <!-- /.card-body -->
+                        </div>
+                        </div> <!-- /.container-fluid -->
+                        </div> <!-- /.content -->
+                        </div> <!-- /.content-wrapper -->
+        </div> <!-- ./wrapper -->
 
     <!-- Main Footer -->
     <footer class="main-footer">

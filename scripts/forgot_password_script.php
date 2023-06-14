@@ -8,10 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
 }
 else
 {
-    //delete session variables 
-    // foreach ($_SESSION as $key => $value) {
-    //     unset($_SESSION[$key]);
-    // }
+
 
     session_start();
     $errors= [];
@@ -38,6 +35,14 @@ else
 
             if($how_many_users == 1 ) //powinniśmy dać równe 1
             {
+                $to = 'konri0908@gmail.com';
+                $from = 'Koala School <no-reply@koalaschool.pl>';
+                $replyTo = 'Admin <admin@koalaschool.pl>'; // jeśli ktoś odpowie na maila to na ten adres pójdzie odpowiedź
+                $subject = 'Przypomnienie hasła';
+                $message = 'Oto twoje nowe hasło:';
+
+                mail($to, $subject, $message, $headers); //wysyłanie maila z hasłem (tymczasowo test)
+
                 $result->close(); //lub free() albo free_result()
                 $_SESSION['notification'] = "Na podany adres email zostało wysłane hasło!";
                 

@@ -208,7 +208,7 @@
                       $currentPage = 1;
                   }
 
-                  $sql = "SELECT COUNT(*) AS allUsers FROM `users`;"; //zapytanie zliczające wszystkich uczniów z klasy
+                  $sql = "SELECT COUNT(*) AS allUsers FROM `users` WHERE `class` = $_SESSION[class_id];"; //zapytanie zliczające wszystkich uczniów z klasy
                   $result = $conn->query($sql);
                   $row = $result->fetch_assoc();
                   $allUsers = $row['allUsers']; //liczba wszystkich rekordów w bazie
