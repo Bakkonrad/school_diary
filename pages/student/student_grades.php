@@ -167,40 +167,51 @@ if ($_SESSION['role'] != 3) {
                                                                 $row2 = $result2->fetch_assoc();
 
                                                                 echo "<tr>";
-                                                                echo "<td>" . $row2['name'] . "</td>";
+                                                                echo "<td><h5><b>" . $row2['name'] . "</b></h5></td>";
                                                                 echo "<td>";
+                                                                $index = 1;
+                                                                
                                                                 foreach ($grades as $grade) {
-                                                                    echo '<button type="button" id="gradeBtn" class="btn btn-olive" data-toggle="modal" data-target="#gradeInfo">' . $grade . '</button>';
+                                                                    $modalId = "gradeInfo-$subjectId-$index"; // Unikalny identyfikator modalu
+                                                                    echo '<button type="button" id="gradeBtn" class="btn btn-olive" data-toggle="modal" data-target="#' . $modalId . '">' . $grade . '</button>';
+                                                                    $index++; // Zwiększenie indeksu dla kolejnego modalu
                                                                 }
+
+                                                                echo "</td>";
                                                                 echo "</tr>";
+
+                                                                $index = 1;
+                                                                foreach ($grades as $grade) {
+                                                                    $modalId = "gradeInfo-$subjectId-$index";
+                                                                    echo <<< HTML
+                                                                    <div class="modal fade" id="$modalId" aria-modal="true" role="dialog">
+                                                                        <div class="modal-dialog modal-sm">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title">Więcej informacji</h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">×</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <p>Ocena: <b>$grade</b></p>
+                                                                                    <p>Przedmiot: <b>$row2[name]</b></p>
+                                                                                    <p>Nauczyciel: <b>Jan Kowalski</b></p>
+                                                                                    <p>Data wystawienia: <b>12.12.2020</b></p>
+                                                                                    <p>Waga: <b>1</b></p>
+                                                                                    <p>Opis: <b>Test z matematyki</b></p>
+                                                                                </div>
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            </div> <!-- /.modal -->
+                                                                    HTML;
+                                                                                $index++; // Zwiększenie indeksu dla kolejnego modalu
+                                                                            }
+                                                                }
                                                             }
-                                                        }
-
                                                         ?>
-                                                        <div class="modal fade" id="gradeInfo" aria-modal="true" role="dialog">
-                                                    <div class="modal-dialog modal-sm">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title">Więcej informacji</h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">×</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <p>Przedmiot: <b>Matematyka</b></p>
-                                                                <p>Nauczyciel: <b>Jan Kowalski</b></p>
-                                                                <p>Data wystawienia: <b>12.12.2020</b></p>
-                                                                <p>Waga: <b>1</b></p>
-                                                                <p>Opis: <b>Test z matematyki</b></p>
-                                                            </div>
-                                                            <!-- <div class="modal-footer justify-content-between">
-                                                                <button type="button" class="btn" data-dismiss="modal" id="cancelBtn">Anuluj</button>
-                                                            </div> -->
-                                                        </div>
-
-                                                    </div>
-
-                                                </div> <!-- /.modal -->
                                                     </tbody>
                                                 </table>
                                             </div>
