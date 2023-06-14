@@ -251,6 +251,12 @@ a i:hover {
     height: 50px;
 }
 
+#gradeBtn {
+    position: relative;
+    margin-right: 1px;
+    margin-left: 1px;
+}
+
 /* .navbar-nav .nav-item a.active  {
     color:#FEFCFB;
     font-weight: bold;
