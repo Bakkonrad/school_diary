@@ -155,7 +155,7 @@ if ($_SESSION['role'] != 1) {
                                 <div class="row">
                                     <div class="col-4">
                                         <!-- wybór klas -->
-                                        <form action="./admin_add_grade.php" method="post">
+                                        <form action="./admin_modify_grades.php" method="post">
                                             <select class="form-control" name="class">
                                                 <?php
                                                 require "../../scripts/connect.php";
@@ -233,7 +233,14 @@ if ($_SESSION['role'] != 1) {
                                 <tr>
                                 <td class="dtr-control sorting_1">$user[firstName]</td>
                                 <td>$user[lastName]</td>
-                                
+                                <!-- przycisk, który przenosi na podstronę show_grades.php  -->
+                                <td class="d-flex align-items-center">
+                                <form action="./admin_show_grades.php" method="post">
+                                <input type="hidden" name="student_id" value="$user[id]">
+                                <button type="submit" class="btn bg-olive btn-block">Wyświetl oceny</button>
+                                </form>
+                                </td>
+
                                 </tr>
                             HTML;
                                             }
