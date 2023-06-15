@@ -52,7 +52,7 @@
             <a href="teacher_main.php" class="nav-link">Strona główna</a>
             </li>
             <li class="nav-item">
-            <a href="teacher_modified_grades.php" class="nav-link">Historia ocen</a>
+            <a href="teacher_modify_grades.php" class="nav-link">Wyswietl/edytuj oceny</a>
             </li>
             <li class="nav-item">
             <a href="teacher_add_grade.php" class="nav-link">Dodaj ocenę</a>
@@ -151,7 +151,11 @@
                         <select class="form-control" name="class">
                         <?php
                             require "../../scripts/connect.php";
-                            $sql = "SELECT `classes`.`class_id`, `classes`.`class` FROM `classes` JOIN `subjects` ON `classes`.`class_id` = `subjects`.`class` WHERE `classes`.`class_id` != 11 AND `subjects`.`teacher` = $_SESSION[id]"; // 11 - klasa minus
+                            $sql = "SELECT `classes`.`class_id`, `classes`.`class`
+                            FROM `classes`
+                            JOIN `subjects` ON `classes`.`class_id` = `subjects`.`class`
+                            WHERE `classes`.`class_id` != 11 AND `subjects`.`teacher` = $_SESSION[id]
+                            GROUP BY `classes`.`class_id`"; // 11 - klasa minus
                             $result = $conn->query($sql);
                             while ($class = $result->fetch_assoc()) {
                                 if ($class['class_id'] == $_POST['class']) {
