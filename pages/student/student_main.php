@@ -87,7 +87,7 @@
                       </div> <!-- /.row -->
                       <div class="row">
                         <div class="col-1">
-                          <i class="fa fa-people-group"></i> 
+                          <i class="fa fa-users"></i> 
                         </div>
                         <div class="col-11">
                           <span class="text-muted">klasa:</span> $_SESSION[class] <!-- trzeba zaciągnąć klasę -->
@@ -128,11 +128,11 @@
               <div class="row justify-content-center">
                 <div class="col-3">
                   <a href="student_grades.php" class="btn" id="m_page_btn">
-                  <i class="fa fa-solid fa-graduation-cap fa-xl"></i><br><h6>Wyświetl<br>oceny</h6></a>
+                  <i class="fa fa-solid fa-list-ol fa-xl"></i><br><h6>Wyświetl<br>oceny</h6></a>
                 </div>
                 <div class="col-3">
                   <a href="student_modified_grades.php" class="btn" id="m_page_btn">
-                    <i class="fa fa-solid fa-pen-to-square fa-xl"></i><br><h6>Historia<br>ocen</h6></a>
+                    <i class="fa fa-solid fa-history fa-xl"></i><br><h6>Historia<br>ocen</h6></a>
                   </div>
               </div> <!-- /.row -->
               <h1> </h1>

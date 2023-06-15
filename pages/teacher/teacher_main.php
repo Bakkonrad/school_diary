@@ -121,7 +121,7 @@ if ($_SESSION['role'] != 2) {
                                     <div class="row justify-content-center">
                                         <div class="col-3">
                                             <a href="teacher_modified_grades.php" class="btn" id="m_page_btn">
-                                            <i class="fa fa-solid fa-graduation-cap fa-xl"></i><br><h6>Wyświetl<br>historię ocen</h6></a>
+                                            <i class="fa fa-solid fa-history fa-xl"></i><br><h6>Wyświetl<br>historię ocen</h6></a>
                                         </div>
                                         <div class="col-3">
                                             <a href="teacher_add_grade.php" class="btn" id="m_page_btn">

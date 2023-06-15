@@ -87,7 +87,7 @@ if ($_SESSION['role'] != 3) {
                                 </div> <!-- /.row -->
                                 <div class="row">
                                     <div class="col-1">
-                                    <i class="fa fa-people-group"></i> 
+                                    <i class="fa fa-users"></i> 
                                     </div>
                                     <div class="col-11">
                                     <span class="text-muted">klasa:</span> $_SESSION[class] <!-- trzeba zaciągnąć klasę -->

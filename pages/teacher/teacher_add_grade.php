@@ -149,6 +149,7 @@
                         <!-- wybór klas -->
                         <form action="./teacher_add_grade.php" method="post">
                         <select class="form-control" name="class">
+                        <option disabled selected value> -- wybierz klasę -- </option>
                         <?php
                             require "../../scripts/connect.php";
                             $sql = "SELECT `classes`.`class_id`, `classes`.`class` FROM `classes` JOIN `subjects` ON `classes`.`class_id` = `subjects`.`class` WHERE `classes`.`class_id` != 11 AND `subjects`.`teacher` = $_SESSION[id]"; // 11 - klasa minus
@@ -165,7 +166,7 @@
                         </div>
                         <div class="col-2">
                             <div class="d-flex justify-content-center align-items-center">
-                            <button type="submit" class="btn bg-olive btn-block">Wyświetl uczniów</button>
+                            <button type="submit" class="btn btn-olive btn-block">Wyświetl uczniów</button>
                             </div>
                         </div>
                         </form>
@@ -244,6 +245,7 @@
                                                 <form action="../../scripts/add_grade.php" method="post">
                                                 <div class="input-group mb-3">
                                                     <select class="form-control" name="subject">
+                                                    <option disabled selected value> -- wybierz przedmiot -- </option>
                                 HTML;
                                                             require "../../scripts/connect.php";
                                                             $sql = "SELECT * FROM `subjects` WHERE `class` = $_SESSION[class_id] AND `teacher` = $_SESSION[id]";
@@ -257,13 +259,14 @@
                                                         </select>
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
-                                                                <span class="fa fa-list"></span>
+                                                                <span class="fa fa-book"></span>
                                                             </div>
                                                         </div>
                                                             </div>
                                                     </select>
                                                 <div class="input-group mb-3">
                                                     <select class="form-control" name="grade">
+                                                    <option disabled selected value> -- wybierz ocenę -- </option>
                                 HTML;
                                                             require "../../scripts/connect.php";
                                                             $sql = "SELECT * FROM `types_of_grades`";
@@ -276,7 +279,7 @@
                                                         </select>
                                                         <div class="input-group-append">
                                                             <div class="input-group-text">
-                                                                <span class="fa fa-people-group"></span>
+                                                                <span class="fa fa-list-ol"></span>
                                                             </div>
                                                         </div>
                                                             </div>
@@ -284,7 +287,7 @@
                                                                 <input type="text" class="form-control" name="note" placeholder="Notatka">
                                                                 <div class="input-group-append">
                                                                     <div class="input-group-text">
-                                                                        <span class="fas fa-user"></span>
+                                                                        <span class="fas fa-comment-alt"></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
