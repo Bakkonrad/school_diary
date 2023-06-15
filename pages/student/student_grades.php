@@ -139,7 +139,7 @@ if ($_SESSION['role'] != 3) {
                                                         <?php
                                                         // Zapytanie o dane uczniów z danej klasy
                                                         require "../../scripts/connect.php";
-                                                        $sql = "SELECT * FROM `grades` JOIN `types_of_grades` ON `grades`.`grade` = `types_of_grades`.`id` WHERE `grades`.`student` = '$_SESSION[id]';";
+                                                        $sql = "SELECT * FROM `grades` JOIN `types_of_grades` ON `grades`.`grade` = `types_of_grades`.`id` JOIN `users` ON `grades`.`added_by` = `users`.`id` WHERE `grades`.`student` = '$_SESSION[id]';";
                                                         $result = $conn->query($sql);
 
                                                         if ($result->num_rows == 0) {
@@ -150,6 +150,9 @@ if ($_SESSION['role'] != 3) {
                                                             while ($row = $result->fetch_assoc()) {
                                                                 $subjectId = $row['subject'];
                                                                 $grade = $row['grade'];
+                                                                $addedBy = $row['firstName'] . " " . $row['lastName'];
+                                                                $date = $row['created_at'];
+                                                                $note = $row['note'];
 
                                                                 // Sprawdź, czy istnieje już tablica ocen dla danego przedmiotu
                                                                 if (!isset($gradesBySubject[$subjectId])) {
@@ -157,7 +160,13 @@ if ($_SESSION['role'] != 3) {
                                                                 }
 
                                                                 // Dodaj ocenę do tablicy ocen dla danego przedmiotu
-                                                                $gradesBySubject[$subjectId][] = $grade;
+                                                                $gradesBySubject[$subjectId][] = array(
+                                                                    'grade' => $grade,
+                                                                    'addedBy' => $addedBy,
+                                                                    'date' => $date,
+                                                                    'note' => $note
+                                                                );
+                                                                // $gradesBySubject[$subjectId][] = $grade;
                                                             }
 
                                                             // Wyświetl oceny dla poszczególnych przedmiotów
@@ -167,12 +176,13 @@ if ($_SESSION['role'] != 3) {
                                                                 $row2 = $result2->fetch_assoc();
 
                                                                 echo "<tr>";
-                                                                echo "<td><h5><b>" . $row2['name'] . "</b></h5></td>";
+                                                                echo "<td><h5>" . $row2['name'] . "</h5></td>";
                                                                 echo "<td>";
                                                                 $index = 1;
                                                                 
-                                                                foreach ($grades as $grade) {
+                                                                foreach ($grades as $gradeData) {
                                                                     $modalId = "gradeInfo-$subjectId-$index"; // Unikalny identyfikator modalu
+                                                                    $grade = $gradeData['grade'];
                                                                     echo '<button type="button" id="gradeBtn" class="btn btn-olive" data-toggle="modal" data-target="#' . $modalId . '">' . $grade . '</button>';
                                                                     $index++; // Zwiększenie indeksu dla kolejnego modalu
                                                                 }
@@ -181,7 +191,7 @@ if ($_SESSION['role'] != 3) {
                                                                 echo "</tr>";
 
                                                                 $index = 1;
-                                                                foreach ($grades as $grade) {
+                                                                foreach ($grades as $gradeData) {
                                                                     $modalId = "gradeInfo-$subjectId-$index";
                                                                     echo <<< HTML
                                                                     <div class="modal fade" id="$modalId" aria-modal="true" role="dialog">
@@ -194,12 +204,11 @@ if ($_SESSION['role'] != 3) {
                                                                                     </button>
                                                                                 </div>
                                                                                 <div class="modal-body">
-                                                                                    <p>Ocena: <b>$grade</b></p>
+                                                                                    <p>Ocena: <b>$gradeData[grade]</b></p>
                                                                                     <p>Przedmiot: <b>$row2[name]</b></p>
-                                                                                    <p>Nauczyciel: <b>Jan Kowalski</b></p>
-                                                                                    <p>Data wystawienia: <b>12.12.2020</b></p>
-                                                                                    <p>Waga: <b>1</b></p>
-                                                                                    <p>Opis: <b>Test z matematyki</b></p>
+                                                                                    <p>Nauczyciel: <b>$gradeData[addedBy]</b></p>
+                                                                                    <p>Data wystawienia: <b>$gradeData[date]</b></p>
+                                                                                    <p>Notatka: <b>$gradeData[note]</b></p>
                                                                                 </div>
                                                                                 </div>
 
