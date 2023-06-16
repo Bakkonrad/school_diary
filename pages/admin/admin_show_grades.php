@@ -122,6 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                     if (isset($_SESSION['errors'])) //jesli nie udało się dodać oceny
                     {
                         echo <<< HTML
+                            <br>
                             <div class="callout callout-success">
                             <h5>BŁĄD!</h5>
                             <p>$_SESSION[errors]</p>
@@ -132,6 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                     if (isset($_SESSION['notification'])) //jesli udało się dodać ocenę
                     {
                     echo <<< HTML
+                        <br>
                         <div class="callout callout-success">
                         <h5>SUKCES!</h5>
                         <p>$_SESSION[notification]</p>
@@ -182,6 +184,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                                 $grade = $row['grade'];
                                                                 $addedBy = $row['firstName'] . " " . $row['lastName'];
                                                                 $date = $row['created_at'];
+                                                                $modificationDate = $row['modified_at'];
                                                                 $note = $row['note'];
                                                                 $gradeId = $row['operation_id'];
 
@@ -195,6 +198,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                                     'grade' => $grade,
                                                                     'addedBy' => $addedBy,
                                                                     'date' => $date,
+                                                                    'modificationDate' => $modificationDate,
                                                                     'note' => $note,
                                                                     'gradeId' => $gradeId
                                                                 );
@@ -244,6 +248,11 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                                                     <p>Przedmiot: <b>{$subject}</b></p>
                                                                                     <p>Nauczyciel: <b>{$gradeData['addedBy']}</b></p>
                                                                                     <p>Data wystawienia: <b>{$gradeData['date']}</b></p>
+                                                                    HTML;
+                                                                                    if ($gradeData['modificationDate'] != null) {
+                                                                                        echo "<p>Data modyfikacji: <b>". $gradeData['modificationDate'] ."</b></p>";
+                                                                                    }
+                                                                    echo <<<HTML
                                                                                     <p>Notatka: <b>{$gradeData['note']}</b></p>
                                                                                 </div>
                                                                                 <div class="modal-footer justify-content-between">
@@ -266,7 +275,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                                                 </div>
                                                                                 <div class="modal-body">
                                                                                 <label for="grade">Wybierz nową ocenę</label>
-                                                                                <form action="../../scripts/modify_grade.php" method="post">
+                                                                                <form action="../../scripts/modify_grade.php?gradeId=$gradeData[gradeId]" method="post">
                                                                                 <div class="input-group mb-3">
                                                                                 <select class="form-control" name="grade">
                                                                                 <option hidden selected value >$gradeData[grade]</option>
