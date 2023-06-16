@@ -31,7 +31,7 @@
     echo $stmt->affected_rows;
 
     if ($stmt->affected_rows > 0) {
-        $_SESSION['notification'] = "Udało się dodac ocenę!";
+        $_SESSION['notification'] = "Udało się dodać ocenę!";
         echo "<script>history.back();</script>"; //wraca do podstrony rejestracji i wyswietla bledy
     }
     else {

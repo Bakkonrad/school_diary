@@ -54,11 +54,11 @@
               <a href="admin_edit_users.php" class="nav-link">Użytkownicy</a>
             </li>
             <li class="nav-item">
-              <a href="admin_add_user.php" class="nav-link">Dodawanie użytkownika</a>
-            </li>
-            <li class="nav-item">
-              <a href="admin_add_grade.php" class="nav-link">Dodawanie ocen</a>
-            </li>
+            <a href="admin_add_subject.php" class="nav-link">Dodawanie przedmiotów</a>
+          </li>
+          <li class="nav-item">
+            <a href="admin_add_grade.php" class="nav-link">Oceny</a>
+          </li>
           </ul>
         </div>
 
@@ -118,7 +118,7 @@
           if (isset($_SESSION['errors'])) //jesli nie udało się dodać oceny
           {
               echo <<< HTML
-                  <div class="callout callout-success">
+                  <div class="callout callout-danger">
                   <h5>BŁĄD!</h5>
                   <p>$_SESSION[errors]</p>
                   </div>
@@ -146,12 +146,13 @@
                 </div> <!-- /.col -->
               </div>  <!-- /.row -->
               <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                <label class="mr-2">Wybierz klasę</label>
+                <!-- <label class="mr-2">Wybierz klasę</label> -->
                 <div class="row">
                   <div class="col-4"> 
                     <!-- wybór klas -->
                     <form action="./admin_add_grade.php" method="post">
                       <select class="form-control" name="class">
+                      <option disabled selected value> -- wybierz klasę -- </option>
                       <?php
                         require "../../scripts/connect.php";
                         $sql = "SELECT * FROM `classes` WHERE `class_id` != 11"; // 11 - klasa minus
@@ -168,7 +169,7 @@
                       </div>
                       <div class="col-2">
                         <div class="d-flex justify-content-center align-items-center">
-                          <button type="submit" class="btn bg-olive btn-block">Wyświetl uczniów</button>
+                          <button type="submit" class="btn btn-olive btn-block">Wyświetl uczniów</button>
                         </div>
                       </div>
                     </form>
@@ -247,6 +248,7 @@
                                               <form action="../../scripts/add_grade.php" method="post">
                                               <div class="input-group mb-3">
                                                   <select class="form-control" name="subject">
+                                        <option disabled selected value> -- wybierz przedmiot -- </option>
                               HTML;
                                                           require "../../scripts/connect.php";
                                                           $sql = "SELECT * FROM `subjects` WHERE `class` = $_SESSION[class_id]";
@@ -260,13 +262,14 @@
                                                       </select>
                                                       <div class="input-group-append">
                                                           <div class="input-group-text">
-                                                              <span class="fa fa-people-group"></span>
+                                                              <span class="fa fa-book"></span>
                                                           </div>
                                                       </div>
                                                         </div>
                                                   </select>
                                               <div class="input-group mb-3">
                                                   <select class="form-control" name="grade">
+                                        <option disabled selected value> -- wybierz ocenę -- </option>
                               HTML;
                                                           require "../../scripts/connect.php";
                                                           $sql = "SELECT * FROM `types_of_grades`";
@@ -279,7 +282,7 @@
                                                       </select>
                                                       <div class="input-group-append">
                                                           <div class="input-group-text">
-                                                              <span class="fa fa-people-group"></span>
+                                                              <span class="fa fa-list-ol"></span>
                                                           </div>
                                                       </div>
                                                         </div>
@@ -287,7 +290,7 @@
                                                             <input type="text" class="form-control" name="note" placeholder="Notatka">
                                                             <div class="input-group-append">
                                                                 <div class="input-group-text">
-                                                                    <span class="fas fa-user"></span>
+                                                                    <span class="fas fa-comment-alt"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
