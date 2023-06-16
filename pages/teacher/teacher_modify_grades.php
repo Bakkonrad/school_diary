@@ -5,7 +5,7 @@ if (!isset($_SESSION['isLogged'])) {
     header('Location: ../index.php');
     exit();
 }
-if ($_SESSION['role'] != 1) {
+if ($_SESSION['role'] != 2) {
     header("Location: ../index.php");
     exit();
 }
@@ -47,37 +47,33 @@ if ($_SESSION['role'] != 1) {
                 </button>
 
                 <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-                    <!-- Left navbar links -->
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a href="admin_main.php" class="nav-link">Strona główna</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="admin_edit_users.php" class="nav-link">Użytkownicy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="admin_add_user.php" class="nav-link">Dodawanie użytkownika</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="admin_add_grade.php" class="nav-link">Dodawanie ocen</a>
-                        </li>
-                    </ul>
-                </div>
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+            <a href="teacher_main.php" class="nav-link">Strona główna</a>
+            </li>
+            <li class="nav-item">
+            <a href="teacher_modify_grades.php" class="nav-link">Wyswietl/edytuj oceny</a>
+            </li>
+            <li class="nav-item">
+            <a href="teacher_add_grade.php" class="nav-link">Dodaj ocenę</a>
+            </li>
+        </ul>
+        </div>
 
-                <!-- Right navbar links -->
-                <div class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                    <!-- ACCOUNT ICON -->
-                    <div class="dropdown user user-menu open nav-item">
-                        <a class="nav-link" data-toggle="dropdown" aria-expanded="true">
-                            <i class="fa fa-solid fa-user-shield" id="navbar-dropdown-btn"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="user-header">
-                                <img src="../../resources/admin.jpg" class="profile-user-img img-fluid img-circle"
-                                    alt="User Image">
-                                <?php
-                                echo <<<HTML
-                                <p>
+        <!-- Right navbar links -->
+        <div class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+            <!-- ACCOUNT ICON -->
+            <div class="dropdown user user-menu open nav-item">
+                <a class="nav-link" data-toggle="dropdown" aria-expanded="true">
+                    <i class="fa fa-solid fa-chalkboard-user" id="navbar-dropdown-btn"></i>
+                </a>
+                <ul class="dropdown-menu" >
+                    <li class="user-header">
+                    <img src="../../resources/teacher.jpg" class="profile-user-img img-fluid img-circle" alt="User Image">
+                    <?php
+                        echo <<< HTML
+                        <p>
                                 <h5><b>$_SESSION[firstName] $_SESSION[lastName]</b></h5>
                                 <span class="text-muted">$_SESSION[email]</span>
                                 </p>
@@ -94,22 +90,20 @@ if ($_SESSION['role'] != 1) {
                                 </div> <!-- /.row -->
                                 <br>
                                 </p>
-                HTML;
-                                ?>
-                            </li>
-                            <br><br><br>
-                            <li class="user-footer">
-                                <div class="text-center" id="logout-div">
-                                    <a href="../../scripts/logout.php" type="button" id="logout-btn"
-                                        class="btn btn-block btn-danger"><i
-                                            class="fa fa-solid fa-right-from-bracket"></i> Wyloguj</a>
-                                </div>
-                            </li>
-                        </ul>
+                    HTML;
+                ?>
+                </li>
+                <br><br><br>
+                <li class="user-footer">
+                <div class="text-center" id="logout-div">
+                    <a href="../../scripts/logout.php" type="button" id="logout-btn" class="btn btn-block btn-danger" ><i class="fa fa-solid fa-right-from-bracket"></i> Wyloguj</a>
                     </div>
-                </div>
+                    </li>
+                </ul>
             </div>
-        </nav> <!-- /.navbar -->
+        </div> <!-- ./right-nav -->
+    </div>
+    </nav> <!-- /.navbar -->
 
         <!-- Content Header (Page header) -->
         <div class="content-wrapper">
@@ -155,11 +149,15 @@ if ($_SESSION['role'] != 1) {
                                 <div class="row">
                                     <div class="col-4">
                                         <!-- wybór klas -->
-                                        <form action="./admin_modify_grades.php" method="post">
+                                        <form action="./teacher_modify_grades.php" method="post">
                                             <select class="form-control" name="class">
                                                 <?php
                                                 require "../../scripts/connect.php";
-                                                $sql = "SELECT * FROM `classes` WHERE `class_id` != 11"; // 11 - klasa minus
+                                                $sql = "SELECT `classes`.`class_id`, `classes`.`class`
+                                                FROM `classes`
+                                                JOIN `subjects` ON `classes`.`class_id` = `subjects`.`class`
+                                                WHERE `classes`.`class_id` != 11 AND `subjects`.`teacher` = $_SESSION[id]
+                                                GROUP BY `classes`.`class_id`"; // 11 - klasa minus
                                                 $result = $conn->query($sql);
                                                 while ($class = $result->fetch_assoc()) {
                                                     if ($class['class_id'] == $_POST['class']) {

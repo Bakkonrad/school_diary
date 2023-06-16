@@ -53,7 +53,7 @@ if ($_SESSION['role'] != 2) {
                             <a href="teacher_main.php" class="nav-link">Strona główna</a>
                         </li>
                         <li class="nav-item">
-                            <a href="teacher_modified_grades.php" class="nav-link">Historia ocen</a>
+                            <a href="teacher_modify_grades.php" class="nav-link">Wyswietl/edytuj oceny</a>
                         </li>
                         <li class="nav-item">
                             <a href="teacher_add_grade.php" class="nav-link">Dodaj ocenę</a>
