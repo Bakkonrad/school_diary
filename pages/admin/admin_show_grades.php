@@ -1,4 +1,6 @@
 <?php
+// session_cache_limiter('private, must-revalidate');
+// session_cache_expire(60); //
 session_start();
 
 if (!isset($_SESSION['isLogged'])) {
@@ -6,10 +8,6 @@ if (!isset($_SESSION['isLogged'])) {
     exit();
 }
 if ($_SESSION['role'] != 1) {
-    header("Location: ../index.php");
-    exit();
-}
-if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone przez url
     header("Location: ../index.php");
     exit();
 }
@@ -39,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand-md navbar-olive navbar-dark">
             <div class="container">
-                <a href="student_main.php" class="navbar-brand">
+                <a href="admin_main.php" class="navbar-brand">
                     <img src="../../resources/logo2.png" id="navLogo">
                     <span class="brand-text"><b>dziennik</b> lekcyjny</span>
                 </a>
@@ -160,7 +158,11 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                     </thead>
                                                     <tbody>
                                                     <?php
-                                                        $studentId = $_POST['student_id'];
+                                                    if(isset($_POST['student_id']))
+                                                    {
+                                                        $_SESSION['studentId'] = $_POST['student_id'];
+                                                    }
+                                                        $studentId = $_SESSION['studentId'];
                                                         // Zapytanie o dane uczniów z danej klasy
                                                         require "../../scripts/connect.php";
                                                         $sql = "SELECT * FROM grades JOIN types_of_grades ON grades.`grade` = types_of_grades.`id` JOIN users ON grades.`added_by` = users.`id` WHERE grades.`student` = '$studentId';";
