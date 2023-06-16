@@ -118,6 +118,28 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
             <!-- Main content -->
             <div class="content">
                 <div class="container">
+                <?php
+                    if (isset($_SESSION['errors'])) //jesli nie udało się dodać oceny
+                    {
+                        echo <<< HTML
+                            <div class="callout callout-success">
+                            <h5>BŁĄD!</h5>
+                            <p>$_SESSION[errors]</p>
+                            </div>
+                            HTML;
+                        unset($_SESSION['errors']);
+                    }
+                    if (isset($_SESSION['notification'])) //jesli udało się dodać ocenę
+                    {
+                    echo <<< HTML
+                        <div class="callout callout-success">
+                        <h5>SUKCES!</h5>
+                        <p>$_SESSION[notification]</p>
+                        </div>
+                        HTML;
+                    unset($_SESSION['notification']);
+                    }
+                    ?>
                     <br>
                     <div class="card card-outline card-olive">
                         <!-- /.card-header -->
@@ -148,13 +170,13 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                             echo "<tr><td colspan='2'>Brak ocen!</td></tr>";
                                                         } else {
                                                             $gradesBySubject = array();
-
                                                             while ($row = $result->fetch_assoc()) {
                                                                 $subjectId = $row['subject'];
                                                                 $grade = $row['grade'];
                                                                 $addedBy = $row['firstName'] . " " . $row['lastName'];
                                                                 $date = $row['created_at'];
                                                                 $note = $row['note'];
+                                                                $gradeId = $row['operation_id'];
 
                                                                 // Sprawdź, czy istnieje już tablica ocen dla danego przedmiotu
                                                                 if (!isset($gradesBySubject[$subjectId])) {
@@ -166,7 +188,8 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                                     'grade' => $grade,
                                                                     'addedBy' => $addedBy,
                                                                     'date' => $date,
-                                                                    'note' => $note
+                                                                    'note' => $note,
+                                                                    'gradeId' => $gradeId
                                                                 );
                                                             }
 
@@ -216,7 +239,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                                                 <div class="modal-footer justify-content-between">
                                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
                                                                                     <button type="button" class="btn btn-primary">Edytuj</button>
-                                                                                    <button type="button" class="btn btn-danger">Usuń</button>
+                                                                                    <a href="../../scripts/delete_grade.php?gradeId=$gradeData[gradeId]" class="btn btn-danger">Usuń</a>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
