@@ -61,20 +61,19 @@ if ($_SESSION['role'] != 2) {
         </ul>
         </div>
 
-                <!-- Right navbar links -->
-                <div class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                    <!-- ACCOUNT ICON -->
-                    <div class="dropdown user user-menu open nav-item">
-                        <a class="nav-link" data-toggle="dropdown" aria-expanded="true">
-                            <i class="fa fa-solid fa-user-shield" id="navbar-dropdown-btn"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="user-header">
-                                <img src="../../resources/teacher.jpg" class="profile-user-img img-fluid img-circle"
-                                    alt="User Image">
-                                <?php
-                                echo <<<HTML
-                                <p>
+        <!-- Right navbar links -->
+        <div class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+            <!-- ACCOUNT ICON -->
+            <div class="dropdown user user-menu open nav-item">
+                <a class="nav-link" data-toggle="dropdown" aria-expanded="true">
+                    <i class="fa fa-solid fa-chalkboard-user" id="navbar-dropdown-btn"></i>
+                </a>
+                <ul class="dropdown-menu" >
+                    <li class="user-header">
+                    <img src="../../resources/teacher.jpg" class="profile-user-img img-fluid img-circle" alt="User Image">
+                    <?php
+                        echo <<< HTML
+                        <p>
                                 <h5><b>$_SESSION[firstName] $_SESSION[lastName]</b></h5>
                                 <span class="text-muted">$_SESSION[email]</span>
                                 </p>
@@ -91,22 +90,20 @@ if ($_SESSION['role'] != 2) {
                                 </div> <!-- /.row -->
                                 <br>
                                 </p>
-                HTML;
-                                ?>
-                            </li>
-                            <br><br><br>
-                            <li class="user-footer">
-                                <div class="text-center" id="logout-div">
-                                    <a href="../../scripts/logout.php" type="button" id="logout-btn"
-                                        class="btn btn-block btn-danger"><i
-                                            class="fa fa-solid fa-right-from-bracket"></i> Wyloguj</a>
-                                </div>
-                            </li>
-                        </ul>
+                    HTML;
+                ?>
+                </li>
+                <br><br><br>
+                <li class="user-footer">
+                <div class="text-center" id="logout-div">
+                    <a href="../../scripts/logout.php" type="button" id="logout-btn" class="btn btn-block btn-danger" ><i class="fa fa-solid fa-right-from-bracket"></i> Wyloguj</a>
                     </div>
-                </div>
+                    </li>
+                </ul>
             </div>
-        </nav> <!-- /.navbar -->
+        </div> <!-- ./right-nav -->
+    </div>
+    </nav> <!-- /.navbar -->
 
         <!-- Content Header (Page header) -->
         <div class="content-wrapper">
@@ -236,7 +233,7 @@ if ($_SESSION['role'] != 2) {
                                 <td>$user[lastName]</td>
                                 <!-- przycisk, który przenosi na podstronę show_grades.php  -->
                                 <td class="d-flex align-items-center">
-                                <form action="./teacher_show_grades.php" method="post">
+                                <form action="./admin_show_grades.php" method="post">
                                 <input type="hidden" name="student_id" value="$user[id]">
                                 <button type="submit" class="btn bg-olive btn-block">Wyświetl oceny</button>
                                 </form>
