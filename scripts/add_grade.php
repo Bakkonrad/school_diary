@@ -7,15 +7,18 @@
         exit();
     }
 
+    //jeśli nie podano wszystkich danych
+    if (!isset($_POST['grade']) || !isset($_POST['subject'])) {
+        $_SESSION['errors'] = "Nie podano wszystkich danych!";
+        echo "<script>history.back();</script>"; //wraca do podstrony rejestracji i wyswietla bledy
+        exit();
+    }
+
     foreach ($_POST as $key => $value) {
         ${$key} = $value; //tworzenie zmiennych np.firstName
     }
 
-    // foreach($_POST as $key => $value) {
-    //     echo $key . " " . $value . "<br>";
-    // }
-    
-    // echo $_SESSION['addGradeId'];
+
 
     require_once "connect.php";
     //dodawanie oceny do tabeli grades
@@ -28,7 +31,7 @@
     // $stmt->bind_param('iiii', $grade_id, $student, $grade, $added_by);
     // $stmt->execute();
 
-    echo $stmt->affected_rows;
+    // echo $stmt->affected_rows;
 
     if ($stmt->affected_rows > 0) {
         $_SESSION['notification'] = "Udało się dodać ocenę!";

@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand-md navbar-olive navbar-dark">
             <div class="container">
-                <a href="teacher_main.php" class="navbar-brand">
+                <a href="student_main.php" class="navbar-brand">
                     <img src="../../resources/logo2.png" id="navLogo">
                     <span class="brand-text"><b>dziennik</b> lekcyjny</span>
                 </a>
@@ -63,20 +63,19 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
         </ul>
         </div>
 
-                <!-- Right navbar links -->
-                <div class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                    <!-- ACCOUNT ICON -->
-                    <div class="dropdown user user-menu open nav-item">
-                        <a class="nav-link" data-toggle="dropdown" aria-expanded="true">
-                            <i class="fa fa-solid fa-user-shield" id="navbar-dropdown-btn"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="user-header">
-                                <img src="../../resources/teacher.jpg" class="profile-user-img img-fluid img-circle"
-                                    alt="User Image">
-                                <?php
-                                echo <<<HTML
-                                <p>
+        <!-- Right navbar links -->
+        <div class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+            <!-- ACCOUNT ICON -->
+            <div class="dropdown user user-menu open nav-item">
+                <a class="nav-link" data-toggle="dropdown" aria-expanded="true">
+                    <i class="fa fa-solid fa-chalkboard-user" id="navbar-dropdown-btn"></i>
+                </a>
+                <ul class="dropdown-menu" >
+                    <li class="user-header">
+                    <img src="../../resources/teacher.jpg" class="profile-user-img img-fluid img-circle" alt="User Image">
+                    <?php
+                        echo <<< HTML
+                        <p>
                                 <h5><b>$_SESSION[firstName] $_SESSION[lastName]</b></h5>
                                 <span class="text-muted">$_SESSION[email]</span>
                                 </p>
@@ -93,50 +92,26 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                 </div> <!-- /.row -->
                                 <br>
                                 </p>
-                HTML;
-                                ?>
-                            </li>
-                            <br><br><br>
-                            <li class="user-footer">
-                                <div class="text-center" id="logout-div">
-                                    <a href="../../scripts/logout.php" type="button" id="logout-btn"
-                                        class="btn btn-block btn-danger"><i
-                                            class="fa fa-solid fa-right-from-bracket"></i> Wyloguj</a>
-                                </div>
-                            </li>
-                        </ul>
+                    HTML;
+                ?>
+                </li>
+                <br><br><br>
+                <li class="user-footer">
+                <div class="text-center" id="logout-div">
+                    <a href="../../scripts/logout.php" type="button" id="logout-btn" class="btn btn-block btn-danger" ><i class="fa fa-solid fa-right-from-bracket"></i> Wyloguj</a>
                     </div>
-                </div>
+                    </li>
+                </ul>
             </div>
-        </nav> <!-- /.navbar -->
+        </div> <!-- ./right-nav -->
+    </div>
+    </nav> <!-- /.navbar -->
 
         <!-- Content Header (Page header) -->
         <div class="content-wrapper">
             <!-- Main content -->
             <div class="content">
                 <div class="container">
-                <?php
-                    if (isset($_SESSION['errors'])) //jesli nie udało się dodać oceny
-                    {
-                        echo <<< HTML
-                            <div class="callout callout-success">
-                            <h5>BŁĄD!</h5>
-                            <p>$_SESSION[errors]</p>
-                            </div>
-                            HTML;
-                        unset($_SESSION['errors']);
-                    }
-                    if (isset($_SESSION['notification'])) //jesli udało się dodać ocenę
-                    {
-                    echo <<< HTML
-                        <div class="callout callout-success">
-                        <h5>SUKCES!</h5>
-                        <p>$_SESSION[notification]</p>
-                        </div>
-                        HTML;
-                    unset($_SESSION['notification']);
-                    }
-                    ?>
                     <br>
                     <div class="card card-outline card-olive">
                         <!-- /.card-header -->
@@ -156,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <?php
+                                                        <?php
                                                         $studentId = $_POST['student_id'] ;
                                                         $teacherId = $_SESSION['id'];
                                                         // Zapytanie o dane uczniów z danej klasy
@@ -172,16 +147,16 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                         $result = $conn->query($sql);
 
                                                         if ($result->num_rows == 0) {
-                                                            echo "<tr><td colspan='2'>Brak ocen!</td></tr>";
+                                                            echo "<tr><td colspan ='2'>Brak ocen!</td></tr>";
                                                         } else {
                                                             $gradesBySubject = array();
+
                                                             while ($row = $result->fetch_assoc()) {
                                                                 $subjectId = $row['subject'];
                                                                 $grade = $row['grade'];
                                                                 $addedBy = $row['firstName'] . " " . $row['lastName'];
                                                                 $date = $row['created_at'];
                                                                 $note = $row['note'];
-                                                                $gradeId = $row['operation_id'];
 
                                                                 // Sprawdź, czy istnieje już tablica ocen dla danego przedmiotu
                                                                 if (!isset($gradesBySubject[$subjectId])) {
@@ -193,14 +168,14 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                                     'grade' => $grade,
                                                                     'addedBy' => $addedBy,
                                                                     'date' => $date,
-                                                                    'note' => $note,
-                                                                    'gradeId' => $gradeId
+                                                                    'note' => $note
                                                                 );
+                                                                // $gradesBySubject[$subjectId][] = $grade;
                                                             }
 
                                                             // Wyświetl oceny dla poszczególnych przedmiotów
                                                             foreach ($gradesBySubject as $subjectId => $grades) {
-                                                                $sql2 = "SELECT * FROM subjects WHERE id = '$subjectId';";
+                                                                $sql2 = "SELECT * FROM `subjects` WHERE `id` = '$subjectId';";
                                                                 $result2 = $conn->query($sql2);
                                                                 $row2 = $result2->fetch_assoc();
 
@@ -208,7 +183,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                                 echo "<td><h5>" . $row2['name'] . "</h5></td>";
                                                                 echo "<td>";
                                                                 $index = 1;
-
+                                                                
                                                                 foreach ($grades as $gradeData) {
                                                                     $modalId = "gradeInfo-$subjectId-$index"; // Unikalny identyfikator modalu
                                                                     $grade = $gradeData['grade'];
@@ -218,13 +193,11 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
 
                                                                 echo "</td>";
                                                                 echo "</tr>";
-                                                            }
 
-                                                            foreach ($gradesBySubject as $subjectId => $grades) {
-                                                                $index = 1;
+                                                                $index = 1; 
                                                                 foreach ($grades as $gradeData) {
                                                                     $modalId = "gradeInfo-$subjectId-$index";
-                                                                    echo <<<HTML
+                                                                    echo <<< HTML
                                                                     <div class="modal fade" id="$modalId" aria-modal="true" role="dialog">
                                                                         <div class="modal-dialog modal-sm">
                                                                             <div class="modal-content">
@@ -235,25 +208,24 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                                                     </button>
                                                                                 </div>
                                                                                 <div class="modal-body">
-                                                                                    <p>Ocena: <b>{$gradeData['grade']}</b></p>
-                                                                                    <p>Przedmiot: <b>{$row2['name']}</b></p>
-                                                                                    <p>Nauczyciel: <b>{$gradeData['addedBy']}</b></p>
-                                                                                    <p>Data wystawienia: <b>{$gradeData['date']}</b></p>
-                                                                                    <p>Notatka: <b>{$gradeData['note']}</b></p>
-                                                                                </div>
+                                                                                    <p>Ocena: <b>$gradeData[grade]</b></p>
+                                                                                    <p>Przedmiot: <b>$row2[name]</b></p>
+                                                                                    <p>Nauczyciel: <b>$gradeData[addedBy]</b></p>
+                                                                                    <p>Data wystawienia: <b>$gradeData[date]</b></p>
+                                                                                    <p>Notatka: <b>$gradeData[note]</b></p>
                                                                                 <div class="modal-footer justify-content-between">
                                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
                                                                                     <button type="button" class="btn btn-primary">Edytuj</button>
-                                                                                    <a href="../../scripts/delete_grade.php?gradeId=$gradeData[gradeId]" class="btn btn-danger">Usuń</a>
+                                                                                    <button type="button" class="btn btn-danger">Usuń</button>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </div>
-                                                        HTML;
-                                                                    $index++; // Zwiększenie indeksu dla kolejnego modalu
+                                                                            </div> <!-- /.modal -->
+                                                                    HTML;
+                                                                                $index++; // Zwiększenie indeksu dla kolejnego modalu
+                                                                            }
                                                                 }
                                                             }
-                                                        }
                                                         ?>
                                                     </tbody>
                                                 </table>
