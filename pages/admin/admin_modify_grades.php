@@ -56,7 +56,7 @@ if ($_SESSION['role'] != 1) {
                             <a href="admin_edit_users.php" class="nav-link">Użytkownicy</a>
                         </li>
                         <li class="nav-item">
-                            <a href="admin_add_user.php" class="nav-link">Dodawanie użytkownika</a>
+                            <a href="admin_add_subject.php" class="nav-link">Dodawanie przedmiotów</a>
                         </li>
                         <li class="nav-item">
                             <a href="admin_add_grade.php" class="nav-link">Dodawanie ocen</a>
@@ -173,7 +173,7 @@ if ($_SESSION['role'] != 1) {
                                     </div>
                                     <div class="col-2">
                                         <div class="d-flex justify-content-center align-items-center">
-                                            <button type="submit" class="btn bg-olive btn-block">Wyświetl
+                                            <button type="submit" class="btn btn-olive btn-block">Wyświetl
                                                 uczniów</button>
                                         </div>
                                     </div>
@@ -237,7 +237,7 @@ if ($_SESSION['role'] != 1) {
                                 <td class="d-flex align-items-center">
                                 <form action="./admin_show_grades.php" method="post">
                                 <input type="hidden" name="student_id" value="$user[id]">
-                                <button type="submit" class="btn bg-olive btn-block">Wyświetl oceny</button>
+                                <button type="submit" class="btn btn-olive btn-block">Wyświetl oceny</button>
                                 </form>
                                 </td>
 

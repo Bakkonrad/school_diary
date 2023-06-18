@@ -63,7 +63,7 @@ if ($_SESSION['role'] != 1) {
                             <a href="admin_add_subject.php" class="nav-link">Dodawanie przedmiotów</a>
                         </li>
                         <li class="nav-item">
-                            <a href="admin_add_grade.php" class="nav-link">Oceny</a>
+                            <a href="admin_add_grade.php" class="nav-link">Dodawanie ocen</a>
                         </li>
                 </div>
 
