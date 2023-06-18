@@ -172,7 +172,7 @@ if ($_SESSION['role'] != 1) {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <?php
+                            HTML;
                                                     if(isset($_POST['student_id']))
                                                     {
                                                         $_SESSION['studentId'] = $_POST['student_id'];
@@ -256,7 +256,7 @@ if ($_SESSION['role'] != 1) {
                                                                                     <p>Przedmiot: <b>{$subject}</b></p>
                                                                                     <p>Nauczyciel: <b>{$gradeData['addedBy']}</b></p>
                                                                                     <p>Data wystawienia: <b>{$gradeData['date']}</b></p>
-                                                                    HTML;
+                                            HTML;
                                                                                     if ($gradeData['modificationDate'] != null) {
                                                                                         echo "<p>Data modyfikacji: <b>". $gradeData['modificationDate'] ."</b></p>";
                                                                                     }
