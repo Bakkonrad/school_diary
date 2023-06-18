@@ -98,4 +98,7 @@ if($_SESSION['role'] != 1)
         $_SESSION['errors'] = $errors;
         echo "<script>history.back();</script>"; //wraca do podstrony rejestracji i wyswietla bledy
     }
+
+    $conn->close();
+
 ?>

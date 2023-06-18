@@ -42,5 +42,7 @@
         echo "<script>history.back();</script>"; //wraca do podstrony rejestracji i wyswietla bledy
     }
 
+    $conn->close();
+
     ?>
 

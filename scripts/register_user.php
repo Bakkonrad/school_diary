@@ -109,5 +109,7 @@ else
 {
     header("Location: ../pages/.");
 }
+$conn->close();
+
 ?>
 

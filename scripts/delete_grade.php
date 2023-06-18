@@ -37,8 +37,6 @@ require_once "./connect.php";
 
     $conn->close();
 
-    // $_SESSION['errors'] = $errors;
-
     //przejscie do strony z ocenami
     header('Location: ../pages/admin/admin_show_grades.php');
     exit();
