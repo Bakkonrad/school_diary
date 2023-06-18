@@ -57,7 +57,7 @@
             <a href="admin_add_subject.php" class="nav-link">Dodawanie przedmiotów</a>
           </li>
           <li class="nav-item">
-            <a href="admin_add_grade.php" class="nav-link">Oceny</a>
+            <a href="admin_add_grade.php" class="nav-link">Dodawanie ocen</a>
           </li>
           </ul>
         </div>
@@ -146,13 +146,12 @@
                 </div> <!-- /.col -->
               </div>  <!-- /.row -->
               <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                <!-- <label class="mr-2">Wybierz klasę</label> -->
+                <label class="mr-2">Wybierz klasę</label>
                 <div class="row">
                   <div class="col-4"> 
                     <!-- wybór klas -->
                     <form action="./admin_add_grade.php" method="post">
                       <select class="form-control" name="class">
-                      <option disabled selected value> -- wybierz klasę -- </option>
                       <?php
                         require "../../scripts/connect.php";
                         $sql = "SELECT * FROM `classes` WHERE `class_id` != 11"; // 11 - klasa minus
@@ -250,23 +249,23 @@
                                                   <select class="form-control" name="subject">
                                         <option disabled selected value> -- wybierz przedmiot -- </option>
                               HTML;
-                                                          require "../../scripts/connect.php";
-                                                          $sql = "SELECT * FROM `subjects` WHERE `class` = $_SESSION[class_id]";
-                                                          $result = $conn->query($sql);
-                                                          while ($subject = $result->fetch_assoc()) {
-                                                              echo "<option
-                                                              value='$subject[id]'>$subject[name]</option>";
-                                                          }
-                                                          
-                                                      echo <<< HTML
-                                                      </select>
-                                                      <div class="input-group-append">
-                                                          <div class="input-group-text">
-                                                              <span class="fa fa-book"></span>
-                                                          </div>
-                                                      </div>
-                                                        </div>
-                                                  </select>
+                                        require "../../scripts/connect.php";
+                                        $sql = "SELECT * FROM `subjects` WHERE `class` = $_SESSION[class_id]";
+                                        $result = $conn->query($sql);
+                                        while ($subject = $result->fetch_assoc()) {
+                                            echo "<option
+                                            value='$subject[id]'>$subject[name]</option>";
+                                        }
+                                        
+                                        echo <<< HTML
+                                          </select>
+                                          <div class="input-group-append">
+                                              <div class="input-group-text">
+                                                  <span class="fa fa-book"></span>
+                                              </div>
+                                          </div>
+                                            </div>
+                                        </select>
                                               <div class="input-group mb-3">
                                                   <select class="form-control" name="grade">
                                         <option disabled selected value> -- wybierz ocenę -- </option>

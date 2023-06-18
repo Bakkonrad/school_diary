@@ -56,7 +56,7 @@ if ($_SESSION['role'] != 1) {
                             <a href="admin_edit_users.php" class="nav-link">Użytkownicy</a>
                         </li>
                         <li class="nav-item">
-                            <a href="admin_add_user.php" class="nav-link">Dodawanie użytkownika</a>
+                            <a href="admin_add_subject.php" class="nav-link">Dodawanie przedmiotów</a>
                         </li>
                         <li class="nav-item">
                             <a href="admin_add_grade.php" class="nav-link">Dodawanie ocen</a>
@@ -120,6 +120,7 @@ if ($_SESSION['role'] != 1) {
                     if (isset($_SESSION['errors'])) //jesli nie udało się dodać oceny
                     {
                         echo <<< HTML
+                            <br>
                             <div class="callout callout-success">
                             <h5>BŁĄD!</h5>
                             <p>$_SESSION[errors]</p>
@@ -130,6 +131,7 @@ if ($_SESSION['role'] != 1) {
                     if (isset($_SESSION['notification'])) //jesli udało się dodać ocenę
                     {
                     echo <<< HTML
+                        <br>
                         <div class="callout callout-success">
                         <h5>SUKCES!</h5>
                         <p>$_SESSION[notification]</p>
@@ -142,7 +144,20 @@ if ($_SESSION['role'] != 1) {
                     <div class="card card-outline card-olive">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <h3>Oceny ucznia</h3>
+                        <?php
+                            $studentId = $_POST['student_id'];
+                            // Zapytanie o dane uczniów z danej klasy
+                            require "../../scripts/connect.php";
+                            $sql = "SELECT * FROM grades JOIN types_of_grades ON grades.`grade` = types_of_grades.`id` JOIN users ON grades.`added_by` = users.`id` WHERE grades.`student` = '$studentId';";
+                            $result = $conn->query($sql);
+                            
+                            // Pobierz imię ucznia na podstawie $studentId
+                            $sql1 = "SELECT firstName, lastName FROM users WHERE id = '$studentId';";
+                            $result1 = $conn->query($sql1);
+                            $row1= $result1->fetch_assoc();
+
+                            echo <<<HTML
+                            <h3>Oceny ucznia: <b>$row1[firstName] $row1[lastName]</b></h3>
                             <br>
                             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                 <div class="row">
@@ -167,7 +182,7 @@ if ($_SESSION['role'] != 1) {
                                                         require "../../scripts/connect.php";
                                                         $sql = "SELECT * FROM grades JOIN types_of_grades ON grades.`grade` = types_of_grades.`id` JOIN users ON grades.`added_by` = users.`id` WHERE grades.`student` = '$studentId';";
                                                         $result = $conn->query($sql);
-
+                                                        
                                                         if ($result->num_rows == 0) {
                                                             echo "<tr><td colspan='2'>Brak ocen!</td></tr>";
                                                         } else {
@@ -177,6 +192,7 @@ if ($_SESSION['role'] != 1) {
                                                                 $grade = $row['grade'];
                                                                 $addedBy = $row['firstName'] . " " . $row['lastName'];
                                                                 $date = $row['created_at'];
+                                                                $modificationDate = $row['modified_at'];
                                                                 $note = $row['note'];
                                                                 $gradeId = $row['operation_id'];
 
@@ -190,6 +206,7 @@ if ($_SESSION['role'] != 1) {
                                                                     'grade' => $grade,
                                                                     'addedBy' => $addedBy,
                                                                     'date' => $date,
+                                                                    'modificationDate' => $modificationDate,
                                                                     'note' => $note,
                                                                     'gradeId' => $gradeId
                                                                 );
@@ -200,6 +217,7 @@ if ($_SESSION['role'] != 1) {
                                                                 $sql2 = "SELECT * FROM subjects WHERE id = '$subjectId';";
                                                                 $result2 = $conn->query($sql2);
                                                                 $row2 = $result2->fetch_assoc();
+                                                                $subject = $row2['name'];
 
                                                                 echo "<tr>";
                                                                 echo "<td><h5>" . $row2['name'] . "</h5></td>";
@@ -208,6 +226,7 @@ if ($_SESSION['role'] != 1) {
 
                                                                 foreach ($grades as $gradeData) {
                                                                     $modalId = "gradeInfo-$subjectId-$index"; // Unikalny identyfikator modalu
+                                                                    $editModalId = "editGrade-$subjectId-$index"; // Unikalny identyfikator modalu edycji
                                                                     $grade = $gradeData['grade'];
                                                                     echo '<button type="button" id="gradeBtn" class="btn btn-olive" data-toggle="modal" data-target="#' . $modalId . '">' . $grade . '</button>';
                                                                     $index++; // Zwiększenie indeksu dla kolejnego modalu
@@ -215,13 +234,14 @@ if ($_SESSION['role'] != 1) {
 
                                                                 echo "</td>";
                                                                 echo "</tr>";
-                                                            }
-
-                                                            foreach ($gradesBySubject as $subjectId => $grades) {
+                                                            
+                                                                // Wyświetl modale
                                                                 $index = 1;
                                                                 foreach ($grades as $gradeData) {
-                                                                    $modalId = "gradeInfo-$subjectId-$index";
+                                                                    $modalId = "gradeInfo-$subjectId-$index"; // Unikalny identyfikator modalu z informacjami o ocenie
+                                                                    $editModalId = "editGrade-$subjectId-$index"; // Unikalny identyfikator modalu edycji
                                                                     echo <<<HTML
+                                                                    <!-- Modal z info o ocenie -->
                                                                     <div class="modal fade" id="$modalId" aria-modal="true" role="dialog">
                                                                         <div class="modal-dialog modal-sm">
                                                                             <div class="modal-content">
@@ -233,16 +253,62 @@ if ($_SESSION['role'] != 1) {
                                                                                 </div>
                                                                                 <div class="modal-body">
                                                                                     <p>Ocena: <b>{$gradeData['grade']}</b></p>
-                                                                                    <p>Przedmiot: <b>{$row2['name']}</b></p>
+                                                                                    <p>Przedmiot: <b>{$subject}</b></p>
                                                                                     <p>Nauczyciel: <b>{$gradeData['addedBy']}</b></p>
                                                                                     <p>Data wystawienia: <b>{$gradeData['date']}</b></p>
+                                                                    HTML;
+                                                                                    if ($gradeData['modificationDate'] != null) {
+                                                                                        echo "<p>Data modyfikacji: <b>". $gradeData['modificationDate'] ."</b></p>";
+                                                                                    }
+                                                                    echo <<<HTML
                                                                                     <p>Notatka: <b>{$gradeData['note']}</b></p>
                                                                                 </div>
                                                                                 <div class="modal-footer justify-content-between">
-                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
-                                                                                    <button type="button" class="btn btn-primary">Edytuj</button>
-                                                                                    <a href="../../scripts/delete_grade.php?gradeId=$gradeData[gradeId]" class="btn btn-danger">Usuń</a>
+                                                                                    <button type="button" class="btn" id="cancelBtn" data-dismiss="modal">Anuluj</button>
+                                                                                    <button type="button" class="btn" data-dismiss="modal" data-toggle="modal" data-target="#$editModalId" >Edytuj</button>
+                                                                                    <a href="../../scripts/delete_grade.php?gradeId=$gradeData[gradeId]" class="btn" id="delete-btn">Usuń</a>
                                                                                 </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- Modal do edycji oceny -->
+                                                                    <div class="modal fade" id="$editModalId" aria-modal="true" role="dialog">
+                                                                        <div class="modal-dialog modal-sm">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title">Edycja oceny <b>$gradeData[grade]</b> z przedmiotu <b>$subject</b></h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">×</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                <label for="grade">Wybierz nową ocenę</label>
+                                                                                <form action="../../scripts/modify_grade.php?gradeId=$gradeData[gradeId]" method="post">
+                                                                                <div class="input-group mb-3">
+                                                                                <select class="form-control" name="grade">
+                                                                                <option hidden selected value >$gradeData[grade]</option>
+                                                                    HTML;
+                                                                                    require "../../scripts/connect.php";
+                                                                                    $sql = "SELECT * FROM `types_of_grades`";
+                                                                                    $result = $conn->query($sql);
+                                                                                    while ($type_of_grade = $result->fetch_assoc()) {
+                                                                                        echo "<option
+                                                                                        value='$type_of_grade[id]'>$type_of_grade[grade]</option>";
+                                                                                    }
+                                                                                    echo <<< HTML
+                                                                                    </select>
+                                                                                    <div class="input-group-append">
+                                                                                        <div class="input-group-text">
+                                                                                            <span class="fa fa-list-ol"></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer justify-content-between">
+                                                                                <button type="button" class="btn" id="cancelBtn" data-dismiss="modal">Anuluj</button>
+                                                                                <button type="submit" class="btn">Zmodyfikuj</button>
+                                                                            </div>
+                                                                        </form>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -256,6 +322,11 @@ if ($_SESSION['role'] != 1) {
                                                 </table>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <a href="admin_modify_grades.php" class="btn btn-olive">Powrót do widoku uczniów</a>
                                     </div>
                                 </div>
                             </div>
