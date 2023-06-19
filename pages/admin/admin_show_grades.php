@@ -145,7 +145,11 @@ if ($_SESSION['role'] != 1) {
                         <!-- /.card-header -->
                         <div class="card-body">
                         <?php
-                            $studentId = $_POST['student_id'];
+                        if(isset($_POST['student_id']))
+                        {
+                            $_SESSION['studentId'] = $_POST['student_id'];
+                        }
+                            $studentId = $_SESSION['studentId'];
                             // Zapytanie o dane uczniów z danej klasy
                             require "../../scripts/connect.php";
                             $sql = "SELECT * FROM grades JOIN types_of_grades ON grades.`grade` = types_of_grades.`id` JOIN users ON grades.`added_by` = users.`id` WHERE grades.`student` = '$studentId';";
@@ -172,7 +176,7 @@ if ($_SESSION['role'] != 1) {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <?php
+                            HTML;
                                                     if(isset($_POST['student_id']))
                                                     {
                                                         $_SESSION['studentId'] = $_POST['student_id'];

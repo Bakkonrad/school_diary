@@ -43,6 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>history.back();</script>"; //wraca do podstrony rejestracji i wyswietla bledy
     }
 
+    $conn->close();
+
 }
 
 

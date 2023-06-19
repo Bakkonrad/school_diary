@@ -213,9 +213,10 @@
                   $row = $result->fetch_assoc();
                   $allUsers = $row['allUsers']; //liczba wszystkich rekordów w bazie
                   $numberOfPages = ceil($allUsers / $recordsPerPage); //liczba stron
-
+              
                   //zapytanie o dane uczniów z danej klasy
-                  $sql = "SELECT * FROM `users` WHERE `class` = $_SESSION[class_id] ORDER BY `lastName` ASC LIMIT " . (($currentPage - 1) * $recordsPerPage) . ", $recordsPerPage;";
+                  $sql = "SELECT * FROM `users` WHERE `class` = $_SESSION[class_id] ORDER BY `lastName` ASC LIMIT $recordsPerPage OFFSET " . ($currentPage - 1) * $recordsPerPage . ";";
+                  
                   $result = $conn->query($sql);
 
                     if($result->num_rows == 0)

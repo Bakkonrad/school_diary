@@ -89,8 +89,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //ochrona przed wejsciem na strone p
 
     //require "./connect.php";
 
+    $passwordHash = password_hash($password,PASSWORD_ARGON2ID);
+    $toLowerLogin = strtolower($login);
+
     $stmt = $conn->prepare("INSERT INTO `users` (`firstName`, `lastName`, `birthday`, `email`, `password`, `login`,`class`,`role`) VALUES (?,?,?,?,?,?,?,?)");
-    $stmt->bind_param('ssssssii', $firstName, $lastName, $birthday, $email, password_hash($password,PASSWORD_ARGON2ID), strtolower($login),$class, $role );
+    $stmt->bind_param('ssssssii', $firstName, $lastName, $birthday, $email, $passwordHash , $toLowerLogin ,$class, $role );
 
     $stmt->execute();
 
@@ -109,5 +112,6 @@ else
 {
     header("Location: ../pages/.");
 }
-?>
+$conn->close();
 
+?>
