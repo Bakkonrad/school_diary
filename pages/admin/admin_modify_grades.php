@@ -210,7 +210,6 @@ if ($_SESSION['role'] != 1) {
                         </thead>
                         <tbody>
                     HTML;
-
                                     //pobranie uczniów z wybranej klasy
                                     require "../../scripts/connect.php";
                                     mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
@@ -239,8 +238,30 @@ if ($_SESSION['role'] != 1) {
                                         $numberOfPages = 1;
                                         echo '</tbody>';
                                         echo '</table>';
+
                                     } else // jesli sa rekordy w tabli to je wyswietl
                                     {
+                                        while ($user = $result->fetch_assoc()) { 
+                                            echo <<<HTML
+                                                    <tr>
+                                                        <td style="width: 27%">$user[firstName]</td>
+                                                        <td style="width: 27%">$user[lastName]</td>
+                                                        <td class="d-flex justify-content-center">
+                                                            <form action="./admin_show_grades.php" method="post">
+                                                                <input type="hidden" name="student_id" value="$user[id]">
+                                                                    <button type="submit" class="btn btn-olive"><i class="fas fa-edit"></i> Wyświetl oceny, aby zmodyfikować</button>
+                                                            </form>
+                                                        </td>
+                                                        <td style="width: 17%; justify-content-center">
+                                                            <button type="button" class="btn btn-olive btn-block" data-toggle="modal" data-target="#addGradeModal$user[id]"><i class="fas fa-plus"></i> Dodaj ocenę
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                HTML;
+                                                }
+                                            echo '</tbody>';
+                                        echo '</table>';
+
                                         $result = $conn->query($sql); // Wykonujemy zapytanie ponownie, aby pobrać dane uczniów
 
                                         while($user = $result->fetch_assoc()) {
@@ -349,9 +370,9 @@ if ($_SESSION['role'] != 1) {
                                 </div> <!-- /.modal -->
 
                             HTML;
-                                            }
-                                        }
-                                    }
+                                            } // foreach
+                                        } // while
+                                    } // else
                                         $conn->close();
                                         //przyciski paginacji
                                         echo <<<HTML
