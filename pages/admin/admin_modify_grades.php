@@ -213,15 +213,15 @@ if ($_SESSION['role'] != 1) {
                     while ($user = $result->fetch_assoc()) { 
                         echo <<<HTML
                                 <tr>
-                                    <td style="width: 25%">$user[firstName]</td>
-                                    <td style="width: 25%">$user[lastName]</td>
-                                    <td style="justify-content: center">
+                                    <td style="width: 27%">$user[firstName]</td>
+                                    <td style="width: 27%">$user[lastName]</td>
+                                    <td class="d-flex justify-content-center">
                                         <form action="./admin_show_grades.php" method="post">
                                             <input type="hidden" name="student_id" value="$user[id]">
-                                                <button type="submit" class="btn btn-olive btn-block"><i class="fas fa-edit"></i> Wyświetl oceny, aby zmodyfikować</button>
+                                                <button type="submit" class="btn btn-olive"><i class="fas fa-edit"></i> Wyświetl oceny, aby zmodyfikować</button>
                                         </form>
                                     </td>
-                                    <td style="width: 15%; justify-content-center">
+                                    <td style="width: 17%; justify-content-center">
                                         <button type="button" class="btn btn-olive btn-block" data-toggle="modal" data-target="#addGradeModal$user[id]"><i class="fas fa-plus"></i> Dodaj ocenę
                                         </button>
                                     </td>

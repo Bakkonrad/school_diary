@@ -319,7 +319,7 @@ if ($_SESSION['role'] != 1) {
                                                     placeholder="Podaj imię i nazwisko">
                                                 <div class="input-group-append">
                                                     <button type="submit" name="searchBtn"
-                                                        class="btn btn-olive">Szukaj</button>
+                                                        class="btn btn-olive"><i class="fas fa-search"></i> Szukaj</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -328,7 +328,7 @@ if ($_SESSION['role'] != 1) {
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6">
                                         <a href="./admin_add_user.php"><button type="button"
-                                                class="btn btn-olive">Dodaj nowego użytkownika</button></a>
+                                                class="btn btn-olive"><i class="fas fa-plus"></i> Dodaj nowego użytkownika</button></a>
                                     </div>
                                 </div>
                                 <br>
@@ -404,7 +404,7 @@ if ($_SESSION['role'] != 1) {
                                                             <td>$user[role]</td>
                                                             <td>
                                                             <!-- Przycisk potwierdzający usuwanie -->
-                                                            <button type="button" class="btn btn-danger"  id="delete-btn" data-toggle="modal" data-target="#confirmDelete$user[id]">Usuń</button>
+                                                            <button type="button" class="btn btn-danger btn-block"  id="delete-btn" data-toggle="modal" data-target="#confirmDelete$user[id]"><i class="fas fa-trash"></i> Usuń</button>
                                                         <!-- Modal - potwierdzenie usunięcia użytkownika, musi być tutaj żeby zbierał dane o konkretnym użytkowniku --> 
                                                         <div class="modal fade" id="confirmDelete$user[id]" tabindex="0" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
@@ -434,7 +434,7 @@ if ($_SESSION['role'] != 1) {
                                                             </div> <!-- /.modal-dialog -->
                                                         </div> <!-- /.modal -->
                                                         </td>
-                                                        <td><a href="./admin_edit_users.php?userUpdateId=$user[id]"><button type="button" class="btn btn-olive">Edytuj</button></a></td>
+                                                        <td><a href="./admin_edit_users.php?userUpdateId=$user[id]"><button type="button" class="btn btn-olive btn-block"><i class="fas fa-pencil"></i> Edytuj</button></a></td>
                                                         </tr>
                                                     HTML;
                                             }
