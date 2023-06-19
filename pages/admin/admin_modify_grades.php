@@ -197,6 +197,7 @@ if ($_SESSION['role'] != 1) {
                             <th>Imię</th>
                             <th>Nazwisko</th>
                             <th>Wyświetl oceny</th>
+                            <th>Dodaj ocenę</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -219,7 +220,8 @@ if ($_SESSION['role'] != 1) {
                                     $numberOfPages = ceil($allUsers / $recordsPerPage); //liczba stron
                                 
                                     //zapytanie o dane uczniów z danej klasy
-                                    $sql = "SELECT * FROM `users` WHERE `class` = $_SESSION[class_id] ORDER BY `lastName` ASC LIMIT " . (($currentPage - 1) * $recordsPerPage) . ", $recordsPerPage;";
+                                    $sql = "SELECT * FROM `users` WHERE `class` = $_SESSION[class_id] ORDER BY `lastName` ASC LIMIT $recordsPerPage OFFSET " . ($currentPage - 1) * $recordsPerPage . ";";
+                                    
                                     $result = $conn->query($sql);
 
                                     if ($result->num_rows == 0) {
@@ -239,6 +241,88 @@ if ($_SESSION['role'] != 1) {
                                 <input type="hidden" name="student_id" value="$user[id]">
                                 <button type="submit" class="btn btn-olive btn-block">Wyświetl oceny</button>
                                 </form>
+                                </td>
+                                <td><button type="button" class="btn" data-toggle="modal" data-target="#addGrade$user[id]">Dodaj ocenę</button> 
+                                <!-- Modal - dodanie oceny dla ucznia --> 
+                                <div class="modal fade" id="addGrade$user[id]" role="dialog" aria-labelledby="confirmAddGradeLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="AddGradeLabel">Dodaj ocenę uczniowi <b>$user[firstName] $user[lastName]</b></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="../../scripts/add_grade.php" method="post">
+                                                <div class="input-group mb-3">
+                                                    <select class="form-control" name="subject">
+                                            <option disabled selected value> -- wybierz przedmiot -- </option>
+                                HTML;
+                                            require "../../scripts/connect.php";
+                                            $sql = "SELECT * FROM `subjects` WHERE `class` = $_SESSION[class_id]";
+                                            $result = $conn->query($sql);
+                                            while ($subject = $result->fetch_assoc()) {
+                                                echo "<option
+                                                value='$subject[id]'>$subject[name]</option>";
+                                            }
+                                            
+                                            echo <<< HTML
+                                            </select>
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fa fa-book"></span>
+                                                </div>
+                                            </div>
+                                                </div>
+                                            </select>
+                                                <div class="input-group mb-3">
+                                                    <select class="form-control" name="grade">
+                                            <option disabled selected value> -- wybierz ocenę -- </option>
+                                HTML;
+                                                            require "../../scripts/connect.php";
+                                                            $sql = "SELECT * FROM `types_of_grades`";
+                                                            $result = $conn->query($sql);
+                                                            while ($type_of_grade = $result->fetch_assoc()) {
+                                                                echo "<option
+                                                                value='$type_of_grade[id]'>$type_of_grade[grade]</option>";
+                                                            }
+                                                        echo <<< HTML
+                                                        </select>
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fa fa-list-ol"></span>
+                                                            </div>
+                                                        </div>
+                                                            </div>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" name="note" placeholder="Notatka">
+                                                                <div class="input-group-append">
+                                                                    <div class="input-group-text">
+                                                                        <span class="fas fa-comment-alt"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                    <!-- /.col -->                                              
+                                            </div>
+                                            <div class="modal-footer">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <button type="button" class="btn mr-auto" id="cancelBtn" data-dismiss="modal">Anuluj</button>
+                                                    </div> <!-- /.col -->
+                                                    <div class="col-8">
+                                                            <button type="submit" class="btn btn-block ml-1">Dodaj ocenę</button>
+                                            HTML;
+                                                            //zmienna sesyjna z id ucznia
+                                                            $_SESSION['addGradeId'] = $user['id'];
+                                                            echo <<< HTML
+                                                    </div> <!-- /.col -->
+                                                    </form>
+                                                </div> <!-- /.row -->
+                                            </div> <!-- /.modal-footer -->
+                                        </div> <!-- /.modal-content -->
+                                    </div>  <!-- /.modal-dialog -->
+                                </div> <!-- /.modal -->
                                 </td>
 
                                 </tr>
