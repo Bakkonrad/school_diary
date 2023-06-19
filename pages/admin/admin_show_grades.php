@@ -59,7 +59,7 @@ if ($_SESSION['role'] != 1) {
                             <a href="admin_add_subject.php" class="nav-link">Dodawanie przedmiotów</a>
                         </li>
                         <li class="nav-item">
-                            <a href="admin_add_grade.php" class="nav-link">Dodawanie ocen</a>
+                            <a href="admin_modify_grades.php" class="nav-link">Oceny</a>
                         </li>
                     </ul>
                 </div>
@@ -161,7 +161,25 @@ if ($_SESSION['role'] != 1) {
                             $row1= $result1->fetch_assoc();
 
                             echo <<<HTML
-                            <h3>Oceny ucznia: <b>$row1[firstName] $row1[lastName]</b></h3>
+                            <div class="row">
+                                <div class="col-8">
+                                    <h3>Oceny ucznia: <b>$row1[firstName] $row1[lastName]</b></h3>
+                                </div>
+                                <div class="col-4">
+                                    <div class="card card-outline card-olive shadow collapsed-card" >
+                                        <div class="card-header">
+                                            <h5 class="card-title">Informacja</h5>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" id="toolBtn" data-card-widget="collapse"><i class="fas fa-plus" ></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" id="card-info">
+                                        <p>Kliknij na ocenę, aby wyświetlić więcej informacji oraz móc ją edytować.</p>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
                             <br>
                             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                 <div class="row">

@@ -289,6 +289,12 @@ a i:hover {
     justify-content: center;
 }
 
+/* * card-info */
+
+#card-info {
+    min-height: 1px !important;
+}
+
 /* .navbar-nav .nav-item a.active  {
     color:#FEFCFB;
     font-weight: bold;

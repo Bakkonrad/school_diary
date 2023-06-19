@@ -58,7 +58,7 @@ if ($_SESSION['role'] != 1) {
               <a href="admin_add_subject.php" class="nav-link">Dodawanie przedmiotów</a>
             </li>
             <li class="nav-item">
-              <a href="admin_add_grade.php" class="nav-link">Dodawanie ocen</a>
+              <a href="admin_modify_grades.php" class="nav-link">Oceny</a>
             </li>
           </ul>
         </div>
@@ -141,19 +141,10 @@ if ($_SESSION['role'] != 1) {
                         <h6>Dodaj<br>przedmiot</h6>
                       </a>
                     </div>
-                  </div> <!-- /.row -->
-                  <br>
-                  <div class="row justify-content-center">
-                    <div class="col-3">
-                      <a href="admin_add_grade.php" class="btn" id="m_page_btn">
-                        <i class="fa fa-solid fa-plus fa-xl"></i><br>
-                        <h6>Dodaj<br>ocenę</h6>
-                      </a>
-                    </div>
                     <div class="col-3">
                       <a href="admin_modify_grades.php" class="btn" id="m_page_btn">
                         <i class="fa fa-solid fa-pen-to-square fa-xl"></i><br>
-                        <h6>Modyfikuj<br>ocenę</h6>
+                        <h6>Zarządzaj<br>ocenami</h6>
                       </a>
                     </div>
                   </div> <!-- /.row -->

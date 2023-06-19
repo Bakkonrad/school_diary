@@ -16,7 +16,7 @@ if ($_SESSION['role'] != 1) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>KoalaSchool | Modyfikacja ocen</title>
+    <title>KoalaSchool | Zarządzanie ocenami</title>
     <link rel="icon" type="image/x-icon" href="../../resources/logo2.png">
 
     <!-- Google Font: Source Sans Pro -->
@@ -59,7 +59,7 @@ if ($_SESSION['role'] != 1) {
                             <a href="admin_add_subject.php" class="nav-link">Dodawanie przedmiotów</a>
                         </li>
                         <li class="nav-item">
-                            <a href="admin_add_grade.php" class="nav-link">Dodawanie ocen</a>
+                            <a href="admin_modify_grades.php" class="nav-link">Oceny</a>
                         </li>
                     </ul>
                 </div>
@@ -146,7 +146,7 @@ if ($_SESSION['role'] != 1) {
                             <!-- /.card-header -->
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
-                                    <h3 class="m-0">Modyfikacja ocen</h3>
+                                    <h3 class="m-0">Zarządzanie ocenami</h3>
                                     <br>
                                 </div> <!-- /.col -->
                             </div> <!-- /.row -->
@@ -191,17 +191,45 @@ if ($_SESSION['role'] != 1) {
                     <div class="row">
                     <div class="col-sm-12">
                         <h3>Lista uczniów</h3>
+                HTML;
+
+                require "../../scripts/connect.php";
+                  $sql = "SELECT * FROM `users` WHERE `class` = $_SESSION[class_id]";
+
+                $result = $conn->query($sql);
+
+                    echo <<<HTML
                         <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
                         <thead>
                             <tr>
-                            <th>Imię</th>
-                            <th>Nazwisko</th>
-                            <th>Wyświetl oceny</th>
-                            <th>Dodaj ocenę</th>
+                                <th>Imię</th>
+                                <th>Nazwisko</th>
+                                <th>Modyfikuj oceny</th>
+                                <th>Dodaj ocenę</th>
                             </tr>
                         </thead>
                         <tbody>
                     HTML;
+                    while ($user = $result->fetch_assoc()) { 
+                        echo <<<HTML
+                                <tr>
+                                    <td style="width: 27%">$user[firstName]</td>
+                                    <td style="width: 27%">$user[lastName]</td>
+                                    <td class="d-flex justify-content-center">
+                                        <form action="./admin_show_grades.php" method="post">
+                                            <input type="hidden" name="student_id" value="$user[id]">
+                                                <button type="submit" class="btn btn-olive"><i class="fas fa-edit"></i> Wyświetl oceny, aby zmodyfikować</button>
+                                        </form>
+                                    </td>
+                                    <td style="width: 17%; justify-content-center">
+                                        <button type="button" class="btn btn-olive btn-block" data-toggle="modal" data-target="#addGradeModal$user[id]"><i class="fas fa-plus"></i> Dodaj ocenę
+                                        </button>
+                                    </td>
+                                </tr>
+                            HTML;
+                            }
+                        echo '</tbody>';
+                    echo '</table>';
                                     //pobranie uczniów z wybranej klasy
                                     require "../../scripts/connect.php";
                                     mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
@@ -230,21 +258,14 @@ if ($_SESSION['role'] != 1) {
                                         $numberOfPages = 1;
                                     } else // jesli sa rekordy w tabli to je wyswietl
                                     {
+                                        $result = $conn->query($sql); // Wykonujemy zapytanie ponownie, aby pobrać dane uczniów
+
                                         while ($user = $result->fetch_assoc()) {
+                                            foreach ($result as $user) {
+                                                $modalId = "addGradeModal" . $user['id']; // Unikalny identyfikator modala
                                             echo <<<HTML
-                                <tr>
-                                <td class="dtr-control sorting_1">$user[firstName]</td>
-                                <td>$user[lastName]</td>
-                                <!-- przycisk, który przenosi na podstronę show_grades.php  -->
-                                <td class="d-flex align-items-center">
-                                <form action="./admin_show_grades.php" method="post">
-                                <input type="hidden" name="student_id" value="$user[id]">
-                                <button type="submit" class="btn btn-olive btn-block">Wyświetl oceny</button>
-                                </form>
-                                </td>
-                                <td><button type="button" class="btn" data-toggle="modal" data-target="#addGrade$user[id]">Dodaj ocenę</button> 
                                 <!-- Modal - dodanie oceny dla ucznia --> 
-                                <div class="modal fade" id="addGrade$user[id]" role="dialog" aria-labelledby="confirmAddGradeLabel" aria-hidden="true">
+                                <div class="modal fade" id="$modalId" role="dialog" aria-labelledby="confirmAddGradeLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -275,7 +296,6 @@ if ($_SESSION['role'] != 1) {
                                                 </div>
                                             </div>
                                                 </div>
-                                            </select>
                                                 <div class="input-group mb-3">
                                                     <select class="form-control" name="grade">
                                             <option disabled selected value> -- wybierz ocenę -- </option>
@@ -323,17 +343,14 @@ if ($_SESSION['role'] != 1) {
                                         </div> <!-- /.modal-content -->
                                     </div>  <!-- /.modal-dialog -->
                                 </div> <!-- /.modal -->
-                                </td>
 
-                                </tr>
                             HTML;
                                             }
                                         }
+                                    }
                                         $conn->close();
                                         //przyciski paginacji
                                         echo <<<HTML
-                        </tbody>
-                        </table>
                         </div>
                         </div>
                         <div class="row">
