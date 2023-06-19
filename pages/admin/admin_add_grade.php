@@ -348,8 +348,6 @@
                     $conn->close();
                     //przyciski paginacji
                     echo <<<HTML
-                      </tbody>
-                      </table>
                       </div>
                       </div>
                       <div class="row">
