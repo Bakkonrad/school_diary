@@ -23,7 +23,7 @@
     require_once "connect.php";
     //dodawanie oceny do tabeli grades
     $stmt = $conn->prepare("INSERT INTO `grades` (`grade`, `note`, `subject`, `student`, `added_by`) VALUES (?,?,?,?,?)");
-    $stmt->bind_param('isiii', $grade, $note, $subject, $_SESSION['addGradeId'], $_SESSION['id']);
+    $stmt->bind_param('isiii', $grade, $note, $subject, $user_id, $_SESSION['id']);
     $stmt->execute();
 
     // dodanie informacji o dodaniu oceny do tabeli history_of_grades aby potem wykorzystać tą informacje w historii modyfikacji ocen

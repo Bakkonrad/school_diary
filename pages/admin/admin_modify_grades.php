@@ -264,28 +264,7 @@ if ($_SESSION['role'] != 1) {
 
                                         $result = $conn->query($sql); // Wykonujemy zapytanie ponownie, aby pobrać dane uczniów
 
-                                        while($user = $result->fetch_assoc()) {
-                                            echo <<<HTML
-                                            <tr>
-                                                <td style="width: 27%">$user[firstName]</td>
-                                                <td style="width: 27%">$user[lastName]</td>
-                                                <td class="d-flex justify-content-center">
-                                                    <form action="./admin_show_grades.php" method="post">
-                                                        <input type="hidden" name="student_id" value="$user[id]">
-                                                            <button type="submit" class="btn btn-olive"><i class="fas fa-edit"></i> Wyświetl oceny, aby zmodyfikować</button>
-                                                    </form>
-                                                </td>
-                                                <td style="width: 17%; justify-content-center">
-                                                    <button type="button" class="btn btn-olive btn-block" data-toggle="modal" data-target="#addGradeModal$user[id]"><i class="fas fa-plus"></i> Dodaj ocenę
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        HTML;
-                                        }
-                                        echo '</tbody>';
-                                        echo '</table>';
                                         while ($user = $result->fetch_assoc()) {
-
                                             foreach ($result as $user) {
                                                 $modalId = "addGradeModal" . $user['id']; // Unikalny identyfikator modala
                                             echo <<<HTML
@@ -348,6 +327,7 @@ if ($_SESSION['role'] != 1) {
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <input type="hidden" name="user_id" value="{$user['id']}">
                                                     <!-- /.col -->                                              
                                             </div>
                                             <div class="modal-footer">
@@ -359,7 +339,7 @@ if ($_SESSION['role'] != 1) {
                                                             <button type="submit" class="btn btn-block ml-1">Dodaj ocenę</button>
                                             HTML;
                                                             //zmienna sesyjna z id ucznia
-                                                            $_SESSION['addGradeId'] = $user['id'];
+                                                            // $_SESSION['addGradeId'] = $user['id'];
                                                             echo <<< HTML
                                                     </div> <!-- /.col -->
                                                     </form>
