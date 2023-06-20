@@ -5,7 +5,7 @@ session_start();
 //     header('Location: ../index.php');
 //     exit();
 // }
-if($_SESSION['role'] != 1)
+if($_SESSION['role'] != 1 && $_SESSION['role'] != 2)
 {
     header("Location: ../pages/index.php");
     exit();
@@ -21,8 +21,20 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
     $gradeId = $_GET['gradeId'];
     // echo "Id oceny: ".$_POST['grade']."<br>";
 
+    if(isset($_POST['grade']) && !empty($_POST['grade']))
+    {
+            $grade = $_POST['grade'];
+    }
+    else
+    {
+        $errors = "Nie podano nowej oceny!";
+        $_SESSION['errors'] = $errors;
+        header('Location: ../pages/teacher/teacher_show_grades.php');
+        exit();
+    }
+
     $stmt = $conn->prepare("UPDATE `grades` SET `grade` = ?, `modified_at` = ? WHERE `grades`.`operation_id` = '$gradeId'");
-    $stmt->bind_param('is', $_POST['grade'], date("Y-m-d H:i:s", time()) );
+    $stmt->bind_param('is', $grade, date("Y-m-d H:i:s", time()) );
 
     $stmt->execute();
 
@@ -38,7 +50,15 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
 
     $conn->close();
 
-    //przejscie do strony z ocenami
-    header('Location: ../pages/admin/admin_show_grades.php');
-    exit();
+    if($_SESSION['role'] == 1)
+    {
+        header('Location: ../pages/admin/admin_show_grades.php');
+        exit();
+    }
+    else if ($_SESSION['role'] == 2)
+    {
+        header('Location: ../pages/teacher/teacher_show_grades.php');
+        exit();
+    }
+
 ?>

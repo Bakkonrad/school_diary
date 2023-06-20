@@ -5,13 +5,13 @@ session_start();
 
 //jeśli nie jest wywołane metodą get
 if($_SERVER['REQUEST_METHOD'] != 'GET'){
-    header('Location: ../index.php');
+    header('Location: ../pages/index.php');
     exit();
 }
 
-//jeśli nie jesteś adminem
-if($_SESSION['role'] != '1'){
-    header('Location: ../index.php');
+//jeśli nie jesteś adminem lub nauczycielem
+if($_SESSION['role'] != 1 && $_SESSION['role'] != 2){
+    header('Location: ../pages/index.php');
     exit();
 }
 
@@ -37,9 +37,19 @@ require_once "./connect.php";
 
     $conn->close();
 
-    //przejscie do strony z ocenami
-    header('Location: ../pages/admin/admin_show_grades.php');
-    exit();
+    if($_SESSION['role'] == 1)
+    {
+        //przejscie do strony z ocenami
+        header('Location: ../pages/admin/admin_show_grades.php');
+        exit();
+    }
+    else if ($_SESSION['role'] == 2)
+    {
+        //przejscie do strony z ocenami
+        header('Location: ../pages/teacher/teacher_show_grades.php');
+        exit();
+    }
+
 
 
 

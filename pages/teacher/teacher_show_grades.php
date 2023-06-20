@@ -1,4 +1,6 @@
 <?php
+// session_cache_limiter('private, must-revalidate');
+// session_cache_expire(60); //
 session_start();
 
 if (!isset($_SESSION['isLogged'])) {
@@ -6,10 +8,6 @@ if (!isset($_SESSION['isLogged'])) {
     exit();
 }
 if ($_SESSION['role'] != 2) {
-    header("Location: ../index.php");
-    exit();
-}
-if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone przez url
     header("Location: ../index.php");
     exit();
 }
@@ -55,10 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
             <a href="teacher_main.php" class="nav-link">Strona główna</a>
             </li>
             <li class="nav-item">
-            <a href="teacher_modify_grades.php" class="nav-link">Wyswietl/edytuj oceny</a>
-            </li>
-            <li class="nav-item">
-            <a href="teacher_add_grade.php" class="nav-link">Dodaj ocenę</a>
+            <a href="teacher_modify_grades.php" class="nav-link">Wyswietl/edytuj/dodaj oceny</a>
             </li>
         </ul>
         </div>
@@ -72,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
-                                <img src="../../resources/teacher.jpg" class="profile-user-img img-fluid img-circle"
+                                <img src="../../resources/admin.jpg" class="profile-user-img img-fluid img-circle"
                                     alt="User Image">
                                 <?php
                                 echo <<<HTML
@@ -119,6 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                     if (isset($_SESSION['errors'])) //jesli nie udało się dodać oceny
                     {
                         echo <<< HTML
+                            <br>
                             <div class="callout callout-success">
                             <h5>BŁĄD!</h5>
                             <p>$_SESSION[errors]</p>
@@ -129,6 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                     if (isset($_SESSION['notification'])) //jesli udało się dodać ocenę
                     {
                     echo <<< HTML
+                        <br>
                         <div class="callout callout-success">
                         <h5>SUKCES!</h5>
                         <p>$_SESSION[notification]</p>
@@ -141,7 +138,42 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                     <div class="card card-outline card-olive">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <h3>Oceny ucznia</h3>
+                        <?php
+                        if(isset($_POST['student_id']))
+                        {
+                            $_SESSION['studentId'] = $_POST['student_id'];
+                        }
+                            $studentId = $_SESSION['studentId'];
+                            $teacherId = $_SESSION['id'];
+                            require "../../scripts/connect.php";
+                            $sql = "SELECT * FROM grades JOIN types_of_grades ON grades.`grade` = types_of_grades.`id` JOIN users ON grades.`added_by` = users.`id` WHERE grades.`student` = '$studentId';";
+                            $result = $conn->query($sql);
+                            
+                            // Pobierz imię ucznia na podstawie $studentId
+                            $sql1 = "SELECT firstName, lastName FROM users WHERE id = '$studentId';";
+                            $result1 = $conn->query($sql1);
+                            $row1= $result1->fetch_assoc();
+
+                            echo <<<HTML
+                            <div class="row">
+                                <div class="col-8">
+                                    <h3>Oceny ucznia: <b>$row1[firstName] $row1[lastName]</b></h3>
+                                </div>
+                                <div class="col-4">
+                                    <div class="card card-outline card-olive shadow collapsed-card" >
+                                        <div class="card-header">
+                                            <h5 class="card-title">Informacja</h5>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" id="toolBtn" data-card-widget="collapse"><i class="fas fa-plus" ></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" id="card-info">
+                                        <p>Kliknij na ocenę, aby wyświetlić więcej informacji oraz móc ją edytować.</p>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
                             <br>
                             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                 <div class="row">
@@ -156,21 +188,24 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <?php
-                                                        $studentId = $_POST['student_id'] ;
+                            HTML;
+                                                    if(isset($_POST['student_id']))
+                                                    {
+                                                        $_SESSION['studentId'] = $_POST['student_id'];
+                                                    }
+                                                        $studentId = $_SESSION['studentId'];
                                                         $teacherId = $_SESSION['id'];
-                                                        // Zapytanie o dane uczniów z danej klasy
-                                                        require "../../scripts/connect.php";
                                                         
-                                                        $sql = "SELECT grades.*, types_of_grades.*, users.*, subjects.*
+                                                        require "../../scripts/connect.php";
+                                                        $sql = "SELECT *
                                                         FROM `grades`
                                                         JOIN `types_of_grades` ON grades.grade = types_of_grades.id
                                                         JOIN `users` ON grades.added_by = users.id
                                                         JOIN `subjects` ON grades.subject = subjects.id
                                                         WHERE grades.student = '$studentId' AND subjects.teacher = '$teacherId'";;
-
+                                                        $sql2 = "SELECT * FROM grades JOIN types_of_grades ON grades.`grade` = types_of_grades.`id` JOIN users ON grades.`added_by` = users.`id` WHERE grades.`student` = '$studentId';";
                                                         $result = $conn->query($sql);
-
+                                                        
                                                         if ($result->num_rows == 0) {
                                                             echo "<tr><td colspan='2'>Brak ocen!</td></tr>";
                                                         } else {
@@ -180,6 +215,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                                 $grade = $row['grade'];
                                                                 $addedBy = $row['firstName'] . " " . $row['lastName'];
                                                                 $date = $row['created_at'];
+                                                                $modificationDate = $row['modified_at'];
                                                                 $note = $row['note'];
                                                                 $gradeId = $row['operation_id'];
 
@@ -193,6 +229,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                                     'grade' => $grade,
                                                                     'addedBy' => $addedBy,
                                                                     'date' => $date,
+                                                                    'modificationDate' => $modificationDate,
                                                                     'note' => $note,
                                                                     'gradeId' => $gradeId
                                                                 );
@@ -203,6 +240,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                                 $sql2 = "SELECT * FROM subjects WHERE id = '$subjectId';";
                                                                 $result2 = $conn->query($sql2);
                                                                 $row2 = $result2->fetch_assoc();
+                                                                $subject = $row2['name'];
 
                                                                 echo "<tr>";
                                                                 echo "<td><h5>" . $row2['name'] . "</h5></td>";
@@ -211,6 +249,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
 
                                                                 foreach ($grades as $gradeData) {
                                                                     $modalId = "gradeInfo-$subjectId-$index"; // Unikalny identyfikator modalu
+                                                                    $editModalId = "editGrade-$subjectId-$index"; // Unikalny identyfikator modalu edycji
                                                                     $grade = $gradeData['grade'];
                                                                     echo '<button type="button" id="gradeBtn" class="btn btn-olive" data-toggle="modal" data-target="#' . $modalId . '">' . $grade . '</button>';
                                                                     $index++; // Zwiększenie indeksu dla kolejnego modalu
@@ -218,13 +257,14 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
 
                                                                 echo "</td>";
                                                                 echo "</tr>";
-                                                            }
-
-                                                            foreach ($gradesBySubject as $subjectId => $grades) {
+                                                            
+                                                                // Wyświetl modale
                                                                 $index = 1;
                                                                 foreach ($grades as $gradeData) {
-                                                                    $modalId = "gradeInfo-$subjectId-$index";
+                                                                    $modalId = "gradeInfo-$subjectId-$index"; // Unikalny identyfikator modalu z informacjami o ocenie
+                                                                    $editModalId = "editGrade-$subjectId-$index"; // Unikalny identyfikator modalu edycji
                                                                     echo <<<HTML
+                                                                    <!-- Modal z info o ocenie -->
                                                                     <div class="modal fade" id="$modalId" aria-modal="true" role="dialog">
                                                                         <div class="modal-dialog modal-sm">
                                                                             <div class="modal-content">
@@ -236,16 +276,62 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                                                 </div>
                                                                                 <div class="modal-body">
                                                                                     <p>Ocena: <b>{$gradeData['grade']}</b></p>
-                                                                                    <p>Przedmiot: <b>{$row2['name']}</b></p>
-                                                                                    <p>Nauczyciel: <b>{$gradeData['addedBy']}</b></p>
+                                                                                    <p>Przedmiot: <b>{$subject}</b></p>
+                                                                                    <p>Dodane przez: <b>{$gradeData['addedBy']}</b></p>
                                                                                     <p>Data wystawienia: <b>{$gradeData['date']}</b></p>
+                                            HTML;
+                                                                                    if ($gradeData['modificationDate'] != null) {
+                                                                                        echo "<p>Data modyfikacji: <b>". $gradeData['modificationDate'] ."</b></p>";
+                                                                                    }
+                                                                    echo <<<HTML
                                                                                     <p>Notatka: <b>{$gradeData['note']}</b></p>
                                                                                 </div>
                                                                                 <div class="modal-footer justify-content-between">
-                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
-                                                                                    <button type="button" class="btn btn-primary">Edytuj</button>
-                                                                                    <a href="../../scripts/delete_grade.php?gradeId=$gradeData[gradeId]" class="btn btn-danger">Usuń</a>
+                                                                                    <button type="button" class="btn" id="cancelBtn" data-dismiss="modal">Anuluj</button>
+                                                                                    <button type="button" class="btn" data-dismiss="modal" data-toggle="modal" data-target="#$editModalId" >Edytuj</button>
+                                                                                    <a href="../../scripts/delete_grade.php?gradeId=$gradeData[gradeId]" class="btn" id="delete-btn">Usuń</a>
                                                                                 </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- Modal do edycji oceny -->
+                                                                    <div class="modal fade" id="$editModalId" aria-modal="true" role="dialog">
+                                                                        <div class="modal-dialog modal-sm">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title">Edycja oceny <b>$gradeData[grade]</b> z przedmiotu <b>$subject</b></h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">×</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                <label for="grade">Wybierz nową ocenę</label>
+                                                                                <form action="../../scripts/modify_grade.php?gradeId=$gradeData[gradeId]" method="post">
+                                                                                <div class="input-group mb-3">
+                                                                                <select class="form-control" name="grade">
+                                                                                <option hidden selected value >$gradeData[grade]</option>
+                                                                    HTML;
+                                                                                    require "../../scripts/connect.php";
+                                                                                    $sql = "SELECT * FROM `types_of_grades`";
+                                                                                    $result = $conn->query($sql);
+                                                                                    while ($type_of_grade = $result->fetch_assoc()) {
+                                                                                        echo "<option
+                                                                                        value='$type_of_grade[id]'>$type_of_grade[grade]</option>";
+                                                                                    }
+                                                                                    echo <<< HTML
+                                                                                    </select>
+                                                                                    <div class="input-group-append">
+                                                                                        <div class="input-group-text">
+                                                                                            <span class="fa fa-list-ol"></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer justify-content-between">
+                                                                                <button type="button" class="btn" id="cancelBtn" data-dismiss="modal">Anuluj</button>
+                                                                                <button type="submit" class="btn">Zmodyfikuj</button>
+                                                                            </div>
+                                                                        </form>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -259,6 +345,11 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone p
                                                 </table>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <a href="teacher_modify_grades.php" class="btn btn-olive">Powrót do widoku uczniów</a>
                                     </div>
                                 </div>
                             </div>

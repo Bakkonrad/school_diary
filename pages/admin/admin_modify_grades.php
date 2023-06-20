@@ -194,7 +194,7 @@ if ($_SESSION['role'] != 1) {
                 HTML;
 
                 require "../../scripts/connect.php";
-                  $sql = "SELECT * FROM `users` WHERE `class` = $_SESSION[class_id]";
+                $sql = "SELECT * FROM `users` WHERE `class` = $_SESSION[class_id]";
 
                 $result = $conn->query($sql);
 
@@ -327,6 +327,7 @@ if ($_SESSION['role'] != 1) {
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <input type="hidden" name="user_id" value="{$user['id']}">
                                                     <!-- /.col -->                                              
                                             </div>
                                             <div class="modal-footer">
@@ -338,7 +339,7 @@ if ($_SESSION['role'] != 1) {
                                                             <button type="submit" class="btn btn-block ml-1">Dodaj ocenę</button>
                                             HTML;
                                                             //zmienna sesyjna z id ucznia
-                                                            $_SESSION['addGradeId'] = $user['id'];
+                                                            // $_SESSION['addGradeId'] = $user['id'];
                                                             echo <<< HTML
                                                     </div> <!-- /.col -->
                                                     </form>

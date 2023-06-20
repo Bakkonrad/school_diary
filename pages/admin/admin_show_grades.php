@@ -276,7 +276,7 @@ if ($_SESSION['role'] != 1) {
                                                                                 <div class="modal-body">
                                                                                     <p>Ocena: <b>{$gradeData['grade']}</b></p>
                                                                                     <p>Przedmiot: <b>{$subject}</b></p>
-                                                                                    <p>Nauczyciel: <b>{$gradeData['addedBy']}</b></p>
+                                                                                    <p>Dodane przez: <b>{$gradeData['addedBy']}</b></p>
                                                                                     <p>Data wystawienia: <b>{$gradeData['date']}</b></p>
                                             HTML;
                                                                                     if ($gradeData['modificationDate'] != null) {
