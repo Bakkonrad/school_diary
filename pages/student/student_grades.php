@@ -206,7 +206,7 @@ if ($_SESSION['role'] != 3) {
                                                                                 <div class="modal-body">
                                                                                     <p>Ocena: <b>$gradeData[grade]</b></p>
                                                                                     <p>Przedmiot: <b>$row2[name]</b></p>
-                                                                                    <p>Nauczyciel: <b>$gradeData[addedBy]</b></p>
+                                                                                    <p>Dodane przez: <b>$gradeData[addedBy]</b></p>
                                                                                     <p>Data wystawienia: <b>$gradeData[date]</b></p>
                                                                                     <p>Notatka: <b>$gradeData[note]</b></p>
                                                                                 </div>
