@@ -16,7 +16,7 @@ if ($_SESSION['role'] != 2) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>KoalaSchool | Modyfikacja ocen</title>
+    <title>KoalaSchool | Zarządzanie ocenami</title>
     <link rel="icon" type="image/x-icon" href="../../resources/logo2.png">
 
     <!-- Google Font: Source Sans Pro -->
@@ -53,10 +53,7 @@ if ($_SESSION['role'] != 2) {
             <a href="teacher_main.php" class="nav-link">Strona główna</a>
             </li>
             <li class="nav-item">
-            <a href="teacher_modify_grades.php" class="nav-link">Wyswietl/edytuj oceny</a>
-            </li>
-            <li class="nav-item">
-            <a href="teacher_add_grade.php" class="nav-link">Dodaj ocenę</a>
+            <a href="teacher_modify_grades.php" class="nav-link">Wyswietl/edytuj/dodaj oceny</a>
             </li>
         </ul>
         </div>
@@ -143,7 +140,7 @@ if ($_SESSION['role'] != 2) {
                             <!-- /.card-header -->
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
-                                    <h3 class="m-0">Modyfikacja ocen</h3>
+                                    <h3 class="m-0">Zarządzanie ocenami</h3>
                                     <br>
                                 </div> <!-- /.col -->
                             </div> <!-- /.row -->
@@ -154,7 +151,7 @@ if ($_SESSION['role'] != 2) {
                                         <!-- wybór klas -->
                                         <form action="./teacher_modify_grades.php" method="post">
                                             <select class="form-control" name="class">
-                                                <?php
+                                            <?php
                                                 require "../../scripts/connect.php";
                                                 $sql = "SELECT `classes`.`class_id`, `classes`.`class`
                                                 FROM `classes`
@@ -174,7 +171,7 @@ if ($_SESSION['role'] != 2) {
                                     </div>
                                     <div class="col-2">
                                         <div class="d-flex justify-content-center align-items-center">
-                                            <button type="submit" class="btn bg-olive btn-block">Wyświetl
+                                            <button type="submit" class="btn btn-olive btn-block">Wyświetl
                                                 uczniów</button>
                                         </div>
                                     </div>
@@ -188,16 +185,19 @@ if ($_SESSION['role'] != 2) {
                                         $_SESSION['class_id'] = $_POST['class'];
                                     }
 
-                                    echo <<<HTML
-                    <div class="row">
-                    <div class="col-sm-12">
-                        <h3>Lista uczniów</h3>
+                require "../../scripts/connect.php";
+                $sql = "SELECT * FROM `users` WHERE `class` = $_SESSION[class_id]";
+
+                $result = $conn->query($sql);
+
+                    echo <<<HTML
                         <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
                         <thead>
                             <tr>
-                            <th>Imię</th>
-                            <th>Nazwisko</th>
-                            <th>Wyświetl oceny</th>
+                                <th>Imię</th>
+                                <th>Nazwisko</th>
+                                <th>Modyfikuj oceny</th>
+                                <th>Dodaj ocenę</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -209,7 +209,8 @@ if ($_SESSION['role'] != 2) {
                                     if (isset($_GET['page'])) //jesli jest ustawiona zmienna page
                                     {
                                         $currentPage = $_GET['page'];
-                                    } else {
+                                    } else 
+                                    {
                                         $currentPage = 1;
                                     }
 
@@ -220,37 +221,134 @@ if ($_SESSION['role'] != 2) {
                                     $numberOfPages = ceil($allUsers / $recordsPerPage); //liczba stron
                                 
                                     //zapytanie o dane uczniów z danej klasy
-                                    $sql = "SELECT * FROM `users` WHERE `class` = $_SESSION[class_id] ORDER BY `lastName` ASC LIMIT " . (($currentPage - 1) * $recordsPerPage) . ", $recordsPerPage;";
+                                    $sql = "SELECT * FROM `users` WHERE `class` = $_SESSION[class_id] ORDER BY `lastName` ASC LIMIT $recordsPerPage OFFSET " . ($currentPage - 1) * $recordsPerPage . ";";
+                                    
                                     $result = $conn->query($sql);
 
                                     if ($result->num_rows == 0) {
                                         //$all_student_grades = 0;
                                         echo "<tr><td colspan ='100%'>Brak uczniów w tej klasie!</td></tr>";
                                         $numberOfPages = 1;
+                                        echo '</tbody>';
+                                        echo '</table>';
+
                                     } else // jesli sa rekordy w tabli to je wyswietl
                                     {
-                                        while ($user = $result->fetch_assoc()) {
+                                        while ($user = $result->fetch_assoc()) { 
                                             echo <<<HTML
-                                <tr>
-                                <td class="dtr-control sorting_1">$user[firstName]</td>
-                                <td>$user[lastName]</td>
-                                <!-- przycisk, który przenosi na podstronę show_grades.php  -->
-                                <td class="d-flex align-items-center">
-                                <form action="./teacher_show_grades.php" method="post">
-                                <input type="hidden" name="student_id" value="$user[id]">
-                                <button type="submit" class="btn bg-olive btn-block">Wyświetl oceny</button>
-                                </form>
-                                </td>
+                                                    <tr>
+                                                        <td style="width: 27%">$user[firstName]</td>
+                                                        <td style="width: 27%">$user[lastName]</td>
+                                                        <td class="d-flex justify-content-center">
+                                                            <form action="./teacher_show_grades.php" method="post">
+                                                                <input type="hidden" name="student_id" value="$user[id]">
+                                                                    <button type="submit" class="btn btn-olive"><i class="fas fa-edit"></i> Wyświetl oceny, aby zmodyfikować</button>
+                                                            </form>
+                                                        </td>
+                                                        <td style="width: 17%; justify-content-center">
+                                                            <button type="button" class="btn btn-olive btn-block" data-toggle="modal" data-target="#addGradeModal$user[id]"><i class="fas fa-plus"></i> Dodaj ocenę
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                HTML;
+                                                }
+                                            echo '</tbody>';
+                                        echo '</table>';
 
-                                </tr>
-                            HTML;
+                                        $result = $conn->query($sql); // Wykonujemy zapytanie ponownie, aby pobrać dane uczniów
+
+                                        while ($user = $result->fetch_assoc()) {
+                                            foreach ($result as $user) {
+                                                $modalId = "addGradeModal" . $user['id']; // Unikalny identyfikator modala
+                                            echo <<<HTML
+                                <!-- Modal - dodanie oceny dla ucznia --> 
+                                <div class="modal fade" id="$modalId" role="dialog" aria-labelledby="confirmAddGradeLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="AddGradeLabel">Dodaj ocenę uczniowi <b>$user[firstName] $user[lastName]</b></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="../../scripts/add_grade.php" method="post">
+                                                <div class="input-group mb-3">
+                                                    <select class="form-control" name="subject">
+                                            <option disabled selected value> -- wybierz przedmiot -- </option>
+                                HTML;
+                                            require "../../scripts/connect.php";
+                                            $sql = "SELECT * FROM `subjects` WHERE `class` = $_SESSION[class_id] AND `teacher` = $_SESSION[id]";
+                                            $result = $conn->query($sql);
+                                            while ($subject = $result->fetch_assoc()) {
+                                                echo "<option
+                                                value='$subject[id]'>$subject[name]</option>";
                                             }
-                                        }
+                                            
+                                            echo <<< HTML
+                                            </select>
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fa fa-book"></span>
+                                                </div>
+                                            </div>
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <select class="form-control" name="grade">
+                                            <option disabled selected value> -- wybierz ocenę -- </option>
+                                HTML;
+                                                            require "../../scripts/connect.php";
+                                                            $sql = "SELECT * FROM `types_of_grades`";
+                                                            $result = $conn->query($sql);
+                                                            while ($type_of_grade = $result->fetch_assoc()) {
+                                                                echo "<option
+                                                                value='$type_of_grade[id]'>$type_of_grade[grade]</option>";
+                                                            }
+                                                        echo <<< HTML
+                                                        </select>
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">
+                                                                <span class="fa fa-list-ol"></span>
+                                                            </div>
+                                                        </div>
+                                                            </div>
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" name="note" placeholder="Notatka">
+                                                                <div class="input-group-append">
+                                                                    <div class="input-group-text">
+                                                                        <span class="fas fa-comment-alt"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <input type="hidden" name="user_id" value="{$user['id']}">
+                                                    <!-- /.col -->                                              
+                                            </div>
+                                            <div class="modal-footer">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <button type="button" class="btn mr-auto" id="cancelBtn" data-dismiss="modal">Anuluj</button>
+                                                    </div> <!-- /.col -->
+                                                    <div class="col-8">
+                                                            <button type="submit" class="btn btn-block ml-1">Dodaj ocenę</button>
+                                            HTML;
+                                                            //zmienna sesyjna z id ucznia
+                                                            // $_SESSION['addGradeId'] = $user['id'];
+                                                            echo <<< HTML
+                                                    </div> <!-- /.col -->
+                                                    </form>
+                                                </div> <!-- /.row -->
+                                            </div> <!-- /.modal-footer -->
+                                        </div> <!-- /.modal-content -->
+                                    </div>  <!-- /.modal-dialog -->
+                                </div> <!-- /.modal -->
+
+                            HTML;
+                                            } // foreach
+                                        } // while
+                                    } // else
                                         $conn->close();
                                         //przyciski paginacji
                                         echo <<<HTML
-                        </tbody>
-                        </table>
                         </div>
                         </div>
                         <div class="row">
@@ -273,7 +371,7 @@ if ($_SESSION['role'] != 2) {
                                         $previousPage = $currentPage - 1;
                                         echo <<<HTML
         <li class="paginate_button page-item previous" id="example1_previous">
-            <a href="./admin_add_grade.php?page=$previousPage" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Poprzednia</a>
+            <a href="./teacher_modify_grades.php?page=$previousPage" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Poprzednia</a>
         </li>
         HTML;
                                     }
@@ -282,7 +380,7 @@ if ($_SESSION['role'] != 2) {
                                     {
                                         echo <<<HTML
         <li class="paginate_button page-item">
-            <a href="./admin_add_grade.php?page=$i" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">$i</a>
+            <a href="./teacher_modify_grades.php?page=$i" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">$i</a>
         </li>
         HTML;
                                     }
@@ -298,7 +396,7 @@ if ($_SESSION['role'] != 2) {
                                         $nextPage = $currentPage + 1;
                                         echo <<<HTML
         <li class="paginate_button page-item next" id="example1_next">
-            <a href="./admin_add_grade.php?page=$nextPage" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Następna</a>
+            <a href="./teacher_modify_grades.php?page=$nextPage" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Następna</a>
         </li>
         </ul>
                         </div>
