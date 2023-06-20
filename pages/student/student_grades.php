@@ -53,9 +53,6 @@ if ($_SESSION['role'] != 3) {
                         <li class="nav-item">
                             <a href="student_grades.php" class="nav-link">Oceny</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="student_modified_grades.php" class="nav-link">Historia ocen</a>
-                        </li>
                     </ul>
                 </div>
 
@@ -121,7 +118,26 @@ if ($_SESSION['role'] != 3) {
                     <div class="card card-outline card-olive">
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <h3>Twoje oceny</h3>
+                            <div class="row">
+
+                                <div class="col-8">
+                                    <h3>Twoje oceny</h3>
+                                </div>
+                                <div class="col-4">
+                                    <div class="card card-outline card-olive shadow collapsed-card" >
+                                        <div class="card-header">
+                                            <h5 class="card-title">Informacja</h5>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" id="toolBtn" data-card-widget="collapse"><i class="fas fa-plus" ></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" id="card-info">
+                                        <p>Kliknij na ocenę, aby wyświetlić więcej informacji.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                             <br>
                             <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                                 <div class="row">
