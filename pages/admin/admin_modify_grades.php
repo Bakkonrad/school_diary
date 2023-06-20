@@ -210,6 +210,26 @@ if ($_SESSION['role'] != 1) {
                         </thead>
                         <tbody>
                     HTML;
+                    while ($user = $result->fetch_assoc()) { 
+                        echo <<<HTML
+                                <tr>
+                                    <td style="width: 27%">$user[firstName]</td>
+                                    <td style="width: 27%">$user[lastName]</td>
+                                    <td class="d-flex justify-content-center">
+                                        <form action="./admin_show_grades.php" method="post">
+                                            <input type="hidden" name="student_id" value="$user[id]">
+                                                <button type="submit" class="btn btn-olive"><i class="fas fa-edit"></i> Wyświetl oceny, aby zmodyfikować</button>
+                                        </form>
+                                    </td>
+                                    <td style="width: 17%; justify-content-center">
+                                        <button type="button" class="btn btn-olive btn-block" data-toggle="modal" data-target="#addGradeModal$user[id]"><i class="fas fa-plus"></i> Dodaj ocenę
+                                        </button>
+                                    </td>
+                                </tr>
+                            HTML;
+                            }
+                        echo '</tbody>';
+                    echo '</table>';
                                     //pobranie uczniów z wybranej klasy
                                     require "../../scripts/connect.php";
                                     mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
@@ -236,32 +256,8 @@ if ($_SESSION['role'] != 1) {
                                         //$all_student_grades = 0;
                                         echo "<tr><td colspan ='100%'>Brak uczniów w tej klasie!</td></tr>";
                                         $numberOfPages = 1;
-                                        echo '</tbody>';
-                                        echo '</table>';
-
                                     } else // jesli sa rekordy w tabli to je wyswietl
                                     {
-                                        while ($user = $result->fetch_assoc()) { 
-                                            echo <<<HTML
-                                                    <tr>
-                                                        <td style="width: 27%">$user[firstName]</td>
-                                                        <td style="width: 27%">$user[lastName]</td>
-                                                        <td class="d-flex justify-content-center">
-                                                            <form action="./admin_show_grades.php" method="post">
-                                                                <input type="hidden" name="student_id" value="$user[id]">
-                                                                    <button type="submit" class="btn btn-olive"><i class="fas fa-edit"></i> Wyświetl oceny, aby zmodyfikować</button>
-                                                            </form>
-                                                        </td>
-                                                        <td style="width: 17%; justify-content-center">
-                                                            <button type="button" class="btn btn-olive btn-block" data-toggle="modal" data-target="#addGradeModal$user[id]"><i class="fas fa-plus"></i> Dodaj ocenę
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                HTML;
-                                                }
-                                            echo '</tbody>';
-                                        echo '</table>';
-
                                         $result = $conn->query($sql); // Wykonujemy zapytanie ponownie, aby pobrać dane uczniów
 
                                         while ($user = $result->fetch_assoc()) {
@@ -350,9 +346,9 @@ if ($_SESSION['role'] != 1) {
                                 </div> <!-- /.modal -->
 
                             HTML;
-                                            } // foreach
-                                        } // while
-                                    } // else
+                                            }
+                                        }
+                                    }
                                         $conn->close();
                                         //przyciski paginacji
                                         echo <<<HTML
@@ -378,7 +374,7 @@ if ($_SESSION['role'] != 1) {
                                         $previousPage = $currentPage - 1;
                                         echo <<<HTML
         <li class="paginate_button page-item previous" id="example1_previous">
-            <a href="./admin_modify_grades.php?page=$previousPage" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Poprzednia</a>
+            <a href="./admin_add_grade.php?page=$previousPage" aria-controls="example1" data-dt-idx="0" tabindex="0" class="page-link">Poprzednia</a>
         </li>
         HTML;
                                     }
@@ -387,7 +383,7 @@ if ($_SESSION['role'] != 1) {
                                     {
                                         echo <<<HTML
         <li class="paginate_button page-item">
-            <a href="./admin_modify_grades.php?page=$i" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">$i</a>
+            <a href="./admin_add_grade.php?page=$i" aria-controls="example1" data-dt-idx="1" tabindex="0" class="page-link">$i</a>
         </li>
         HTML;
                                     }
@@ -403,7 +399,7 @@ if ($_SESSION['role'] != 1) {
                                         $nextPage = $currentPage + 1;
                                         echo <<<HTML
         <li class="paginate_button page-item next" id="example1_next">
-            <a href="./admin_modify_grades.php?page=$nextPage" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Następna</a>
+            <a href="./admin_add_grade.php?page=$nextPage" aria-controls="example1" data-dt-idx="7" tabindex="0" class="page-link">Następna</a>
         </li>
         </ul>
                         </div>
