@@ -35,7 +35,7 @@ else
 
             if($how_many_users == 1 ) //powinniśmy dać równe 1
             {
-                $to = 'konri0908@gmail.com';
+                $to = '';
                 $from = 'Koala School <no-reply@koalaschool.pl>';
                 $replyTo = 'Admin <admin@koalaschool.pl>'; // jeśli ktoś odpowie na maila to na ten adres pójdzie odpowiedź
                 $subject = 'Przypomnienie hasła';
