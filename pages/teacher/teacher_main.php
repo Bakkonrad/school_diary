@@ -53,7 +53,7 @@ if ($_SESSION['role'] != 2) {
                             <a href="teacher_main.php" class="nav-link">Strona główna</a>
                         </li>
                         <li class="nav-item">
-                            <a href="teacher_modify_grades.php" class="nav-link">Wyswietl/edytuj/dodaj oceny</a>
+                            <a href="teacher_modify_grades.php" class="nav-link">Oceny</a>
                         </li>
                     </ul>
                 </div>
@@ -118,7 +118,7 @@ if ($_SESSION['role'] != 2) {
                                     <div class="row justify-content-center">
                                         <div class="col-3">
                                             <a href="teacher_modify_grades.php" class="btn" id="m_page_btn">
-                                            <i class="fa fa-solid fa-history fa-xl"></i><br><h6>Wyświetl/edytuj<br>oceny</h6></a>
+                                            <i class="fa fa-solid fa-list-ol fa-xl"></i><br><h6>Zarządzaj<br>ocenami</h6></a>
                                         </div>
                                     </div> <!-- /.row -->
                                     <h2> </h2>

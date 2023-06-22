@@ -52,9 +52,6 @@
           <li class="nav-item">
             <a href="student_grades.php" class="nav-link">Oceny</a>
           </li>
-          <li class="nav-item">
-            <a href="student_modified_grades.php" class="nav-link">Historia ocen</a>
-          </li>
         </ul>
       </div>
 
@@ -130,10 +127,6 @@
                   <a href="student_grades.php" class="btn" id="m_page_btn">
                   <i class="fa fa-solid fa-list-ol fa-xl"></i><br><h6>Wyświetl<br>oceny</h6></a>
                 </div>
-                <div class="col-3">
-                  <a href="student_modified_grades.php" class="btn" id="m_page_btn">
-                    <i class="fa fa-solid fa-history fa-xl"></i><br><h6>Historia<br>ocen</h6></a>
-                  </div>
               </div> <!-- /.row -->
               <h1> </h1>
               <!-- <br><br><br> -->

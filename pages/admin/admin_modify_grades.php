@@ -213,7 +213,7 @@ if ($_SESSION['role'] != 1) {
                                     //pobranie uczniów z wybranej klasy
                                     require "../../scripts/connect.php";
                                     mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
-                                    $recordsPerPage = 2; //ilość rekordów na stronie
+                                    $recordsPerPage = 30; //ilość rekordów na stronie
                                     if (isset($_GET['page'])) //jesli jest ustawiona zmienna page
                                     {
                                         $currentPage = $_GET['page'];

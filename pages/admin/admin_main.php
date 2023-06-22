@@ -121,8 +121,8 @@ if ($_SESSION['role'] != 1) {
                   <div class="row justify-content-center">
                     <h2>Wybierz, co chcesz zrobić:</h2>
                   </div>
-                  <br><br>
-                  <div class="row justify-content-center">
+                  <br><br><br>
+                  <div class="row justify-content-center align-items-center">
                     <div class="col-3">
                       <a href="admin_edit_users.php" class="btn" id="m_page_btn">
                         <i class="fa fa-solid fa-user-group fa-xl"></i><br>
@@ -143,7 +143,7 @@ if ($_SESSION['role'] != 1) {
                     </div>
                     <div class="col-3">
                       <a href="admin_modify_grades.php" class="btn" id="m_page_btn">
-                        <i class="fa fa-solid fa-pen-to-square fa-xl"></i><br>
+                        <i class="fa fa-solid fa-list-ol fa-xl"></i><br>
                         <h6>Zarządzaj<br>ocenami</h6>
                       </a>
                     </div>
@@ -154,7 +154,7 @@ if ($_SESSION['role'] != 1) {
               </div> <!-- /.card -->
             </div> <!-- /.col -->
             <div class="col-lg-4">
-              <div class="card card-olive card-outline" id="admin-card">
+              <div class="card card-olive card-outline" >
                 <div class="card-body">
                   <h2>Witaj,
                     <?php

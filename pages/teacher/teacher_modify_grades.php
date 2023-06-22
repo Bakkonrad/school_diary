@@ -53,7 +53,7 @@ if ($_SESSION['role'] != 2) {
             <a href="teacher_main.php" class="nav-link">Strona główna</a>
             </li>
             <li class="nav-item">
-            <a href="teacher_modify_grades.php" class="nav-link">Wyswietl/edytuj/dodaj oceny</a>
+            <a href="teacher_modify_grades.php" class="nav-link">Oceny</a>
             </li>
         </ul>
         </div>
@@ -205,7 +205,7 @@ if ($_SESSION['role'] != 2) {
                                     //pobranie uczniów z wybranej klasy
                                     require "../../scripts/connect.php";
                                     mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
-                                    $recordsPerPage = 1; //ilość rekordów na stronie
+                                    $recordsPerPage = 30; //ilość rekordów na stronie
                                     if (isset($_GET['page'])) //jesli jest ustawiona zmienna page
                                     {
                                         $currentPage = $_GET['page'];

@@ -153,10 +153,6 @@
     /* margin-bottom: 10%; */
 }
 
-#admin-card {
-    min-height: 24.8rem;
-}
-
 .login-box .card .card-body, #addSubject_card {
     min-height: 10rem !important;
 }
