@@ -66,35 +66,40 @@
             <li class="user-header">
               <img src="../../resources/student.jpg" class="profile-user-img img-fluid img-circle" alt="User Image">
               <?php
-                echo <<< HTML
-                  <p>
-                  <h5><b>$_SESSION[firstName] $_SESSION[lastName]</b></h5>
-                  <span class="text-muted">$_SESSION[email]</span>
-                  </p>
-                  <hr>
-                  <div style="text-align:left">
+                                require "../../scripts/connect.php";
+                                $sql = "SELECT class FROM `classes` WHERE class_id = '$_SESSION[class]';";
+                                $result = $conn->query($sql);
+                                $result = $result->fetch_row();
+                                $class_name = $result[0];
+                                echo <<< HTML
                     <p>
-                      <div class="row">
-                        <div class="col-1">
-                          <i class="fas fa-user"></i> 
-                        </div>
-                        <div class="col-11">
-                          <span class="text-muted">login:</span> $_SESSION[login]
-                        </div> <!-- /.col -->
-                      </div> <!-- /.row -->
-                      <div class="row">
-                        <div class="col-1">
-                          <i class="fa fa-users"></i> 
-                        </div>
-                        <div class="col-11">
-                          <span class="text-muted">klasa:</span> $_SESSION[class] <!-- trzeba zaciągnąć klasę -->
-                        </div> <!-- /.col -->
-                      </div> <!-- /.row -->
-                      <br>
+                    <h5><b>$_SESSION[firstName] $_SESSION[lastName]</b></h5>
+                    <span class="text-muted">$_SESSION[email]</span>
                     </p>
-                  </div>
+                    <hr>
+                    <div style="text-align:left">
+                        <p>
+                        <div class="row">
+                            <div class="col-1">
+                            <i class="fas fa-user"></i> 
+                            </div>
+                            <div class="col-11">
+                            <span class="text-muted">login:</span> $_SESSION[login]
+                            </div> <!-- /.col -->
+                        </div> <!-- /.row -->
+                        <div class="row">
+                            <div class="col-1">
+                            <i class="fa fa-users"></i> 
+                            </div>
+                            <div class="col-11">
+                            <span class="text-muted">klasa:</span> $class_name <!-- trzeba zaciągnąć klasę -->
+                            </div> <!-- /.col -->
+                        </div> <!-- /.row -->
+                        <br>
+                    </p>
+                </div>
                 HTML;
-              ?>
+                                ?>
             </li>
             <br><br><br><br>
             <li class="user-footer">
