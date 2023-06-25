@@ -4,7 +4,7 @@ session_start();
 //jeśli skrypt nie został wywołany metodą POST
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
-    header("Location: ../index.php");
+    header("Location: ../pages/index.php");
     exit();
 }
 

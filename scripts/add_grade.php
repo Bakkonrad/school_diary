@@ -3,7 +3,7 @@
 
     if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone przez url
 
-        header("Location: ../index.php");
+        header("Location: ../pages/index.php");
         exit();
     }
 
@@ -35,14 +35,25 @@
 
     if ($stmt->affected_rows > 0) {
         $_SESSION['notification'] = "Udało się dodać ocenę!";
-        echo "<script>history.back();</script>"; //wraca do podstrony rejestracji i wyswietla bledy
     }
     else {
         $_SESSION['errors'] = "Nie udało się dodać oceny!";
-        echo "<script>history.back();</script>"; //wraca do podstrony rejestracji i wyswietla bledy
+    }
+    $conn->close();
+
+    if($_SESSION['role'] == 1)
+    {
+        //przejscie do strony z ocenami
+        header('Location: ../pages/admin/admin_modify_grades.php');
+        exit();
+    }
+    else if ($_SESSION['role'] == 2)
+    {
+        //przejscie do strony z ocenami
+        header('Location: ../pages/teacher/teacher_modify_grades.php');
+        exit();
     }
 
-    $conn->close();
 
     ?>
 
