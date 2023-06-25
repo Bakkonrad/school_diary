@@ -248,7 +248,7 @@ if ($_SESSION['role'] != 1) {
                                                         </div>
                                                     </div>
                                                 </div> <!-- /.input-group -->
-                                                <label>Rola:</label>
+                                                <label>Klasa:</label>
                                                 <div class="input-group mb-3">
                                             <select class="form-control" name="class">
                                             HTML;
@@ -271,7 +271,7 @@ if ($_SESSION['role'] != 1) {
                                                     </div>
                                                 </div>
                                             </div> <!-- /.input-group -->
-                                            <label>Klasa:</label>
+                                            <label>Rola:</label>
                                             <div class="input-group mb-3">
                                             <select class="form-control" name="role">
                                             HTML;
@@ -353,7 +353,7 @@ if ($_SESSION['role'] != 1) {
                                         require "../../scripts/connect.php";
                                         mysqli_report(MYSQLI_REPORT_STRICT); //raportowanie o błędach w wyjątkach
                                         
-                                        $recordsPerPage = 2; //ilość rekordów na stronie
+                                        $recordsPerPage = 15; //ilość rekordów na stronie
                                         
                                         if (isset($_GET['page'])) //jesli jest ustawiona zmienna page
                                         {

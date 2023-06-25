@@ -32,6 +32,11 @@ if ($_SESSION['role'] != 1) {
     <link href="../../plugins/fontawesome-free/css/solid.css" rel="stylesheet">
     <!-- Custom style -->
     <link rel="stylesheet" href="../css/style.css">
+        <script>
+    function clearForm() {
+        document.getElementById("registerUser").reset();
+    }
+    </script>
 </head>
 
 <body class="hold-transition layout-top-nav">
@@ -123,6 +128,10 @@ if ($_SESSION['role'] != 1) {
                 <div class="d-flex justify-content-center align-items-center">
                     <div class="register-box">
                         <?php
+                        //jeśli nie ma błędów to wywołaj funkcję clearForm() 
+                        if (!isset($_SESSION['errors'])) {
+                            $reset = true;
+                        }
 
                         if (isset($_SESSION['errors'])) //jesli jakies pole jest puste/nie zgadza sie email/nie zaakceptowano regulaminu
                         {
@@ -183,7 +192,7 @@ if ($_SESSION['role'] != 1) {
                             </div>
                             <div class="card-body">
                                 <!-- <p class="login-box-msg">Rejestracja użytkownika</p> -->
-                                <form action="../../scripts/register_user.php" method="post">
+                                <form id="registerUser" action="../../scripts/register_user.php" method="post">
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" name="firstName"
                                             placeholder="Podaj imię" autofocus>
@@ -296,6 +305,12 @@ if ($_SESSION['role'] != 1) {
                                         <button type="submit" class="btn btn-olive btn-block">Dodaj użytkownika</button>
                                     </div>
                                     <!-- /.col -->
+                                    <?php
+                                    if($reset = true)
+                                    {
+                                        echo '<script>clearForm();</script>';
+                                    }
+                                    ?>
                             </div>
                             </form>
                         </div>
@@ -315,7 +330,6 @@ if ($_SESSION['role'] != 1) {
         <!-- Default to the left -->
         <strong>Copyright &copy; 2023</strong> Wszelkie prawa zastrzeżone.
     </footer>
-
 
     <!-- jQuery -->
     <script src="../../plugins/jquery/jquery.min.js"></script>
