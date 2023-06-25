@@ -304,7 +304,7 @@ if ($_SESSION['role'] != 1) {
                                 ?>
                             </div> <!-- ./col -->
                         </div> <!-- ./row -->
-                        <div class="card card-olive card-outline">
+                        <div class="card card-olive card-outline" style="width:fit-content">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6">
@@ -341,7 +341,7 @@ if ($_SESSION['role'] != 1) {
                                             <th>Nazwisko</th>
                                             <th>Data urodzenia</th>
                                             <th>Login</th>
-                                            <th>email</th>
+                                            <th>Email</th>
                                             <th>Klasa</th>
                                             <th>Rola</th>
                                             <th>Usuń</th>
