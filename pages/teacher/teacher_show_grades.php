@@ -53,7 +53,7 @@ if ($_SESSION['role'] != 2) {
             <a href="teacher_main.php" class="nav-link">Strona główna</a>
             </li>
             <li class="nav-item">
-            <a href="teacher_modify_grades.php" class="nav-link">Wyswietl/edytuj/dodaj oceny</a>
+            <a href="teacher_modify_grades.php" class="nav-link">Oceny</a>
             </li>
         </ul>
         </div>
@@ -115,7 +115,7 @@ if ($_SESSION['role'] != 2) {
                     {
                         echo <<< HTML
                             <br>
-                            <div class="callout callout-success">
+                            <div class="callout callout-danger">
                             <h5>BŁĄD!</h5>
                             <p>$_SESSION[errors]</p>
                             </div>
@@ -326,6 +326,14 @@ if ($_SESSION['role'] != 2) {
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                                <div class="input-group mb-3">
+                                                                                        <input type="text" class="form-control" name="note" placeholder="Notatka" value="$gradeData[note]">
+                                                                                        <div class="input-group-append">
+                                                                                            <div class="input-group-text">
+                                                                                                <span class="fas fa-comment-alt"></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
                                                                             </div>
                                                                             <div class="modal-footer justify-content-between">
                                                                                 <button type="button" class="btn" id="cancelBtn" data-dismiss="modal">Anuluj</button>
@@ -349,7 +357,7 @@ if ($_SESSION['role'] != 2) {
                                 </div>
                                 <div class="row">
                                     <div class="col-3">
-                                        <a href="teacher_modify_grades.php" class="btn btn-olive">Powrót do widoku uczniów</a>
+                                        <a href="teacher_modify_grades.php" class="btn btn-olive"><i class="fas fa-long-arrow-alt-left"></i> Powrót do widoku uczniów</a>
                                     </div>
                                 </div>
                             </div>
