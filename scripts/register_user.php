@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 function sanitizeInput($input)
 {
     return (htmlentities(stripcslashes(trim($input))));
@@ -89,7 +93,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { //ochrona przed wejsciem na strone p
 
     //require "./connect.php";
 
+    if(defined('PASSWORD_ARGON2ID')) {
     $passwordHash = password_hash($password,PASSWORD_ARGON2ID);
+
+    } else {
+        $passwordHash = password_hash($password,PASSWORD_DEFAULT);
+    }
+    
     $toLowerLogin = strtolower($login);
 
     $stmt = $conn->prepare("INSERT INTO `users` (`firstName`, `lastName`, `birthday`, `email`, `password`, `login`,`class`,`role`) VALUES (?,?,?,?,?,?,?,?)");

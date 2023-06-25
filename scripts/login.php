@@ -1,9 +1,12 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") { //ochrona przed wejsciem na strone przez url
 
-    header("Location: ../index.php");
+    header("Location: ../pages/index.php");
     exit();
 }
 else 
