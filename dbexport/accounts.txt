@@ -1,8 +1,11 @@
-admin
-Admin123
+Admin account:
+login - admin
+password - Admin123
 
-teacher
-Teacher123
+teacher account:
+login - epawlak
+password - Epawlak123
 
-student
-Student123
+student account:
+login - akucharska
+password - Akucharska123
