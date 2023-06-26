@@ -81,9 +81,10 @@ if($_SESSION['role'] != 1)
         ${$key} = sanitizeInput($value); //tworzenie zmiennych np.firstName
     }
 
+        $login = strtolower($login); //zamiana loginu na małe litery
 
     $stmt = $conn->prepare("UPDATE `users` SET `firstName` = ?, `lastName` = ?, `birthday` = ?, `email` = ?, `login` = ?, `class` = ?, `role` = ? WHERE `users`.`id` = '$userUpdateId'");
-    $stmt->bind_param('sssssii', $firstName, $lastName, $birthday, $email,strtolower($login),$class, $role );
+    $stmt->bind_param('sssssii', $firstName, $lastName, $birthday, $email, $login, $class, $role );
 
     $stmt->execute();
 
